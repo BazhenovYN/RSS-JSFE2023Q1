@@ -9,6 +9,8 @@ $menu-color-black-active: #545454;
 
 $color-primary: #F1CDB3;
 
+$section-color: #F6F6F6;
+
 * {
   box-sizing: border-box;
 }
@@ -43,6 +45,20 @@ h2 {
   text-align: left;
   color: $heading-color;
   margin: 0;
+}
+
+h4 {
+  font-family: Georgia;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  text-align: left;
+  margin: 0;
+}
+
+section:nth-child(odd):not(:first-child) {
+  background-color: $section-color;
 }
 
 .header {

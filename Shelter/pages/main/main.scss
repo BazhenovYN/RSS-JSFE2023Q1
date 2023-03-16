@@ -76,3 +76,38 @@
     max-width: 300px;
   }
 }
+
+.donation {
+  min-height: 462px;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: auto;
+    padding: 80px 0 100px;
+    max-width: 915px;
+  }
+
+  &__content {
+    max-width: 380px;
+  }
+
+  &__credit-card {
+    display: inline-flex;
+    gap: 15px;
+    padding: 10px 15px;
+    background-color: $color-primary;
+    border-radius: 9px;
+  }
+
+  &__offer {
+    font-size: 12px;
+    color: #B2B2B2;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 505px;
+  }
+}

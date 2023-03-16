@@ -34,6 +34,20 @@ h2 {
   margin: 0;
 }
 
+h4 {
+  font-family: Georgia;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+  text-align: left;
+  margin: 0;
+}
+
+section:nth-child(odd):not(:first-child) {
+  background-color: #F6F6F6;
+}
+
 .header {
   position: absolute;
   left: 0;
@@ -151,4 +165,34 @@ h2 {
 .about__image {
   width: 100%;
   max-width: 300px;
+}
+
+.donation {
+  min-height: 462px;
+}
+.donation__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  padding: 80px 0 100px;
+  max-width: 915px;
+}
+.donation__content {
+  max-width: 380px;
+}
+.donation__credit-card {
+  display: inline-flex;
+  gap: 15px;
+  padding: 10px 15px;
+  background-color: #F1CDB3;
+  border-radius: 9px;
+}
+.donation__offer {
+  font-size: 12px;
+  color: #B2B2B2;
+}
+.donation__image {
+  width: 100%;
+  max-width: 505px;
 }/*# sourceMappingURL=main.css.map */
