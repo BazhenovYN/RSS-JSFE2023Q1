@@ -1,3 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+h1 {
+  font-family: Georgia;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 35px;
+  letter-spacing: 0.06em;
+  text-align: left;
+  margin: 0;
+}
+
 h2 {
+  font-family: Georgia;
+  font-size: 44px;
+  font-weight: 400;
+  line-height: 57px;
+  letter-spacing: 0em;
+  text-align: left;
   color: #545454;
+  margin: 0;
+}
+
+.header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  margin: auto;
+}
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1280px;
+  padding: 0 40px;
+  margin: auto;
+}
+
+.menu-list {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 35px;
+  list-style: none;
+}
+.menu-list .menu-item__link {
+  text-decoration: none;
+}
+
+.primary-button {
+  width: 207px;
+  height: 52px;
+  background-color: #F1CDB3;
+  border: none;
+  border-radius: 100px;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 130%;
+  letter-spacing: 0.06em;
+  color: #292929;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.primary-button:hover {
+  background-color: #FDDCC4;
 }/*# sourceMappingURL=pets.css.map */

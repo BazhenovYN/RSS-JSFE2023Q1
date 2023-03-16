@@ -1,1 +1,55 @@
 @import '../../common/styles/common';
+
+.menu-item__link {
+  color: $color-light;
+
+  &:hover {
+    color: $menu-color-light-active;
+  }
+}
+
+.logo__title {
+  color: $color-primary;
+}
+
+.logo__subtitle {
+  color: white;
+  font-size: 13px;
+  margin: 10px 0 0;
+}
+
+.section-start {
+  display: flex;
+  background: url('../../assets/images/noise_lines_transparent@2X.png'), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  min-height: 908px;
+}
+
+.start-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  margin: 0 auto;
+  width: 1280px;
+}
+
+.start-description {
+  display: flex;
+  flex-direction: column;
+  gap: 42px;
+  max-width: 460px;
+
+  &__title {
+    font-size: 44px;
+    color: white;
+  }
+
+  &__subtitle {
+    font-size: 15px;
+    color: $color-light;
+  }
+}
+
+.start-image {
+  align-self: flex-end;
+}
