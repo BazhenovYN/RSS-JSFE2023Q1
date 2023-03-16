@@ -46,7 +46,6 @@ h2 {
   justify-content: space-between;
   align-items: center;
   max-width: 1280px;
-  padding: 0 40px;
   margin: auto;
 }
 
@@ -82,6 +81,10 @@ h2 {
   background-color: #FDDCC4;
 }
 
+.container {
+  padding: 0 40px;
+}
+
 .menu-item__link {
   color: #CDCDCD;
 }
@@ -99,36 +102,53 @@ h2 {
   margin: 10px 0 0;
 }
 
-.section-start {
+.not-only {
   display: flex;
+  flex-direction: column;
+  justify-content: end;
   background: url("../../assets/images/noise_lines_transparent@2X.png"), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
   min-height: 908px;
 }
-
-.start-container {
+.not-only__inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
   margin: 0 auto;
   width: 1280px;
 }
-
-.start-description {
+.not-only__content {
   display: flex;
   flex-direction: column;
   gap: 42px;
   max-width: 460px;
 }
-.start-description__title {
+.not-only__title {
   font-size: 44px;
   color: white;
 }
-.start-description__subtitle {
+.not-only__subtitle {
   font-size: 15px;
   color: #CDCDCD;
 }
-
-.start-image {
+.not-only__image {
   align-self: flex-end;
+}
+
+.about {
+  min-height: 588px;
+}
+.about__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  padding: 80px 0 100px;
+  max-width: 850px;
+}
+.about__content {
+  max-width: 430px;
+}
+.about__image {
+  width: 100%;
+  max-width: 300px;
 }/*# sourceMappingURL=main.css.map */
