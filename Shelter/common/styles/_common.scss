@@ -1,15 +1,20 @@
-@charset 'utf-8';
+@import './mixins';
 
 $heading-color: #545454;
 
-$color-light: #CDCDCD;
-$menu-color-light-active: #FAFAFA;
+$color-light: #cdcdcd;
+$menu-color-light-active: #fafafa;
 $menu-color-black: #292929;
 $menu-color-black-active: #545454;
 
-$color-primary: #F1CDB3;
+$color-primary: #f1cdb3;
 
-$section-color: #F6F6F6;
+$section-color: #f6f6f6;
+
+@include font-face(Georgia, '../../assets/fonts/Georgia');
+@include font-face(Georgia, '../../assets/fonts/Georgia-Bold', bold);
+@include font-face(Arial, '../../assets/fonts/ArialMT');
+@include font-face(Arial, '../../assets/fonts/Arial-ItalicMT', normal, italic);
 
 * {
   box-sizing: border-box;
@@ -26,35 +31,44 @@ body {
   text-align: left;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 0;
+  margin: 0;
+}
+
 h1 {
-  font-family: Georgia;
+  @include primary-font();
   font-size: 32px;
-  font-weight: 400;
   line-height: 35px;
   letter-spacing: 0.06em;
   text-align: left;
-  margin: 0;
 }
 
 h2 {
-  font-family: Georgia;
+  @include primary-font();
   font-size: 44px;
-  font-weight: 400;
   line-height: 57px;
   letter-spacing: 0em;
-  text-align: left;
   color: $heading-color;
-  margin: 0;
+}
+
+h3 {
+  @include primary-font();
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0em;
+  color: $heading-color;
 }
 
 h4 {
-  font-family: Georgia;
+  @include primary-font();
   font-size: 20px;
-  font-weight: 400;
   line-height: 23px;
   letter-spacing: 0.06em;
-  text-align: left;
-  margin: 0;
 }
 
 section:nth-child(odd):not(:first-child) {
@@ -91,26 +105,82 @@ section:nth-child(odd):not(:first-child) {
 }
 
 .primary-button {
-  width: 207px;
-  height: 52px;
-  background-color: #F1CDB3;
+  @include primary-font();
+  @include box(207px, 52px);
+  background-color: #f1cdb3;
   border: none;
   border-radius: 100px;
-  font-family: 'Georgia';
-  font-style: normal;
-  font-weight: 400;
   font-size: 17px;
   line-height: 130%;
   letter-spacing: 0.06em;
+  text-align: center;
   color: #292929;
   cursor: pointer;
   transition: 0.4s;
-  
+
   &:hover {
-    background-color: #FDDCC4;
+    background-color: #fddcc4;
   }
 }
 
 .container {
   padding: 0 40px;
+}
+
+.footer {
+  min-height: 350px;
+  background: url('../../assets/images/noise_lines_transparent@2X.png'),
+    radial-gradient(110.67% 538.64% at 5.73% 50%, #513d2f 0%, #1a1a1c 100%),
+    #211f20;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 40px 0 0;
+    max-width: 1200px;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .contacts {
+    max-width: 278px;
+
+    &__title {
+      color: white;
+      margin: 16px 0 0;
+    }
+
+    &__mail {
+      margin: 40px 0 0;
+    }
+
+    &__phone {
+      margin: 40px 0 0;
+    }
+  }
+
+  .locations {
+    max-width: 302px;
+
+    &__title {
+      color: white;
+      margin: 16px 0 0;
+      max-width: 270px;
+    }
+
+    &__adress {
+      margin: 32px 0 0;
+    }
+  }
+
+  .contact-information {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    color: $color-primary;
+  }
 }

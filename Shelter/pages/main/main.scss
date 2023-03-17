@@ -90,6 +90,9 @@
   }
 
   &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     max-width: 380px;
   }
 
@@ -101,8 +104,15 @@
     border-radius: 9px;
   }
 
+  &__card-number {
+    color: #545454;
+  }
+
   &__offer {
+    @include secondary-font();
+    font-style: italic;
     font-size: 12px;
+    line-height: 18px;
     color: #B2B2B2;
   }
 
