@@ -1,15 +1,6 @@
 @import './mixins';
-
-$heading-color: #545454;
-
-$color-light: #cdcdcd;
-$menu-color-light-active: #fafafa;
-$menu-color-black: #292929;
-$menu-color-black-active: #545454;
-
-$color-primary: #f1cdb3;
-
-$section-color: #f6f6f6;
+@import '../../components/slider/slider';
+@import '../../components/buttons';
 
 @include font-face(Georgia, '../../assets/fonts/Georgia');
 @include font-face(Georgia, '../../assets/fonts/Georgia-Bold', bold);
@@ -53,7 +44,7 @@ h2 {
   font-size: 44px;
   line-height: 57px;
   letter-spacing: 0em;
-  color: $heading-color;
+  color: $color-dark-l;
 }
 
 h3 {
@@ -61,7 +52,7 @@ h3 {
   font-size: 35px;
   line-height: 130%;
   letter-spacing: 0em;
-  color: $heading-color;
+  color: $color-dark-l;
 }
 
 h4 {
@@ -72,7 +63,7 @@ h4 {
 }
 
 section:nth-child(odd):not(:first-child) {
-  background-color: $section-color;
+  background-color: $color-light-l;
 }
 
 .header {
@@ -101,25 +92,6 @@ section:nth-child(odd):not(:first-child) {
 
   .menu-item__link {
     text-decoration: none;
-  }
-}
-
-.primary-button {
-  @include primary-font();
-  @include box(207px, 52px);
-  background-color: #f1cdb3;
-  border: none;
-  border-radius: 100px;
-  font-size: 17px;
-  line-height: 130%;
-  letter-spacing: 0.06em;
-  text-align: center;
-  color: #292929;
-  cursor: pointer;
-  transition: 0.4s;
-
-  &:hover {
-    background-color: #fddcc4;
   }
 }
 
