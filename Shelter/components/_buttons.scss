@@ -3,7 +3,6 @@
 
 %btn {
   @include primary-font();
-  width: fit-content;
   border: none;
   border-radius: 100px;
   font-size: 17px;
@@ -17,10 +16,7 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-
-  .text {
-    padding: 15px 45px;
-  }
+  padding: 15px 45px;
 
   &:hover {
     // background-color: $color-primary-light;

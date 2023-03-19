@@ -57,8 +57,6 @@
   font-weight: 400;
   text-align: left;
   color: #C4C4C4;
-  width: -moz-fit-content;
-  width: fit-content;
   border: none;
   border-radius: 100px;
   font-size: 17px;
@@ -72,8 +70,6 @@
   position: relative;
   z-index: 1;
   overflow: hidden;
-}
-.secondary-button .text, .primary-button .text {
   padding: 15px 45px;
 }
 .secondary-button:hover, .primary-button:hover {
@@ -220,7 +216,7 @@ section:nth-child(odd):not(:first-child) {
   margin: auto;
 }
 
-.menu-list {
+.menu__list {
   display: flex;
   justify-content: flex-end;
   flex-wrap: wrap;
@@ -228,8 +224,21 @@ section:nth-child(odd):not(:first-child) {
   gap: 35px;
   list-style: none;
 }
-.menu-list .menu-item__link {
+.menu__item {
+  padding-bottom: 4px;
+}
+.menu__link {
   text-decoration: none;
+  color: #cdcdcd;
+}
+.menu__link:hover {
+  color: #fafafa;
+}
+.active .menu__link {
+  color: #fafafa;
+}
+.menu .active {
+  border-bottom: 3px solid #f1cdb3;
 }
 
 .container {
@@ -316,6 +325,7 @@ section:nth-child(odd):not(:first-child) {
 .not-only__content {
   display: flex;
   flex-direction: column;
+  align-items: start;
   gap: 42px;
   max-width: 460px;
 }
@@ -365,6 +375,32 @@ section:nth-child(odd):not(:first-child) {
 }
 .our-friends__title {
   text-align: center;
+}
+
+.help {
+  min-height: 611px;
+}
+.help__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80px 0 100px;
+  text-align: center;
+}
+.help__title {
+  text-align: center;
+}
+.help__list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 120px;
+  max-width: 1029px;
+  margin-top: 60px;
+}
+.help__text {
+  text-align: center;
+  color: #545454;
 }
 
 .donation {

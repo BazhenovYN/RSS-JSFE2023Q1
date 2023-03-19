@@ -82,16 +82,35 @@ section:nth-child(odd):not(:first-child) {
   }
 }
 
-.menu-list {
-  display: flex;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 35px;
-  list-style: none;
+.menu {
+  &__list {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 35px;
+    list-style: none;
+  }
 
-  .menu-item__link {
+  &__item {
+    padding-bottom: 4px;
+  }
+
+  &__link {
     text-decoration: none;
+    color: $color-dark-s;
+
+    &:hover {
+      color: $color-light-s;
+    }
+
+    .active & {
+      color: $color-light-s;
+    }
+  }
+
+  .active {
+    border-bottom: 3px solid $color-primary;
   }
 }
 
