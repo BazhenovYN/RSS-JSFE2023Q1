@@ -208,12 +208,10 @@ section:nth-child(odd):not(:first-child) {
   top: 60px;
   margin: auto;
 }
-.header__container {
+.header__inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1280px;
-  margin: auto;
 }
 
 .menu__list {
@@ -243,6 +241,8 @@ section:nth-child(odd):not(:first-child) {
 
 .container {
   padding: 0 40px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .footer {
