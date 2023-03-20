@@ -1,6 +1,7 @@
 @import './mixins';
 @import '../../components/slider/slider';
 @import '../../components/buttons';
+@import '../../components/pagination';
 
 @include font-face(Georgia, '../../assets/fonts/Georgia');
 @include font-face(Georgia, '../../assets/fonts/Georgia-Bold', bold);
@@ -62,21 +63,22 @@ h4 {
   letter-spacing: 0.06em;
 }
 
-section:nth-child(odd):not(:first-child) {
-  background-color: $color-light-l;
-}
-
 .header {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 60px;
-  margin: auto;
-
+  
   &__inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .logo {
+    &__subtitle {
+      @include primary-font();
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0.1em;
+      margin: 10px 0 0;
+    }
   }
 }
 
@@ -96,15 +98,6 @@ section:nth-child(odd):not(:first-child) {
 
   &__link {
     text-decoration: none;
-    color: $color-dark-s;
-
-    &:hover {
-      color: $color-light-s;
-    }
-
-    .active & {
-      color: $color-light-s;
-    }
   }
 
   .active {
@@ -116,6 +109,33 @@ section:nth-child(odd):not(:first-child) {
   padding: 0 40px;
   max-width: 1280px;
   margin: 0 auto;
+}
+
+.pet-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-light-s;
+  border-radius: 9px;
+  max-width: 270px;
+
+  &__image {
+    @include box(270px);
+    object-fit: cover;
+    border-radius: 9px 9px 0px 0px;
+  }
+  
+  &__title {
+    @include primary-font();
+    font-size: 20px;
+    color: $color-dark-l;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  &__button {
+    margin: 30px 0;
+  }
 }
 
 .footer {

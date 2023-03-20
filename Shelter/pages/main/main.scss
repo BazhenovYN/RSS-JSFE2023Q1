@@ -1,21 +1,41 @@
 @import '../../common/styles/common';
 
-.menu-item__link {
-  color: $color-dark-s;
+.header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60px;
+  margin: auto;
 
-  &:hover {
-    color: $color-light-s;
+  .logo {
+    &__title {
+      color: $color-primary;
+    }
+    
+    &__subtitle {
+      color: $color-light-xl;
+    }
+  }
+
+  .menu {
+
+    &__link {
+      color: $color-dark-s;
+  
+      &:hover {
+        color: $color-light-s;
+      }
+  
+    }
+
+    .active .menu__link {
+      color: $color-light-s;
+    }
   }
 }
 
-.logo__title {
-  color: $color-primary;
-}
-
-.logo__subtitle {
-  color: white;
-  font-size: 13px;
-  margin: 10px 0 0;
+section:nth-child(odd):not(:first-child) {
+  background-color: $color-light-l;
 }
 
 .not-only {
@@ -43,7 +63,7 @@
   
   &__title {
     font-size: 44px;
-    color: white;
+    color: $color-light-xl;
   }
   
   &__subtitle {
@@ -153,7 +173,7 @@
   }
 
   &__card-number {
-    color: #545454;
+    color: $color-dark-l;
   }
 
   &__offer {
@@ -161,7 +181,7 @@
     font-style: italic;
     font-size: 12px;
     line-height: 18px;
-    color: #B2B2B2;
+    color: $color-dark-m;
   }
 
   &__image {

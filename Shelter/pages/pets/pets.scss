@@ -1,1 +1,61 @@
 @import '../../common/styles/common';
+
+.header {
+  min-height: 120px;
+
+  &__inner {
+    padding: 30px 0;
+  }
+
+  .logo {
+    &__title {
+      color: $color-dark-l;
+    }
+    
+    &__subtitle {
+      color: $color-dark-3xl;
+    }
+  }
+
+  .menu {
+    
+    &__link {
+      color: $color-dark-l;
+  
+      &:hover {
+        color: $color-dark-3xl;
+      }
+    }
+
+    .active .menu__link {
+      color: $color-dark-3xl;
+    }
+  }
+}
+
+section:nth-child(odd) {
+  background-color: $color-light-l;
+}
+
+.our-friends {
+  min-height: 1342px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+    padding: 80px 0 100px;
+    text-align: center;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 30px 40px;
+  }
+}

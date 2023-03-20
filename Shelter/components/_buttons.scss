@@ -9,7 +9,7 @@
   line-height: 130%;
   letter-spacing: 0.06em;
   text-align: center;
-  color: #292929;
+  color: $color-dark-3xl;
   border: 2px solid $color-primary;
   cursor: pointer;
   transition: 0.4s;
@@ -19,11 +19,11 @@
   padding: 15px 45px;
 
   &:hover {
-    // background-color: $color-primary-light;
     border-color: $color-primary-light;
   }
+
   &::after {
-    content: "";
+    content: '';
     top: 0;
     bottom: 0;
     left: -100%;
@@ -34,11 +34,27 @@
     display: block;
     transition: all 0.35s;
   }
+
   &:hover::after {
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
+  }
+}
+
+%round-btn {
+  @include box(52px);
+  @include flex-center();
+  border: 2px solid $color-primary;
+  border-radius: 100px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.4s;
+
+  &:hover {
+    background-color: $color-primary-light;
+    border-color: $color-primary-light;
   }
 }
 

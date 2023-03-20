@@ -1,0 +1,25 @@
+@import '../common/styles/mixins';
+@import '../common/styles/variables';
+
+.pagination {
+  display: inline-flex;
+  gap: 20px;
+
+  &__start,
+  &__prev,
+  &__page,
+  &__next,
+  &__end {
+    @extend %round-btn;
+
+    &:disabled {
+      fill: $color-dark-s;
+      border-color: $color-dark-s;
+      background-color: transparent;
+    }
+  }
+
+  &__page {
+    background-color: $color-primary;
+  }
+}
