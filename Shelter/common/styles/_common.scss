@@ -1,0 +1,197 @@
+@import './mixins';
+@import '../../components/slider/slider';
+@import '../../components/buttons';
+@import '../../components/pagination';
+
+@include font-face(Georgia, '../../assets/fonts/Georgia');
+@include font-face(Georgia, '../../assets/fonts/Georgia-Bold', bold);
+@include font-face(Arial, '../../assets/fonts/ArialMT');
+@include font-face(Arial, '../../assets/fonts/Arial-ItalicMT', normal, italic);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: left;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  @include primary-font();
+  font-size: 32px;
+  line-height: 35px;
+  letter-spacing: 0.06em;
+  text-align: left;
+}
+
+h2 {
+  @include primary-font();
+  font-size: 44px;
+  line-height: 57px;
+  letter-spacing: 0em;
+  color: $color-dark-l;
+}
+
+h3 {
+  @include primary-font();
+  font-size: 35px;
+  line-height: 130%;
+  letter-spacing: 0em;
+  color: $color-dark-l;
+}
+
+h4 {
+  @include primary-font();
+  font-size: 20px;
+  line-height: 23px;
+  letter-spacing: 0.06em;
+}
+
+.header {
+  
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    &__subtitle {
+      @include primary-font();
+      font-size: 13px;
+      line-height: 15px;
+      letter-spacing: 0.1em;
+      margin: 10px 0 0;
+    }
+  }
+}
+
+.menu {
+  &__list {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 35px;
+    list-style: none;
+  }
+
+  &__item {
+    padding-bottom: 4px;
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+
+  .active {
+    border-bottom: 3px solid $color-primary;
+  }
+}
+
+.container {
+  padding: 0 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.pet-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-light-s;
+  border-radius: 9px;
+  max-width: 270px;
+
+  &__image {
+    @include box(270px);
+    object-fit: cover;
+    border-radius: 9px 9px 0px 0px;
+  }
+  
+  &__title {
+    @include primary-font();
+    font-size: 20px;
+    color: $color-dark-l;
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  &__button {
+    margin: 30px 0;
+  }
+}
+
+.footer {
+  min-height: 350px;
+  background: url('../../assets/images/noise_lines_transparent@2X.png'),
+    radial-gradient(110.67% 538.64% at 5.73% 50%, #513d2f 0%, #1a1a1c 100%),
+    #211f20;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 40px 0 0;
+    max-width: 1200px;
+  }
+
+  &__image {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .contacts {
+    max-width: 278px;
+
+    &__title {
+      color: white;
+      margin: 16px 0 0;
+    }
+
+    &__mail {
+      margin: 40px 0 0;
+    }
+
+    &__phone {
+      margin: 40px 0 0;
+    }
+  }
+
+  .locations {
+    max-width: 302px;
+
+    &__title {
+      color: white;
+      margin: 16px 0 0;
+      max-width: 270px;
+    }
+
+    &__adress {
+      margin: 32px 0 0;
+    }
+  }
+
+  .contact-information {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+    color: $color-primary;
+  }
+}
