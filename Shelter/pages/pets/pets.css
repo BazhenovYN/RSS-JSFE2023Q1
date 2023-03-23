@@ -241,7 +241,7 @@ h3 {
   color: #C4C4C4;
   font-size: 35px;
   line-height: 130%;
-  letter-spacing: 0em;
+  letter-spacing: 0.06em;
   color: #545454;
 }
 
@@ -254,6 +254,18 @@ h4 {
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
+}
+
+h5 {
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  color: #C4C4C4;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: 0.06em;
+  color: #545454;
 }
 
 .header__inner {
@@ -270,6 +282,7 @@ h4 {
   font-size: 13px;
   line-height: 15px;
   letter-spacing: 0.1em;
+  padding-left: 4px;
   margin: 10px 0 0;
 }
 
@@ -286,9 +299,6 @@ h4 {
 }
 .menu__link {
   text-decoration: none;
-}
-.menu .active {
-  border-bottom: 3px solid #f1cdb3;
 }
 
 .container {
@@ -320,6 +330,7 @@ h4 {
   color: #C4C4C4;
   font-size: 20px;
   color: #545454;
+  letter-spacing: 0.06em;
   text-align: center;
   margin-top: 30px;
 }
@@ -343,7 +354,7 @@ h4 {
   max-width: 300px;
 }
 .footer .contacts {
-  max-width: 278px;
+  max-width: 280px;
 }
 .footer .contacts__title {
   color: white;
@@ -353,7 +364,7 @@ h4 {
   margin: 40px 0 0;
 }
 .footer .contacts__phone {
-  margin: 40px 0 0;
+  margin: 30px 0 0;
 }
 .footer .locations {
   max-width: 302px;

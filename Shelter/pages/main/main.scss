@@ -4,7 +4,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 60px;
+  top: 30px;
   margin: auto;
 
   .logo {
@@ -30,6 +30,13 @@
 
     .active .menu__link {
       color: $color-light-s;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        border-bottom: 3px solid $color-primary;
+       }
     }
   }
 }
@@ -90,11 +97,16 @@ section:nth-child(odd):not(:first-child) {
   
   &__content {
     max-width: 430px;
+    margin-top: 14px;
   }
   
   &__image {
     width: 100%;
     max-width: 300px;
+  }
+
+  &__subtitle p {
+    margin-top: 25px;
   }
 }
 
@@ -105,8 +117,8 @@ section:nth-child(odd):not(:first-child) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
-    padding: 80px 0 100px;
+    gap: 55px;
+    padding: 80px 0 80px;
     text-align: center;
   }
   &__title {
@@ -133,7 +145,7 @@ section:nth-child(odd):not(:first-child) {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 120px;
+    gap: 55px 120px;
     max-width: 1029px;
     margin-top: 60px;
   }
@@ -141,6 +153,7 @@ section:nth-child(odd):not(:first-child) {
   &__text {
     text-align: center;
     color: $color-dark-l;
+    margin-top: 20px;
   }
 }
 
