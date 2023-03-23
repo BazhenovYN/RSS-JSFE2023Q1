@@ -241,7 +241,7 @@ h3 {
   color: #C4C4C4;
   font-size: 35px;
   line-height: 130%;
-  letter-spacing: 0em;
+  letter-spacing: 0.06em;
   color: #545454;
 }
 
@@ -254,6 +254,18 @@ h4 {
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
+}
+
+h5 {
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  color: #C4C4C4;
+  font-size: 15px;
+  line-height: 17px;
+  letter-spacing: 0.06em;
+  color: #545454;
 }
 
 .header__inner {
@@ -270,6 +282,7 @@ h4 {
   font-size: 13px;
   line-height: 15px;
   letter-spacing: 0.1em;
+  padding-left: 4px;
   margin: 10px 0 0;
 }
 
@@ -286,9 +299,6 @@ h4 {
 }
 .menu__link {
   text-decoration: none;
-}
-.menu .active {
-  border-bottom: 3px solid #f1cdb3;
 }
 
 .container {
@@ -320,6 +330,7 @@ h4 {
   color: #C4C4C4;
   font-size: 20px;
   color: #545454;
+  letter-spacing: 0.06em;
   text-align: center;
   margin-top: 30px;
 }
@@ -343,7 +354,7 @@ h4 {
   max-width: 300px;
 }
 .footer .contacts {
-  max-width: 278px;
+  max-width: 280px;
 }
 .footer .contacts__title {
   color: white;
@@ -353,7 +364,7 @@ h4 {
   margin: 40px 0 0;
 }
 .footer .contacts__phone {
-  margin: 40px 0 0;
+  margin: 30px 0 0;
 }
 .footer .locations {
   max-width: 302px;
@@ -377,7 +388,7 @@ h4 {
   position: absolute;
   left: 0;
   right: 0;
-  top: 60px;
+  top: 30px;
   margin: auto;
 }
 .header .logo__title {
@@ -394,6 +405,12 @@ h4 {
 }
 .header .menu .active .menu__link {
   color: #fafafa;
+}
+.header .menu .active .menu__link::after {
+  content: "";
+  display: block;
+  width: 100%;
+  border-bottom: 3px solid #f1cdb3;
 }
 
 section:nth-child(odd):not(:first-child) {
@@ -446,10 +463,14 @@ section:nth-child(odd):not(:first-child) {
 }
 .about__content {
   max-width: 430px;
+  margin-top: 14px;
 }
 .about__image {
   width: 100%;
   max-width: 300px;
+}
+.about__subtitle p {
+  margin-top: 25px;
 }
 
 .our-friends {
@@ -459,8 +480,8 @@ section:nth-child(odd):not(:first-child) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 60px;
-  padding: 80px 0 100px;
+  gap: 55px;
+  padding: 80px 0 80px;
   text-align: center;
 }
 .our-friends__title {
@@ -484,13 +505,14 @@ section:nth-child(odd):not(:first-child) {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 120px;
+  gap: 55px 120px;
   max-width: 1029px;
   margin-top: 60px;
 }
 .help__text {
   text-align: center;
   color: #545454;
+  margin-top: 20px;
 }
 
 .donation {
