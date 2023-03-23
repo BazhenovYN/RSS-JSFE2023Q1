@@ -381,7 +381,15 @@ h5 {
   display: inline-flex;
   align-items: center;
   gap: 20px;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  color: #C4C4C4;
+  font-size: 20px;
+  line-height: 115%;
   color: #f1cdb3;
+  letter-spacing: 0.06em;
 }
 
 .header {
