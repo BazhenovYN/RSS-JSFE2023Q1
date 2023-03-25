@@ -8,6 +8,10 @@
   }
 
   .logo {
+    &__link {
+      text-decoration: none;
+    }
+
     &__title {
       color: $color-dark-l;
     }
@@ -29,6 +33,14 @@
 
     .active .menu__link {
       color: $color-dark-3xl;
+      cursor: default;
+
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        border-bottom: 3px solid $color-primary;
+      }
     }
   }
 }
@@ -48,7 +60,7 @@ section:nth-child(odd) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 55px;
     padding: 80px 0 100px;
     text-align: center;
   }

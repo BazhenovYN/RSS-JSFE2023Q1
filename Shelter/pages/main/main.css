@@ -189,6 +189,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   min-width: 320px;
   overflow-x: hidden;
@@ -315,6 +319,10 @@ h5 {
   border-radius: 9px;
   max-width: 270px;
 }
+.pet-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
 .pet-card__image {
   width: 270px;
   height: 270px;
@@ -357,7 +365,7 @@ h5 {
   max-width: 280px;
 }
 .footer .contacts__title {
-  color: white;
+  color: #ffffff;
   margin: 16px 0 0;
 }
 .footer .contacts__mail {
@@ -366,16 +374,36 @@ h5 {
 .footer .contacts__phone {
   margin: 30px 0 0;
 }
+.footer .contacts__link {
+  position: relative;
+}
+.footer .contacts__link:after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  width: 0;
+  height: 2px;
+  margin-top: 2px;
+  background-color: #fddcc4;
+  transition: width 0.3s ease-out;
+}
+.footer .contacts__link:hover:after, .footer .contacts__link:focus:after {
+  width: 100%;
+}
 .footer .locations {
   max-width: 302px;
 }
 .footer .locations__title {
-  color: white;
+  color: #ffffff;
   margin: 16px 0 0;
   max-width: 270px;
 }
 .footer .locations__adress {
   margin: 32px 0 0;
+}
+.footer .locations__adress svg {
+  min-width: 22px;
 }
 .footer .contact-information {
   display: inline-flex;
@@ -389,7 +417,15 @@ h5 {
   font-size: 20px;
   line-height: 115%;
   color: #f1cdb3;
+  fill: #f1cdb3;
   letter-spacing: 0.06em;
+}
+.footer a {
+  text-decoration: none;
+}
+.footer a:hover {
+  color: #fddcc4;
+  fill: #fddcc4;
 }
 
 .header {
@@ -398,6 +434,9 @@ h5 {
   right: 0;
   top: 30px;
   margin: auto;
+}
+.header .logo__link {
+  text-decoration: none;
 }
 .header .logo__title {
   color: #f1cdb3;
@@ -413,6 +452,7 @@ h5 {
 }
 .header .menu .active .menu__link {
   color: #fafafa;
+  cursor: default;
 }
 .header .menu .active .menu__link::after {
   content: "";
@@ -454,6 +494,9 @@ section:nth-child(odd):not(:first-child) {
   font-size: 15px;
   color: #cdcdcd;
 }
+.not-only__button {
+  text-decoration: none;
+}
 .not-only__image {
   align-self: flex-end;
 }
@@ -494,6 +537,9 @@ section:nth-child(odd):not(:first-child) {
 }
 .our-friends__title {
   text-align: center;
+}
+.our-friends__button {
+  text-decoration: none;
 }
 
 .help {
@@ -537,7 +583,7 @@ section:nth-child(odd):not(:first-child) {
 .donation__content {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   max-width: 380px;
 }
 .donation__credit-card {
@@ -546,8 +592,8 @@ section:nth-child(odd):not(:first-child) {
   width: -moz-fit-content;
   width: fit-content;
   padding: 10px 15px;
-  background-color: #f1cdb3;
   border-radius: 9px;
+  text-decoration: none;
 }
 .donation__card-number {
   color: #545454;

@@ -8,6 +8,10 @@
   margin: auto;
 
   .logo {
+    &__link {
+      text-decoration: none;
+    }
+
     &__title {
       color: $color-primary;
     }
@@ -30,13 +34,14 @@
 
     .active .menu__link {
       color: $color-light-s;
+      cursor: default;
 
       &::after {
         content: "";
         display: block;
         width: 100%;
         border-bottom: 3px solid $color-primary;
-       }
+      }
     }
   }
 }
@@ -78,6 +83,10 @@ section:nth-child(odd):not(:first-child) {
     color: $color-dark-s;
   }
   
+  &__button {
+    text-decoration: none;
+  }
+
   &__image {
     align-self: flex-end;
   }
@@ -123,6 +132,10 @@ section:nth-child(odd):not(:first-child) {
   }
   &__title {
     text-align: center;
+  }
+
+  &__button {
+    text-decoration: none;
   }
 }
 
@@ -172,7 +185,7 @@ section:nth-child(odd):not(:first-child) {
   &__content {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
     max-width: 380px;
   }
 
@@ -181,8 +194,8 @@ section:nth-child(odd):not(:first-child) {
     gap: 15px;
     width: fit-content;
     padding: 10px 15px;
-    background-color: $color-primary;
     border-radius: 9px;
+    text-decoration: none;
   }
 
   &__card-number {
