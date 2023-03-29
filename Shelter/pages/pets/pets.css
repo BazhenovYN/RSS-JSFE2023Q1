@@ -152,6 +152,11 @@
   display: inline-flex;
   gap: 20px;
 }
+@media (max-width: 320px) {
+  .pagination {
+    gap: 10px;
+  }
+}
 .pagination__start:disabled, .pagination__prev:disabled, .pagination__page:disabled, .pagination__next:disabled, .pagination__end:disabled {
   fill: #cdcdcd;
   border-color: #cdcdcd;
@@ -159,6 +164,38 @@
 }
 .pagination__page {
   background-color: #f1cdb3;
+}
+
+.hamburger__line, .hamburger:after, .hamburger:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  background-color: black;
+  width: 100%;
+  height: 2px;
+}
+
+.hamburger {
+  display: none;
+  position: relative;
+  width: 30px;
+  height: 20px;
+}
+@media (max-width: 320px) {
+  .hamburger {
+    display: inline-block;
+  }
+}
+.hamburger:before {
+  top: 0;
+  left: 0;
+}
+.hamburger:after {
+  bottom: 0;
+  left: 0;
+}
+.hamburger__line {
+  top: calc(50% - 1px);
 }
 
 @font-face {
@@ -290,6 +327,11 @@ h5 {
   margin: 10px 0 0;
 }
 
+@media (max-width: 320px) {
+  .menu {
+    display: none;
+  }
+}
 .menu__list {
   display: flex;
   justify-content: flex-end;
@@ -309,6 +351,16 @@ h5 {
   padding: 0 40px;
   max-width: 1280px;
   margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 0 30px;
+  }
+}
+@media (max-width: 320px) {
+  .container {
+    padding: 0 20px;
+  }
 }
 
 .pet-card {
@@ -353,13 +405,23 @@ h5 {
 .footer__inner {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin: auto;
   padding: 40px 0 0;
-  max-width: 1200px;
+}
+@media (max-width: 768px) {
+  .footer__inner {
+    padding: 15px 34px 0;
+  }
 }
 .footer__image {
   width: 100%;
   max-width: 300px;
+}
+@media (max-width: 768px) {
+  .footer__image {
+    margin: 60px auto 0;
+  }
 }
 .footer .contacts {
   max-width: 280px;
@@ -473,12 +535,41 @@ section:nth-child(odd) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 55px;
   padding: 80px 0 100px;
   text-align: center;
 }
 .our-friends__cards {
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(auto-fill, 270px);
+  justify-content: center;
   gap: 30px 40px;
+  width: 100%;
+  margin: 55px 0;
+}
+@media (min-width: 0px) {
+  .our-friends__cards :nth-child(4),
+  .our-friends__cards :nth-child(5),
+  .our-friends__cards :nth-child(6),
+  .our-friends__cards :nth-child(7),
+  .our-friends__cards :nth-child(8) {
+    display: none;
+  }
+}
+@media (min-width: 640px) {
+  .our-friends__cards :nth-child(4),
+  .our-friends__cards :nth-child(5),
+  .our-friends__cards :nth-child(6) {
+    display: flex;
+  }
+}
+@media (min-width: 1280px) {
+  .our-friends__cards :nth-child(7),
+  .our-friends__cards :nth-child(8) {
+    display: flex;
+  }
+}
+@media (max-width: 768px) {
+  .our-friends__cards {
+    margin: 30px 0 40px;
+  }
 }/*# sourceMappingURL=pets.css.map */

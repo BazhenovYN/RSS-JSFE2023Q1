@@ -2,6 +2,7 @@
 @import '../../components/slider/slider';
 @import '../../components/buttons';
 @import '../../components/pagination';
+@import '../../components/hamburger';
 
 @include font-face(Georgia, '../../assets/fonts/Georgia');
 @include font-face(Georgia, '../../assets/fonts/Georgia-Bold', bold);
@@ -95,6 +96,10 @@ h5 {
 }
 
 .menu {
+  @include mobile {
+    display: none;
+  }
+
   &__list {
     display: flex;
     justify-content: flex-end;
@@ -117,6 +122,14 @@ h5 {
   padding: 0 40px;
   max-width: 1280px;
   margin: 0 auto;
+
+  @include tablet {
+    padding: 0 30px;
+  }
+
+  @include mobile {
+    padding: 0 20px;
+  }
 }
 
 .pet-card {
@@ -161,14 +174,22 @@ h5 {
   &__inner {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin: auto;
     padding: 40px 0 0;
-    max-width: 1200px;
+
+    @include tablet {
+      padding: 15px 34px 0;
+    }
   }
 
   &__image {
     width: 100%;
     max-width: 300px;
+
+    @include tablet {
+      margin: 60px auto 0;
+    }
   }
 
   .contacts {
