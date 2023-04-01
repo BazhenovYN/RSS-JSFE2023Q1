@@ -4,9 +4,9 @@
   position: absolute;
   left: 0;
   right: 0;
-  top: 30px;
+  top: 0;
   margin: auto;
-
+  
   .logo {
     &__link {
       text-decoration: none;
@@ -19,6 +19,18 @@
     &__subtitle {
       color: $color-light-xl;
     }
+  }
+
+  .hamburger__line {
+    background-color: $color-primary;
+  }
+
+  .hamburger:before {
+    background-color: $color-primary;
+  }
+
+  .hamburger:after {
+    background-color: $color-primary;
   }
 
   .menu {
@@ -55,13 +67,14 @@ section:nth-child(odd):not(:first-child) {
   flex-direction: column;
   justify-content: end;
   background: url('../../assets/images/noise_lines_transparent@2X.png'), radial-gradient(100% 215.42% at 0% 0%, #5B483A 0%, #262425 100%), #211F20;
+  padding-top: 180px;
   min-height: 908px;
 
   &__inner {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    gap: 42px;
+    flex-wrap: wrap;
   }
   
   &__content {
@@ -87,8 +100,15 @@ section:nth-child(odd):not(:first-child) {
     text-decoration: none;
   }
 
+  &__image-container {
+    width: 80%;
+    margin-left: auto;
+    max-width: 698px;
+    line-height: 0;
+  }
+
   &__image {
-    align-self: flex-end;
+    width: 100%;
   }
 }
 
@@ -102,6 +122,11 @@ section:nth-child(odd):not(:first-child) {
     margin: auto;
     padding: 80px 0 100px;
     max-width: 850px;
+
+    @include small-desktop {
+      flex-direction: column-reverse;
+      gap: 80px;
+    }
   }
   
   &__content {
@@ -180,6 +205,10 @@ section:nth-child(odd):not(:first-child) {
     margin: auto;
     padding: 80px 0 100px;
     max-width: 915px;
+
+    @include small-desktop {
+      flex-direction: column-reverse;
+    }
   }
 
   &__content {
