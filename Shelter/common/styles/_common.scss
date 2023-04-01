@@ -202,6 +202,21 @@ h5 {
     flex-wrap: wrap;
     margin: auto;
     padding: 40px 0 0;
+    row-gap: 65px;
+    @include small-desktop {
+      justify-content: space-around;
+      padding: 30px 0 0;
+    }
+  }
+
+  &__dog {
+    line-height: 0;
+    width: auto;
+    text-align: right;
+    @include small-desktop {
+      flex: 1 1 100%; 
+      text-align: center;
+    }
   }
 
   &__image {
@@ -210,11 +225,15 @@ h5 {
   }
 
   .contacts {
-    max-width: 280px;
+    flex: 0 1 280px;
+    padding-top: 16px;
+    @include small-desktop {
+      margin-top: 0;
+      padding-top: 0;
+    }
 
     &__title {
       color: $color-light-xl;
-      margin: 16px 0 0;
     }
 
     &__mail {
@@ -248,11 +267,14 @@ h5 {
   }
 
   .locations {
-    max-width: 302px;
+    flex: 0 1 302px;
+    padding-top: 16px;
+    @include small-desktop {
+      padding-top: 0;
+    }
 
     &__title {
       color: $color-light-xl;
-      margin: 16px auto 0;
     }
 
     &__adress {
