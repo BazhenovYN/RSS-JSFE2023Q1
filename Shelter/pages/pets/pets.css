@@ -324,9 +324,16 @@ h2 {
   text-align: left;
   color: #C4C4C4;
   font-size: 44px;
-  line-height: 57px;
+  line-height: 130%;
   letter-spacing: 0em;
   color: #545454;
+}
+@media (max-width: 730px) {
+  h2 {
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
 }
 
 h3 {
@@ -343,6 +350,7 @@ h3 {
 @media (max-width: 730px) {
   h3 {
     font-size: 25px;
+    text-align: center;
   }
 }
 
@@ -356,6 +364,11 @@ h4 {
   line-height: 23px;
   letter-spacing: 0.06em;
 }
+@media (max-width: 730px) {
+  h4 {
+    font-size: 15px;
+  }
+}
 
 h5 {
   font-family: "Georgia";
@@ -367,6 +380,11 @@ h5 {
   line-height: 17px;
   letter-spacing: 0.06em;
   color: #545454;
+}
+@media (max-width: 730px) {
+  h5 {
+    letter-spacing: 0;
+  }
 }
 
 .header__inner {

@@ -48,9 +48,15 @@ h1 {
 h2 {
   @include primary-font();
   font-size: 44px;
-  line-height: 57px;
+  line-height: 130%;
   letter-spacing: 0em;
   color: $color-dark-l;
+
+  @include mobile {
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
 }
 
 h3 {
@@ -62,6 +68,7 @@ h3 {
 
   @include mobile {
     font-size: 25px;
+    text-align: center
   }
 }
 
@@ -70,6 +77,10 @@ h4 {
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
+
+  @include mobile {
+    font-size: 15px;
+  }
 }
 
 h5 {
@@ -78,6 +89,10 @@ h5 {
   line-height: 17px;
   letter-spacing: 0.06em;
   color: $color-dark-l;
+
+  @include mobile {
+    letter-spacing: 0;
+  }
 }
 
 .header {
