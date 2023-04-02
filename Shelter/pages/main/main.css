@@ -234,7 +234,7 @@
   display: none;
   position: relative;
   width: 30px;
-  height: 20px;
+  height: 21px;
 }
 @media (max-width: 730px) {
   .hamburger {
@@ -479,6 +479,11 @@ h5 {
   text-align: center;
   margin-top: 30px;
 }
+@media (max-width: 768px) {
+  .pet-card__title {
+    margin-top: 26px;
+  }
+}
 .pet-card__button {
   margin: 30px 0;
 }
@@ -520,6 +525,11 @@ h5 {
 .footer__image {
   width: 100%;
   max-width: 300px;
+}
+@media (max-width: 730px) {
+  .footer__image {
+    max-width: 260px;
+  }
 }
 .footer .contacts {
   display: flex;

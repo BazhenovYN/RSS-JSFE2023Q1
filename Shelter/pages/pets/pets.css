@@ -234,7 +234,7 @@
   display: none;
   position: relative;
   width: 30px;
-  height: 20px;
+  height: 21px;
 }
 @media (max-width: 730px) {
   .hamburger {
@@ -479,6 +479,11 @@ h5 {
   text-align: center;
   margin-top: 30px;
 }
+@media (max-width: 768px) {
+  .pet-card__title {
+    margin-top: 26px;
+  }
+}
 .pet-card__button {
   margin: 30px 0;
 }
@@ -520,6 +525,11 @@ h5 {
 .footer__image {
   width: 100%;
   max-width: 300px;
+}
+@media (max-width: 730px) {
+  .footer__image {
+    max-width: 260px;
+  }
 }
 .footer .contacts {
   display: flex;
@@ -668,6 +678,16 @@ section:nth-child(odd) {
   padding: 80px 0 100px;
   text-align: center;
 }
+@media (max-width: 768px) {
+  .our-friends__inner {
+    padding: 80px 0 75px;
+  }
+}
+@media (max-width: 730px) {
+  .our-friends__inner {
+    padding: 40px 0 45px;
+  }
+}
 .our-friends__cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, 270px);
@@ -675,6 +695,16 @@ section:nth-child(odd) {
   gap: 30px 40px;
   width: 100%;
   margin: 55px 0;
+}
+@media (max-width: 768px) {
+  .our-friends__cards {
+    margin: 30px 0 40px;
+  }
+}
+@media (max-width: 730px) {
+  .our-friends__cards {
+    margin: 40px 0;
+  }
 }
 @media (min-width: 0px) {
   .our-friends__cards > .pet-card:nth-child(4), .our-friends__cards > .pet-card:nth-child(5), .our-friends__cards > .pet-card:nth-child(6), .our-friends__cards > .pet-card:nth-child(7), .our-friends__cards > .pet-card:nth-child(8) {
@@ -689,10 +719,5 @@ section:nth-child(odd) {
 @media (min-width: 1280px) {
   .our-friends__cards > .pet-card:nth-child(7), .our-friends__cards > .pet-card:nth-child(8) {
     display: flex;
-  }
-}
-@media (max-width: 768px) {
-  .our-friends__cards {
-    margin: 30px 0 40px;
   }
 }/*# sourceMappingURL=pets.css.map */

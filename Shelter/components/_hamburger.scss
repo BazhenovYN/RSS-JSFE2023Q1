@@ -13,7 +13,7 @@
 .hamburger {
   display: none;
   position: relative;
-  @include box(30px, 20px);
+  @include box(30px, 21px);
 
   @include mobile {
     display: inline-block;

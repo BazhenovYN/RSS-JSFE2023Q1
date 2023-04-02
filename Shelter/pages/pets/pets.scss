@@ -58,6 +58,14 @@ section:nth-child(odd) {
     align-items: center;
     padding: 80px 0 100px;
     text-align: center;
+
+    @include tablet {
+      padding: 80px 0 75px;
+    }
+
+    @include mobile {
+      padding: 40px 0 45px;
+    }
   }
 
   &__cards {
@@ -67,6 +75,14 @@ section:nth-child(odd) {
     gap: 30px 40px;
     width: 100%;
     margin: 55px 0;
+
+    @include tablet {
+      margin: 30px 0 40px;
+    }
+
+    @include mobile {
+      margin: 40px 0;
+    }
 
     > .pet-card {
       @media (min-width: 0px) {
@@ -93,10 +109,6 @@ section:nth-child(odd) {
           display: flex;
         }
       }
-    }
-
-    @include tablet {
-      margin: 30px 0 40px;
     }
   }
 }
