@@ -574,6 +574,11 @@ h5 {
 .footer .contacts__link:hover:after, .footer .contacts__link:focus:after {
   width: 100%;
 }
+@media (max-width: 730px) {
+  .footer .contacts .contact-information {
+    justify-content: center;
+  }
+}
 .footer .locations {
   display: flex;
   flex-direction: column;
@@ -604,6 +609,11 @@ h5 {
 .footer .locations__adress svg {
   min-width: 22px;
 }
+@media (max-width: 730px) {
+  .footer .locations .contact-information {
+    justify-content: flex-start;
+  }
+}
 .footer .contact-information {
   display: inline-flex;
   align-items: center;
@@ -618,11 +628,6 @@ h5 {
   color: #f1cdb3;
   fill: #f1cdb3;
   letter-spacing: 0.06em;
-}
-@media (max-width: 730px) {
-  .footer .contact-information {
-    justify-content: center;
-  }
 }
 .footer a {
   text-decoration: none;

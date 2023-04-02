@@ -283,6 +283,12 @@ h5 {
         width: 100%;
       }
     }
+
+    & .contact-information {
+      @include mobile {
+        justify-content: center;
+      }
+    }
   }
 
   .locations {
@@ -313,6 +319,12 @@ h5 {
         min-width: 22px;
       }
     }
+
+    & .contact-information {
+      @include mobile {
+        justify-content: flex-start;
+      }
+    }
   }
 
   .contact-information {
@@ -325,10 +337,6 @@ h5 {
     color: $color-primary;
     fill: $color-primary;
     letter-spacing: 0.06em;
-
-    @include mobile {
-      justify-content: center;
-    }
   }
 
   & a {

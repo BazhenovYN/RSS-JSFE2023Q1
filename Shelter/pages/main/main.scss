@@ -277,10 +277,11 @@ section:nth-child(odd):not(:first-child) {
 
     @include small-desktop {
       flex-direction: column-reverse;
+      padding: 85px 0 100px;
     }
 
     @include mobile {
-      padding: 40px 10px 45px;
+      padding: 45px 10px;
     }
   }
 
