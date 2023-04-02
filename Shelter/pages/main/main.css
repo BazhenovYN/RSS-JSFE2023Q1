@@ -457,7 +457,7 @@ h5 {
   max-width: 270px;
 }
 .pet-card:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
   cursor: pointer;
 }
 .pet-card__image {
@@ -501,6 +501,11 @@ h5 {
     padding: 30px 0 0;
   }
 }
+@media (max-width: 730px) {
+  .footer__inner {
+    row-gap: 40px;
+  }
+}
 .footer__dog {
   line-height: 0;
   width: auto;
@@ -517,6 +522,8 @@ h5 {
   max-width: 300px;
 }
 .footer .contacts {
+  display: flex;
+  flex-direction: column;
   flex: 0 1 280px;
   padding-top: 16px;
 }
@@ -526,6 +533,11 @@ h5 {
     padding-top: 0;
   }
 }
+@media (max-width: 730px) {
+  .footer .contacts {
+    justify-content: center;
+  }
+}
 .footer .contacts__title {
   color: #ffffff;
 }
@@ -533,7 +545,7 @@ h5 {
   margin: 40px 0 0;
 }
 .footer .contacts__phone {
-  margin: 30px 0 0;
+  margin: 40px 0 0;
 }
 .footer .contacts__link {
   position: relative;
@@ -553,6 +565,8 @@ h5 {
   width: 100%;
 }
 .footer .locations {
+  display: flex;
+  flex-direction: column;
   flex: 0 1 302px;
   padding-top: 16px;
 }
@@ -564,8 +578,18 @@ h5 {
 .footer .locations__title {
   color: #ffffff;
 }
+@media (max-width: 730px) {
+  .footer .locations__title {
+    padding: 0 10px;
+  }
+}
 .footer .locations__adress {
   margin: 32px 0 0;
+}
+@media (max-width: 730px) {
+  .footer .locations__adress {
+    margin: 40px 0 0;
+  }
 }
 .footer .locations__adress svg {
   min-width: 22px;
@@ -584,6 +608,11 @@ h5 {
   color: #f1cdb3;
   fill: #f1cdb3;
   letter-spacing: 0.06em;
+}
+@media (max-width: 730px) {
+  .footer .contact-information {
+    justify-content: center;
+  }
 }
 .footer a {
   text-decoration: none;
@@ -857,7 +886,7 @@ section:nth-child(odd):not(:first-child) {
 }
 @media (max-width: 730px) {
   .donation__inner {
-    padding: 40px 10px 40px;
+    padding: 40px 10px 45px;
   }
 }
 .donation__content {
