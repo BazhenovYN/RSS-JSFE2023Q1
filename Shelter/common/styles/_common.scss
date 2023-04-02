@@ -2,6 +2,7 @@
 @import '../../components/slider/slider';
 @import '../../components/buttons';
 @import '../../components/pagination';
+@import '../../components/hamburger';
 
 @include font-face(Georgia, '../../assets/fonts/Georgia');
 @include font-face(Georgia, '../../assets/fonts/Georgia-Bold', bold);
@@ -47,9 +48,15 @@ h1 {
 h2 {
   @include primary-font();
   font-size: 44px;
-  line-height: 57px;
+  line-height: 130%;
   letter-spacing: 0em;
   color: $color-dark-l;
+
+  @include mobile {
+    font-size: 25px;
+    text-align: center;
+    letter-spacing: 0.06em;
+  }
 }
 
 h3 {
@@ -58,6 +65,11 @@ h3 {
   line-height: 130%;
   letter-spacing: 0.06em;
   color: $color-dark-l;
+
+  @include mobile {
+    font-size: 25px;
+    text-align: center
+  }
 }
 
 h4 {
@@ -65,6 +77,10 @@ h4 {
   font-size: 20px;
   line-height: 23px;
   letter-spacing: 0.06em;
+
+  @include mobile {
+    font-size: 15px;
+  }
 }
 
 h5 {
@@ -73,6 +89,10 @@ h5 {
   line-height: 17px;
   letter-spacing: 0.06em;
   color: $color-dark-l;
+
+  @include mobile {
+    letter-spacing: 0;
+  }
 }
 
 .header {
@@ -80,6 +100,11 @@ h5 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 30px 0;
+
+    @include mobile {
+      padding: 30px 10px;
+    }
   }
 
   .logo {
@@ -95,6 +120,10 @@ h5 {
 }
 
 .menu {
+  @include mobile {
+    display: none;
+  }
+
   &__list {
     display: flex;
     justify-content: flex-end;
@@ -117,6 +146,15 @@ h5 {
   padding: 0 40px;
   max-width: 1280px;
   margin: 0 auto;
+  width: 100%;
+
+  @include tablet {
+    padding: 0 30px;
+  }
+
+  @include mobile {
+    padding: 0 10px;
+  }
 }
 
 .pet-card {
@@ -128,7 +166,7 @@ h5 {
   max-width: 270px;
 
   &:hover {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 35px 14px rgba(13, 13, 13, 0.04);
     cursor: pointer;
   }
 
@@ -145,6 +183,10 @@ h5 {
     letter-spacing: 0.06em;
     text-align: center;
     margin-top: 30px;
+
+    @include tablet {
+      margin-top: 26px;
+    }
   }
 
   &__button {
@@ -161,22 +203,56 @@ h5 {
   &__inner {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin: auto;
     padding: 40px 0 0;
-    max-width: 1200px;
+    row-gap: 65px;
+    
+    @include small-desktop {
+      justify-content: space-around;
+      padding: 30px 0 0;
+    }
+
+    @include mobile {
+      row-gap: 40px;
+    }
+  }
+
+  &__dog {
+    line-height: 0;
+    width: auto;
+    text-align: right;
+    @include small-desktop {
+      flex: 1 1 100%; 
+      text-align: center;
+    }
   }
 
   &__image {
     width: 100%;
     max-width: 300px;
+
+    @include mobile {
+      max-width: 260px;
+    }
   }
 
   .contacts {
-    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 280px;
+    padding-top: 16px;
+    @include small-desktop {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    @include mobile {
+      justify-content: center;
+    }
 
     &__title {
       color: $color-light-xl;
-      margin: 16px 0 0;
     }
 
     &__mail {
@@ -184,7 +260,7 @@ h5 {
     }
 
     &__phone {
-      margin: 30px 0 0;
+      margin: 40px 0 0;
     }
 
     &__link {
@@ -207,21 +283,46 @@ h5 {
         width: 100%;
       }
     }
+
+    & .contact-information {
+      @include mobile {
+        justify-content: center;
+      }
+    }
   }
 
   .locations {
-    max-width: 302px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 302px;
+    padding-top: 16px;
+    @include small-desktop {
+      padding-top: 0;
+    }
 
     &__title {
       color: $color-light-xl;
-      margin: 16px 0 0;
+      
+      @include mobile {
+        padding: 0 10px;
+      }
     }
 
     &__adress {
       margin: 32px 0 0;
 
+      @include mobile {
+        margin: 40px 0 0;
+      }
+
       & svg {
         min-width: 22px;
+      }
+    }
+
+    & .contact-information {
+      @include mobile {
+        justify-content: flex-start;
       }
     }
   }
