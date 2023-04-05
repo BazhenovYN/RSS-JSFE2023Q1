@@ -18,7 +18,7 @@
   }
 
   .menu {
-    
+
     &__link {
       color: $color-dark-l;
   
@@ -37,6 +37,16 @@
         width: 100%;
         border-bottom: 3px solid $color-primary;
       }
+    }
+
+    &__list {
+      @include mobile {
+        background-color: $color-dark-m;
+      }
+    }
+
+    & .hamburger span {
+      background-color: black;
     }
   }
 }
