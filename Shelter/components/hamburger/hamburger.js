@@ -1,6 +1,5 @@
 'use strict';
 
-const body = document.body;
 const hamburger = document.querySelector('.hamburger');
 const menu = document.querySelector('.menu__list');
 const overlay = document.querySelector('.overlay');
