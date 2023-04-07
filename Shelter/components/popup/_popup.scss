@@ -69,6 +69,10 @@
     font-size: 13px;
   }
 
+  @include mobile {
+    flex: 0 1 auto;
+  }
+
   & ul {
     padding-left: 15px;
     margin: 0;
@@ -131,7 +135,7 @@
   }
 }
 
-.pet__info {
+.pet-info {
   @include tablet {
     font-size: 15px;
   }

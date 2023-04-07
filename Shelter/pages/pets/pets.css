@@ -321,6 +321,11 @@
     font-size: 13px;
   }
 }
+@media (max-width: 730px) {
+  .pet {
+    flex: 0 1 auto;
+  }
+}
 .pet ul {
   padding-left: 15px;
   margin: 0;
@@ -384,7 +389,7 @@
 }
 
 @media (max-width: 768px) {
-  .pet__info {
+  .pet-info {
     font-size: 15px;
   }
 }

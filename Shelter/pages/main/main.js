@@ -1,5 +1,7 @@
 'use strict';
 
+showSlider();
+
 // --- Log ---
 
 const textLog = `Shelter. Part 1. +100
