@@ -300,6 +300,7 @@
   fill: #cdcdcd;
   border-color: #cdcdcd;
   background-color: transparent;
+  cursor: auto;
 }
 .pagination__page {
   background-color: #f1cdb3;
@@ -924,7 +925,7 @@ h5 {
   width: 100%;
   border-bottom: 3px solid #f1cdb3;
 }
-@media (max-width: 730px) {
+@media (max-width: 767.5px) {
   .header .menu__list {
     background-color: #b2b2b2;
   }
@@ -976,20 +977,5 @@ section:nth-child(odd) {
 @media (max-width: 730px) {
   .our-friends__cards {
     margin: 40px 0;
-  }
-}
-@media (min-width: 0px) {
-  .our-friends__cards > .pet-card:nth-child(4), .our-friends__cards > .pet-card:nth-child(5), .our-friends__cards > .pet-card:nth-child(6), .our-friends__cards > .pet-card:nth-child(7), .our-friends__cards > .pet-card:nth-child(8) {
-    display: none;
-  }
-}
-@media (min-width: 640px) {
-  .our-friends__cards > .pet-card:nth-child(4), .our-friends__cards > .pet-card:nth-child(5), .our-friends__cards > .pet-card:nth-child(6) {
-    display: flex;
-  }
-}
-@media (min-width: 1280px) {
-  .our-friends__cards > .pet-card:nth-child(7), .our-friends__cards > .pet-card:nth-child(8) {
-    display: flex;
   }
 }/*# sourceMappingURL=pets.css.map */

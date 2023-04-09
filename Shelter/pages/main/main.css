@@ -300,6 +300,7 @@
   fill: #cdcdcd;
   border-color: #cdcdcd;
   background-color: transparent;
+  cursor: auto;
 }
 .pagination__page {
   background-color: #f1cdb3;
