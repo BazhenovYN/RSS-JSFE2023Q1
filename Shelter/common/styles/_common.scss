@@ -147,7 +147,7 @@ h5 {
     gap: 35px;
     list-style: none;
 
-    @include mobile {
+    @media (max-width: 767.5px) {
       position: fixed;
       z-index: 5;
       background-color: $color-dark-3xl;

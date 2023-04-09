@@ -46,6 +46,10 @@
 %round-btn {
   @include box(52px);
   @include flex-center();
+  @include primary-font();
+  color: $color-dark-3xl;
+  font-size: 20px;
+  line-height: 115%;
   border: 2px solid $color-primary;
   border-radius: 100px;
   background-color: transparent;

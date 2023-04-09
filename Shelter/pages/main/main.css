@@ -47,6 +47,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  color: #C4C4C4;
+  color: #292929;
+  font-size: 20px;
+  line-height: 115%;
   border: 2px solid #f1cdb3;
   border-radius: 100px;
   background-color: transparent;
@@ -88,6 +96,11 @@
     display: none;
   }
 }
+.slider .slides {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
 .slider__prev {
   flex-shrink: 0;
 }
@@ -115,24 +128,87 @@
 .slider .wrapper {
   overflow: hidden;
   position: relative;
-  width: 990px;
+  width: 1096px;
   z-index: 1;
+}
+@media (min-width: 0px) {
+  .slider .wrapper {
+    width: 270px;
+  }
+}
+@media (min-width: 768px) {
+  .slider .wrapper {
+    width: 604px;
+  }
+}
+@media (min-width: 1280px) {
+  .slider .wrapper {
+    width: 1096px;
+  }
 }
 .slider .slides {
   display: flex;
   position: relative;
   top: 0;
-  left: -990px;
-  width: 10000px;
+  left: -1096px;
+  width: 300%;
 }
 .slider .slides.shifting {
   transition: left 0.2s ease-out;
 }
+@media (min-width: 0px) {
+  .slider .slides {
+    left: -270px;
+  }
+}
+@media (min-width: 768px) {
+  .slider .slides {
+    left: -604px;
+  }
+}
+@media (min-width: 1280px) {
+  .slider .slides {
+    left: -1096px;
+  }
+}
 .slider .slide {
   display: flex;
   justify-content: space-around;
-  gap: 90px;
   position: relative;
+  width: 1096px;
+}
+@media (min-width: 0px) {
+  .slider .slide {
+    width: 270px;
+  }
+}
+@media (min-width: 768px) {
+  .slider .slide {
+    width: 604px;
+  }
+}
+@media (min-width: 1280px) {
+  .slider .slide {
+    width: 1096px;
+  }
+}
+@media (min-width: 0px) {
+  .slider .slide > div:nth-child(2), .slider .slide > div:nth-child(3) {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .slider .slide > div:nth-child(2) {
+    display: flex;
+  }
+  .slider .slide > div:nth-child(3) {
+    display: none;
+  }
+}
+@media (min-width: 1280px) {
+  .slider .slide > div:nth-child(2), .slider .slide > div:nth-child(3) {
+    display: flex;
+  }
 }
 
 .primary-button, .secondary-button {
@@ -184,6 +260,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "Georgia";
+  font-style: normal;
+  font-weight: 400;
+  text-align: left;
+  color: #C4C4C4;
+  color: #292929;
+  font-size: 20px;
+  line-height: 115%;
   border: 2px solid #f1cdb3;
   border-radius: 100px;
   background-color: transparent;
@@ -222,22 +306,22 @@
 }
 
 .hamburger {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 30px;
   height: 20px;
+  position: relative;
+  z-index: 10;
   padding: 0;
   border: 0;
   background-color: transparent;
   transition: transform 0.3s ease;
   cursor: pointer;
 }
-@media (max-width: 730px) {
+@media (min-width: 768px) {
   .hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    z-index: 10;
+    display: none;
   }
 }
 .hamburger span {
@@ -575,7 +659,7 @@ h5 {
   gap: 35px;
   list-style: none;
 }
-@media (max-width: 730px) {
+@media (max-width: 767.5px) {
   .menu__list {
     position: fixed;
     z-index: 5;
