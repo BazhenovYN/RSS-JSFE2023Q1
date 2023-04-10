@@ -13,60 +13,9 @@
     flex-direction: row;
   }
 
-  .mobile-buttons {
-    display: flex;
-    gap: 80px;
-    margin-top: 20px;
-
-    @media (min-width: 690px) {
-      display: none;
-    }
-  }
-
-  & .slides {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-
-  &__prev {
-    @extend %round-btn;
-    flex-shrink: 0;
-  }
-
-  &__next {
-    @extend %round-btn;
-    transform: rotate(-180deg);
-    flex-shrink: 0;
-  }
-
-  & > .slider__prev {
-    display: none;
-
-    @media (min-width: 690px) {
-      display: flex;
-    }
-  }
-
-  & > .slider__next {
-    display: none;
-
-    @media (min-width: 690px) {
-      display: flex;
-    }
-  }
-}
-
-////////////////////////////////////////////////////////////////////////
-// BEGIN
-////////////////////////////////////////////////////////////////////////
-
-.slider {
-
   .wrapper {
     overflow: hidden;
     position: relative;
-    width: 1096px;
     z-index: 1;
     @media (min-width: 0px) {
       width: 270px;
@@ -81,9 +30,9 @@
 
   .slides {
     display: flex;
+    justify-content: space-around;
     position: relative;
     top: 0;
-    left: -1096px;
     width: 300%;
 
     &.shifting {
@@ -104,7 +53,6 @@
     display: flex;
     justify-content: space-around;
     position: relative;
-    width: 1096px;
 
     @media (min-width: 0px) {
       width: 270px;
@@ -143,5 +91,41 @@
       }
     }
   }
-}
 
+  .mobile-buttons {
+    display: flex;
+    gap: 80px;
+    margin-top: 20px;
+
+    @media (min-width: 690px) {
+      display: none;
+    }
+  }
+
+  &__prev {
+    @extend %round-btn;
+    flex-shrink: 0;
+  }
+
+  &__next {
+    @extend %round-btn;
+    transform: rotate(-180deg);
+    flex-shrink: 0;
+  }
+
+  & > .slider__prev {
+    display: none;
+
+    @media (min-width: 690px) {
+      display: flex;
+    }
+  }
+
+  & > .slider__next {
+    display: none;
+
+    @media (min-width: 690px) {
+      display: flex;
+    }
+  }
+}

@@ -42,10 +42,11 @@ async function showSlider() {
 
   function sliderControl(wrapper, items, prev, next) {
     let posInitial;
-    const slideSize = items.querySelectorAll('.slide')[0].offsetWidth;
+    let slideSize = items.querySelectorAll('.slide')[0].offsetWidth;
     let allowShift = true;
 
     items.addEventListener('transitionend', updateSlides);
+    window.addEventListener('resize', resizePage);
 
     prev.forEach((btn) => {
       btn.addEventListener('click', shiftToLeft);
@@ -83,6 +84,11 @@ async function showSlider() {
       }
 
       allowShift = false;
+    }
+
+    function resizePage() {
+      slideSize = items.querySelectorAll('.slide')[0].offsetWidth;
+      items.style.left = -slideSize + 'px';
     }
 
     function updateSlides() {
