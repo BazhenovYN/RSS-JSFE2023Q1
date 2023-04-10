@@ -18,7 +18,7 @@
   }
 
   .menu {
-    
+
     &__link {
       color: $color-dark-l;
   
@@ -37,6 +37,16 @@
         width: 100%;
         border-bottom: 3px solid $color-primary;
       }
+    }
+
+    &__list {
+      @media (max-width: 767.5px) {
+        background-color: $color-dark-m;
+      }
+    }
+
+    & .hamburger span {
+      background-color: black;
     }
   }
 }
@@ -82,33 +92,6 @@ section:nth-child(odd) {
 
     @include mobile {
       margin: 40px 0;
-    }
-
-    > .pet-card {
-      @media (min-width: 0px) {
-        &:nth-child(4),
-        &:nth-child(5),
-        &:nth-child(6),
-        &:nth-child(7),
-        &:nth-child(8) {
-          display: none;
-        }
-      }
-
-      @media (min-width: 640px) {
-        &:nth-child(4),
-        &:nth-child(5),
-        &:nth-child(6) {
-          display: flex;
-        }
-      }
-
-      @media (min-width: 1280px) {
-        &:nth-child(7),
-        &:nth-child(8) {
-          display: flex;
-        }
-      }
     }
   }
 }

@@ -1,0 +1,30 @@
+@import '../../common/styles/mixins';
+@import '../../common/styles/variables';
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  @include box(30px, 20px);
+  position: relative;
+  z-index: 10;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  transition: transform .3s ease;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  & span {
+    height: 2px;
+    background-color: $color-primary;
+    width: 100%;
+  }
+
+  &_active {
+    transform: rotate(-90deg);
+  }
+}

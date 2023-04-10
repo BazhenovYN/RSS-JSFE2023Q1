@@ -22,12 +22,13 @@
             <div class="logo__subtitle">Shelter for pets in Boston</div>
           </a>
         </div>
-        <div class="hamburger">
-          <div class="hamburger__line">
-
-          </div>
-        </div>
+        <div class="overlay"></div>
         <nav class="menu">
+          <button class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <ul class="menu__list">
             <li class="menu__item active">
               <a href="#about" class="menu__link">About the shelter</a>
@@ -110,27 +111,8 @@
             <button class="slider__prev">
               <img src="../../assets/icons/Arrow.svg" alt="arrow">
             </button>
-            <div class="slider__items">
-              <div class="pet-card">
-                <img class="pet-card__image" src="../../assets/images/pets/katrine.png" alt="pet">
-                <div class="pet-card__title">Katrine</div>
-                <button class="pet-card__button secondary-button">
-                  Learn more
-                </button>
-              </div>
-              <div class="pet-card">
-                <img class="pet-card__image" src="../../assets/images/pets/jennifer.png" alt="pet">
-                <div class="pet-card__title">Jennifer</div>
-                <button class="pet-card__button secondary-button">
-                  Learn more
-                </button>
-              </div>
-              <div class="pet-card">
-                <img class="pet-card__image" src="../../assets/images/pets/woody.png" alt="pet">
-                <div class="pet-card__title">Woody</div>
-                <button class="pet-card__button secondary-button">
-                  Learn more
-                </button>
+            <div class="wrapper">
+              <div class="slides">
               </div>
             </div>
             <button class="slider__next">
@@ -281,6 +263,34 @@
       </div>
     </div>
   </footer>
+  <div class="popup">
+    <div class="popup__content">
+      <button class="popup__button-close">
+        <svg width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M7.42618 6.00003L11.7046 1.72158C12.0985 1.32775 12.0985 0.689213 11.7046 0.295433C11.3108 -0.0984027 10.6723 -0.0984027 10.2785 0.295433L5.99998 4.57394L1.72148 0.295377C1.32765 -0.098459 0.68917 -0.098459 0.295334 0.295377C-0.0984448 0.689213 -0.0984448 1.32775 0.295334 1.72153L4.57383 5.99997L0.295334 10.2785C-0.0984448 10.6723 -0.0984448 11.3108 0.295334 11.7046C0.68917 12.0985 1.32765 12.0985 1.72148 11.7046L5.99998 7.42612L10.2785 11.7046C10.6723 12.0985 11.3108 12.0985 11.7046 11.7046C12.0985 11.3108 12.0985 10.6723 11.7046 10.2785L7.42618 6.00003Z" />
+        </svg>
+      </button>
+      <div class="pet__image-container">
+        <img class="pet__image" src="" alt="">
+      </div>
+      <div class="pet">
+        <h3 class="pet__name"></h3>
+        <div class="pet__breed"></div>
+        <div class="pet__description"></div>
+        <ul class="pet-info">
+          <li><span>Age: </span><span class="pet-info__age"></span></li>
+          <li><span>Inoculations: </span><span class="pet-info__inoculations"></span></li>
+          <li><span>Diseases: </span><span class="pet-info__diseases"></span></li>
+          <li><span>Parasites: </span><span class="pet-info__parasites"></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <script src="../../common/common.js"></script>
+  <script src="../../components/hamburger/hamburger.js"></script>
+  <script src="../../components/slider/slider.js"></script>
+  <script src="../../components/popup/popup.js"></script>
   <script src="./main.js"></script>
 </body>
 

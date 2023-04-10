@@ -13,20 +13,58 @@
     flex-direction: row;
   }
 
-  .mobile-buttons {
-    display: flex;
-    gap: 80px;
-    margin-top: 20px;
-
-    @media (min-width: 690px) {
-      display: none;
+  .wrapper {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    @media (min-width: 0px) {
+      width: 270px;
+    }
+    @media (min-width: 768px) {
+      width: 604px;
+    }
+    @media (min-width: 1280px) {
+      width: 1096px;
     }
   }
 
-  &__items {
+  .slides {
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    position: relative;
+    top: 0;
+    width: 300%;
+
+    &.shifting {
+      transition: left .2s ease-out;
+    }
+    @media (min-width: 0px) {
+      left: -270px;
+    }
+    @media (min-width: 768px) {
+      left: -604px;
+    }
+    @media (min-width: 1280px) {
+      left: -1096px;
+    }
+  }
+
+  .slide {
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+
+    @media (min-width: 0px) {
+      width: 270px;
+    }
+
+    @media (min-width: 768px) {
+      width: 604px;
+    }
+
+    @media (min-width: 1280px) {
+      width: 1096px;
+    }
 
     > div { 
       @media (min-width: 0px) {
@@ -36,7 +74,7 @@
         }
       }
 
-      @media (min-width: 690px) {
+      @media (min-width: 768px) {
         &:nth-child(2) {
           display: flex;
         }
@@ -45,12 +83,22 @@
         }
       }
 
-      @media (min-width: 1024px) {
+      @media (min-width: 1280px) {
         &:nth-child(2),
         &:nth-child(3) {
           display: flex;
         }
       }
+    }
+  }
+
+  .mobile-buttons {
+    display: flex;
+    gap: 80px;
+    margin-top: 20px;
+
+    @media (min-width: 690px) {
+      display: none;
     }
   }
 
