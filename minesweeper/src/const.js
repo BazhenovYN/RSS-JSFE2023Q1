@@ -1,3 +1,4 @@
+export const APP_TITLE = 'RSS Minesweeper';
 export const EASY_LEVEL = {
   sizeX: 10,
   sizeY: 10,

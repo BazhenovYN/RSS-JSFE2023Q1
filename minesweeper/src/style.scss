@@ -2,6 +2,19 @@
   box-sizing: border-box;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  font-family: monospace;
+}
+
+.title {
+  font-size: 4em;
+  margin-bottom: 0;
+}
+
 .cells {
   width: fit-content;
   margin: auto;
@@ -12,11 +25,49 @@
 }
 
 .cell {
-  width: 2em;
-  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5vw;
+  height: 5vw;
   max-width: 30px;
   max-height: 30px;
   background-color: #bdbdbd;
+  font-size: 2em;
+  font-weight: bold;
+
+  &[value="1"] {
+    color: blue;
+  }
+
+  &[value="2"] {
+    color: green;
+  }
+  
+  &[value="3"] {
+    color: red;
+  }
+  
+  &[value="4"] {
+    color: darkblue;
+  }
+  
+  &[value="5"] {
+    color: brown;
+  }
+  
+  &[value="6"] {
+    color: turquoise;
+  }
+  
+  &[value="7"] {
+    color: black;
+  }
+  
+  &[value="8"] {
+    color: white;
+  }
+
 }
 
 .closed {
@@ -24,4 +75,27 @@
   border-right: solid 3px #7b7b7b;
   border-top: solid 3px #fff;
   border-left: solid 3px #fff;
+}
+
+.empty {
+  border-left: solid 1px #7b7b7b;
+  border-top: solid 1px #7b7b7b;
+  border-bottom: none;
+  border-right: none;
+}
+
+.flag {
+  background-image: url('./assets/svg/flag.svg');
+}
+
+.mine {
+  background-image: url('./assets/svg/mine.svg');
+}
+
+.bang {
+  background-color: red;
+}
+
+.mistake {
+  background-image: url('./assets/svg/mistake.svg');
 }
