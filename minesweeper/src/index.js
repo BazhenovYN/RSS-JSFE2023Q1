@@ -13,6 +13,9 @@ class Board {
     this.timer = 0;
     this.moveCount = 0;
     this.cells = [];
+    this.elements = {
+      cells: null,
+    };
   }
 
   init(difficultyLevel) {
@@ -20,6 +23,7 @@ class Board {
     this.sizeY = difficultyLevel.sizeY;
     this.mineCount = difficultyLevel.mineCount;
     this.generateMinefieldCells();
+    this.generateHtml();
   }
 
   generateMinefieldCells() {
@@ -36,6 +40,28 @@ class Board {
     }
   }
 
+  generateHtml() {
+    this.elements.cells = document.createElement('div');
+    this.elements.cells.classList.add('cells');
+    this.elements.cells.appendChild(this.createMineField());
+    document.body.appendChild(this.elements.cells);
+  }
+
+  createMineField() {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < this.sizeX; i += 1) {
+      const line = document.createElement('div');
+      line.classList.add('line');
+      for (let j = 0; j < this.sizeY; j += 1) {
+        const cell = document.createElement('div');
+        cell.classList.add('cell', 'closed');
+        line.appendChild(cell);
+      }
+      fragment.appendChild(line);
+    }
+    return fragment;
+  }
+
   assignMines(startingCell) {
     while (this.minesRemaining < this.mineCount) {
       const i = getRandomInteger(0, this.sizeX - 1);
@@ -48,12 +74,12 @@ class Board {
   }
 
   calculateNeighborMineCounts() {
-    function getMineCount(currentCell) {
+    function getMineCount(currentCell, cells) {
       let count = 0;
       for (let i = currentCell.i - 1; i <= currentCell.i + 1; i += 1) {
         for (let j = currentCell.j - 1; j <= currentCell.j + 1; j += 1) {
-          if (i >= 0 && j >= 0 && i !== currentCell.i && j !== currentCell.j) {
-            count = this.cells[i][j].mined ? count += 1 : count;
+          if (i >= 0 && j >= 0 && cells[i] && cells[i][j]) {
+            count = cells[i][j].mined ? count += 1 : count;
           }
         }
       }
@@ -63,9 +89,23 @@ class Board {
     for (let i = 0; i < this.sizeX; i += 1) {
       for (let j = 0; j < this.sizeY; j += 1) {
         if (!this.cells[i][j].mined) {
-          this.cells[i][j].neighborMineCount = getMineCount({ i, j });
+          this.cells[i][j].neighborMineCount = getMineCount({ i, j }, this.cells);
         }
       }
+    }
+  }
+
+  showMinefield() {
+    for (let i = 0; i < this.sizeX; i += 1) {
+      let str = '';
+      for (let j = 0; j < this.sizeY; j += 1) {
+        if (this.cells[i][j].mined) {
+          str += '\tm\t';
+        } else {
+          str += `\t${this.cells[i][j].neighborMineCount}\t`;
+        }
+      }
+      console.log(str);
     }
   }
 

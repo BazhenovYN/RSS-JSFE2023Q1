@@ -1,3 +1,27 @@
 * {
   box-sizing: border-box;
 }
+
+.cells {
+  width: fit-content;
+  margin: auto;
+}
+
+.line {
+  display: flex;
+}
+
+.cell {
+  width: 2em;
+  height: 2em;
+  max-width: 30px;
+  max-height: 30px;
+  background-color: #bdbdbd;
+}
+
+.closed {
+  border-bottom: solid 3px #7b7b7b;
+  border-right: solid 3px #7b7b7b;
+  border-top: solid 3px #fff;
+  border-left: solid 3px #fff;
+}
