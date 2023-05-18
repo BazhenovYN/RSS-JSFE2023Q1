@@ -1,7 +1,12 @@
 import './normalize.css';
 import './style.scss';
 
-import { APP_TITLE, EASY_LEVEL, MEDIUM_LEVEL, HARD_LEVEL } from './const';
+import {
+  APP_TITLE,
+  EASY_LEVEL,
+  MEDIUM_LEVEL,
+  HARD_LEVEL 
+} from './const';
 import { getRandomInteger } from './utils';
 
 class Board {
@@ -10,7 +15,8 @@ class Board {
     this.sizeY = 0;
     this.mineCount = 0;
     this.minesRemaining = 0;
-    this.timer = 0;
+    this.startTime = 0;
+    this.timerId = 0;
     this.moveCount = 0;
     this.gameOn = false;
     this.win = false;
@@ -57,6 +63,7 @@ class Board {
     btnNewGame.textContent = 'New game';
     btnNewGame.classList.add('menu__new-game');
     btnNewGame.addEventListener('click', () => {
+      this.stopGame();
       this.createNewGame();
     });
 
@@ -83,13 +90,13 @@ class Board {
 
   resetHtml() {
     const cells = this.elements.cells.querySelectorAll('.cell');
-    cells.forEach((currElement) => {
-      const element = currElement; // recomended eslint
+    for (let i = 0; i < cells.length; i += 1) {
+      const element = cells[i];
       element.classList.remove('mine', 'bang', 'empty', 'flag', 'mistake');
       element.removeAttribute('value');
       element.classList.add('closed');
       element.innerText = '';
-    });
+    }
   }
 
   getCurrentCell(element) {
@@ -98,16 +105,26 @@ class Board {
     return this.cells[i][j];
   }
 
+  getCurrentElement(cell) {
+    return this.elements.cells.querySelector(`#cell-${cell.i}-${cell.j}`);
+  }
+
   handleLeftClick(event) {
     if (this.win || this.lose) {
       return;
     }
 
-    const target = event.currentTarget;
-    const cell = this.getCurrentCell(target);
+    this.moveCount += 1;
+
+    const element = event.currentTarget;
+    const cell = this.getCurrentCell(element);
+
+    if (cell.opened) {
+      return;
+    }
 
     if (cell.flagged) {
-      target.classList.remove('flag');
+      element.classList.remove('flag');
       cell.flagged = false;
       return;
     }
@@ -116,36 +133,32 @@ class Board {
       this.startNewGame(cell);
     }
 
-    target.classList.remove('closed');
-    cell.opened = true;
-
-    if (cell.mined) {
-      target.classList.add('mine', 'bang');
-      this.gameOver();
-    } else if (cell.neighborMineCount > 0) {
-      target.innerText = cell.neighborMineCount;
-      target.setAttribute('value', cell.neighborMineCount);
-    } else if (cell.neighborMineCount = 0) {
-
-    }
+    this.openCell(cell);
   }
 
   handleRightClick(event) {
     event.preventDefault();
+
     if (this.win || this.lose) {
       return;
     }
 
-    const target = event.currentTarget;
-    target.classList.toggle('flag');
+    this.moveCount += 1;
 
-    const cell = this.getCurrentCell(target);
+    const element = event.currentTarget;
+    const cell = this.getCurrentCell(element);
+
+    if (cell.opened) {
+      return;
+    }
+
+    element.classList.toggle('flag');
     cell.flagged = !cell.flagged;
 
     if (cell.flagged) {
       this.minesRemaining -= 1;
       if (this.minesRemaining === 0 && this.isWin()) {
-        this.win();
+        this.victory();
       }
     } else {
       this.minesRemaining += 1;
@@ -156,21 +169,23 @@ class Board {
     return this.mines.every((cell) => cell.flagged);
   }
 
-  win() {
+  victory() {
     this.gameOn = false;
     this.win = true;
+    this.stopTimer();
   }
 
   gameOver() {
     this.gameOn = false;
     this.lose = true;
+    this.stopTimer();
     this.openMines();
     this.checkMistakes();
   }
 
   openMines() {
     this.mines.filter((cell) => !cell.flagged && !cell.opened).forEach((cell) => {
-      const element = this.elements.cells.querySelector(`#cell-${cell.i}-${cell.j}`);
+      const element = this.getCurrentElement(cell);
       element.classList.remove('closed');
       element.classList.add('mine');
     });
@@ -184,6 +199,36 @@ class Board {
           const element = this.elements.cells.querySelector(`#cell-${i}-${j}`);
           element.classList.remove('closed', 'flag');
           element.classList.add('mistake');
+        }
+      }
+    }
+  }
+
+  openCell(cell) {
+    if (cell.opened) {
+      return;
+    }
+
+    const element = this.getCurrentElement(cell);
+    element.classList.remove('closed');
+    this.cells[cell.i][cell.j].opened = true;
+
+    if (cell.mined) {
+      element.classList.add('mine', 'bang');
+      this.gameOver();
+    } else if (cell.neighborMineCount > 0) {
+      element.innerText = cell.neighborMineCount;
+      element.setAttribute('value', cell.neighborMineCount);
+    } else if (cell.neighborMineCount === 0) {
+      this.openAllNeighbors(cell);
+    }
+  }
+
+  openAllNeighbors(currentCell) {
+    for (let i = currentCell.i - 1; i <= currentCell.i + 1; i += 1) {
+      for (let j = currentCell.j - 1; j <= currentCell.j + 1; j += 1) {
+        if (i >= 0 && j >= 0 && this.cells[i] && this.cells[i][j]) {
+          this.openCell(this.cells[i][j]);
         }
       }
     }
@@ -252,19 +297,36 @@ class Board {
     }
   }
 
+  startTimer() {
+    this.startTime = Date.now();
+    this.timerId = setInterval(() => {
+      const now = Date.now();
+      const timeElapsed = Math.floor((now - this.startTime) / 1000);
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.timerId);
+  }
+
   createNewGame() {
-    this.gameOn = false;
     this.win = false;
     this.lose = false;
-    this.timer = 0;
+    this.startTime = 0;
     this.moveCount = 0;
     this.generateEmptyMinefield();
     this.resetHtml();
   }
 
+  stopGame() {
+    this.gameOn = false;
+    this.stopTimer();
+  }
+
   startNewGame(startingCell) {
     this.assignMines(startingCell);
     this.calculateNeighborMineCounts();
+    this.startTimer();
     this.gameOn = true;
   }
 }
