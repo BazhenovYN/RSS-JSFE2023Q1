@@ -27,11 +27,12 @@ class Board {
     this.sizeX = difficultyLevel.sizeX;
     this.sizeY = difficultyLevel.sizeY;
     this.mineCount = difficultyLevel.mineCount;
-    this.generateMinefieldCells();
+    this.generateEmptyMinefield();
     this.generateHtml();
   }
 
-  generateMinefieldCells() {
+  generateEmptyMinefield() {
+    this.cells = [];
     for (let i = 0; i < this.sizeX; i += 1) {
       this.cells[i] = [];
       for (let j = 0; j < this.sizeY; j += 1) {
@@ -48,20 +49,47 @@ class Board {
   }
 
   generateHtml() {
-    this.elements.main = document.createElement('div');
-    this.elements.main.classList.add('container');
-
     const title = document.createElement('h1');
     title.innerText = APP_TITLE;
     title.classList.add('title');
+
+    const btnNewGame = document.createElement('button');
+    btnNewGame.textContent = 'New game';
+    btnNewGame.classList.add('menu__new-game');
+    btnNewGame.addEventListener('click', () => {
+      this.createNewGame();
+    });
+
+    const menu = document.createElement('div');
+    menu.classList.add('menu');
+    menu.appendChild(btnNewGame);
 
     this.elements.cells = document.createElement('div');
     this.elements.cells.classList.add('cells');
     this.elements.cells.appendChild(this.createMinefield());
 
+    const board = document.createElement('div');
+    board.classList.add('board');
+    board.appendChild(menu);
+    board.appendChild(this.elements.cells);
+
+    this.elements.main = document.createElement('div');
+    this.elements.main.classList.add('container');
     this.elements.main.appendChild(title);
-    this.elements.main.appendChild(this.elements.cells);
+    this.elements.main.appendChild(board);
+
     document.body.appendChild(this.elements.main);
+  }
+
+  resetHtml() {
+    const cells = this.elements.cells.querySelectorAll('.cell');
+    cells.forEach((currElement) => {
+      const element = currElement; // recomended eslint
+      element.classList.remove('mine', 'bang', 'empty', 'flag', 'mistake');
+      element.removeAttribute('value');
+      element.classList.add('closed');
+      element.innerText = '';
+    });
   }
 
   getCurrentCell(element) {
@@ -113,21 +141,52 @@ class Board {
 
     const cell = this.getCurrentCell(target);
     cell.flagged = !cell.flagged;
+
+    if (cell.flagged) {
+      this.minesRemaining -= 1;
+      if (this.minesRemaining === 0 && this.isWin()) {
+        this.win();
+      }
+    } else {
+      this.minesRemaining += 1;
+    }
+  }
+
+  isWin() {
+    return this.mines.every((cell) => cell.flagged);
   }
 
   win() {
+    this.gameOn = false;
     this.win = true;
   }
 
   gameOver() {
+    this.gameOn = false;
     this.lose = true;
-    this.mines.forEach((cell) => {
-      if (!this.cells[cell.i][cell.j].flagged && !this.cells[cell.i][cell.j].opened) {
-        const element = this.elements.cells.querySelector(`#cell-${cell.i}-${cell.j}`);
-        element.classList.remove('closed');
-        element.classList.add('mine');
-      }
+    this.openMines();
+    this.checkMistakes();
+  }
+
+  openMines() {
+    this.mines.filter((cell) => !cell.flagged && !cell.opened).forEach((cell) => {
+      const element = this.elements.cells.querySelector(`#cell-${cell.i}-${cell.j}`);
+      element.classList.remove('closed');
+      element.classList.add('mine');
     });
+  }
+
+  checkMistakes() {
+    for (let i = 0; i < this.sizeX; i += 1) {
+      for (let j = 0; j < this.sizeY; j += 1) {
+        const cell = this.cells[i][j];
+        if (cell.flagged && !cell.mined) {
+          const element = this.elements.cells.querySelector(`#cell-${i}-${j}`);
+          element.classList.remove('closed', 'flag');
+          element.classList.add('mistake');
+        }
+      }
+    }
   }
 
   createMinefield() {
@@ -155,6 +214,8 @@ class Board {
   }
 
   assignMines(startingCell) {
+    this.mines = [];
+    this.minesRemaining = 0;
     while (this.minesRemaining < this.mineCount) {
       const i = getRandomInteger(0, this.sizeX - 1);
       const j = getRandomInteger(0, this.sizeY - 1);
@@ -162,8 +223,8 @@ class Board {
         && startingCell.i !== i
         && startingCell.j !== j
       ) {
-        this.mines.push({ i, j });
         this.cells[i][j].mined = true;
+        this.mines.push(this.cells[i][j]);
         this.minesRemaining += 1;
       }
     }
@@ -191,10 +252,20 @@ class Board {
     }
   }
 
+  createNewGame() {
+    this.gameOn = false;
+    this.win = false;
+    this.lose = false;
+    this.timer = 0;
+    this.moveCount = 0;
+    this.generateEmptyMinefield();
+    this.resetHtml();
+  }
+
   startNewGame(startingCell) {
-    this.gameOn = true;
     this.assignMines(startingCell);
     this.calculateNeighborMineCounts();
+    this.gameOn = true;
   }
 }
 

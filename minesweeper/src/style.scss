@@ -15,6 +15,18 @@
   margin-bottom: 0;
 }
 
+.board {
+
+}
+
+.menu {
+
+  &__new-game {
+    
+  }
+
+}
+
 .cells {
   width: fit-content;
   margin: auto;
@@ -68,34 +80,33 @@
     color: white;
   }
 
-}
-
-.closed {
-  border-bottom: solid 3px #7b7b7b;
-  border-right: solid 3px #7b7b7b;
-  border-top: solid 3px #fff;
-  border-left: solid 3px #fff;
-}
-
-.empty {
-  border-left: solid 1px #7b7b7b;
-  border-top: solid 1px #7b7b7b;
-  border-bottom: none;
-  border-right: none;
-}
-
-.flag {
-  background-image: url('./assets/svg/flag.svg');
-}
-
-.mine {
-  background-image: url('./assets/svg/mine.svg');
-}
-
-.bang {
-  background-color: red;
-}
-
-.mistake {
-  background-image: url('./assets/svg/mistake.svg');
+  &.closed {
+    border-bottom: solid 3px #7b7b7b;
+    border-right: solid 3px #7b7b7b;
+    border-top: solid 3px #fff;
+    border-left: solid 3px #fff;
+  }
+  
+  &.empty {
+    border-left: solid 1px #7b7b7b;
+    border-top: solid 1px #7b7b7b;
+    border-bottom: none;
+    border-right: none;
+  }
+  
+  &.flag {
+    background-image: url('./assets/svg/flag.svg');
+  }
+  
+  &.mine {
+    background-image: url('./assets/svg/mine.svg');
+  }
+  
+  &.bang {
+    background-color: red;
+  }
+  
+  &.mistake {
+    background-image: url('./assets/svg/mistake.svg');
+  }
 }
