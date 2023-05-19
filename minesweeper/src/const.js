@@ -1,4 +1,5 @@
 export const APP_TITLE = 'RSS Minesweeper';
+export const START_MESSAGE = 'Good luck and be careful!';
 export const EASY_LEVEL = {
   name: 'Easy',
   sizeX: 10,

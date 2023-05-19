@@ -1,0 +1,63 @@
+%convex-element {
+  border-top: solid 3px $highlight;
+  border-left: solid 3px $highlight;
+  border-bottom: solid 3px $shadow;
+  border-right: solid 3px $shadow; 
+}
+
+%concave-element {
+  border-top: solid 3px $shadow;
+  border-left: solid 3px $shadow;
+  border-bottom: solid 3px $highlight;
+  border-right: solid 3px $highlight;  
+}
+
+.body.theme-light {
+  background-color: $background-color;
+  color: $text-color;
+
+  .board {
+    background-color: $cell-background-color;
+  }
+
+  .menu {
+    @extend %concave-element;
+    padding: 10px;
+
+    .button {
+      @extend %convex-element;
+      color: $text-color;
+      background-color: $cell-background-color;
+
+      &:active {
+        @extend %concave-element;
+      }
+    }
+
+    &__info {
+      @extend %concave-element;
+      color: $info-text-color;
+      background-color: $info-background-color;
+    }
+  }
+
+  .cells {
+    border-right: solid 1px $shadow;
+    border-bottom: solid 1px $shadow;
+
+    .cell {
+      background-color: $cell-background-color;
+  
+      &.closed {
+        @extend %convex-element;
+      }
+  
+      &.opened {
+        border-left: solid 1px $shadow;
+        border-top: solid 1px $shadow;
+        border-bottom: none;
+        border-right: none;
+      }
+    }
+  }
+}

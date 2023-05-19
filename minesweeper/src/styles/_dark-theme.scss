@@ -1,0 +1,63 @@
+%dark-convex-element {
+  border-top: solid 3px $highlight;
+  border-left: solid 3px $highlight;
+  border-bottom: solid 3px $dark-shadow;
+  border-right: solid 3px $dark-shadow;
+}
+
+%dark-concave-element {
+  border-top: solid 3px $dark-shadow;
+  border-left: solid 3px $dark-shadow;
+  border-bottom: solid 3px $highlight;
+  border-right: solid 3px $highlight;      
+}
+
+.body.theme-dark {
+  background-color: $dark-background-color;
+  color: $dark-text-color;
+
+  .board {
+    background-color: $dark-cell-background-color;
+  }
+
+  .menu {
+    @extend %dark-concave-element;
+    padding: 10px;
+
+    .button {
+      @extend %dark-convex-element;
+      color: $dark-text-color;
+      background-color: $dark-cell-background-color;
+
+      &:active {
+        @extend %dark-concave-element;
+      }
+    }
+
+    &__info {
+      @extend %dark-concave-element;
+      color: $info-text-color;
+      background-color: $info-background-color;
+    }
+  }
+
+  .cells {
+    border-right: solid 1px $dark-shadow;
+    border-bottom: solid 1px $dark-shadow;
+
+    .cell {
+      background-color: $dark-cell-background-color;
+  
+      &.closed {
+        @extend %dark-convex-element;
+      }
+  
+      &.opened {
+        border-left: solid 1px $dark-shadow;
+        border-top: solid 1px $dark-shadow;
+        border-bottom: none;
+        border-right: none;
+      }
+    }
+  }
+}

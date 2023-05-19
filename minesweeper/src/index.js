@@ -2,6 +2,7 @@ import './style.scss';
 
 import {
   APP_TITLE,
+  START_MESSAGE,
   EASY_LEVEL,
   MEDIUM_LEVEL,
   HARD_LEVEL,
@@ -22,7 +23,6 @@ class Board {
     this.sizeY = 0;
     this.mineCount = 0;
     this.minesRemaining = 0;
-    this.startTime = 0;
     this.timer = 0;
     this.timerId = 0;
     this.moveCount = 0;
@@ -34,7 +34,11 @@ class Board {
     this.elements = {
       main: null,
       cells: null,
+      minesRemaining: null,
+      timer: null,
+      message: null,
     };
+    this.mute = false;
     this.audioWin = new Audio();
     this.audioWin.src = './assets/sounds/win.wav';
     this.audioWin.preload = 'auto';
@@ -54,6 +58,7 @@ class Board {
       moveCount: this.moveCount,
       cells: this.cells,
       mines: this.mines,
+      mute: this.mute,
     };
   }
 
@@ -102,20 +107,55 @@ class Board {
 
   generateHtml() {
     const title = document.createElement('h1');
-    title.innerText = APP_TITLE;
+    title.textContent = APP_TITLE;
     title.classList.add('title');
+
+    this.elements.message = document.createElement('div');
+    this.elements.message.textContent = START_MESSAGE;
+    this.elements.message.classList.add('message');
 
     const btnNewGame = document.createElement('button');
     btnNewGame.textContent = 'New game';
-    btnNewGame.classList.add('menu__new-game');
+    btnNewGame.classList.add('button', 'menu__new-game');
     btnNewGame.addEventListener('click', () => {
       this.stopGame();
       this.createNewGame();
     });
 
+    const btnSettings = document.createElement('button');
+    btnSettings.textContent = 'Settings';
+    btnSettings.classList.add('button', 'menu__settings');
+    btnSettings.addEventListener('click', () => {
+      
+    });
+
+    const btnScore = document.createElement('button');
+    btnScore.textContent = 'Score';
+    btnScore.classList.add('button', 'menu__score');
+    btnScore.addEventListener('click', () => {
+      
+    });
+
+    this.elements.minesRemaining = document.createElement('div');
+    this.elements.minesRemaining.classList.add('menu__info');
+    this.elements.minesRemaining.title = 'Mines remaining';
+    this.elements.minesRemaining.textContent = '000';
+
+    this.elements.timer = document.createElement('div');
+    this.elements.timer.classList.add('menu__info');
+    this.elements.timer.title = 'Timer';
+    this.elements.timer.textContent = '000';
+
     const menu = document.createElement('div');
     menu.classList.add('menu');
+    menu.appendChild(this.elements.minesRemaining);
     menu.appendChild(btnNewGame);
+    menu.appendChild(this.elements.timer);
+
+    const secondaryMenu = document.createElement('div');
+    secondaryMenu.classList.add('menu');
+    secondaryMenu.appendChild(btnSettings);
+    secondaryMenu.appendChild(btnScore);
 
     this.elements.cells = document.createElement('div');
     this.elements.cells.classList.add('cells');
@@ -123,14 +163,23 @@ class Board {
 
     const board = document.createElement('div');
     board.classList.add('board');
-    board.appendChild(menu);
-    board.appendChild(this.elements.cells);
+
+    const boardInner = document.createElement('div');
+    boardInner.classList.add('board__inner');
+    boardInner.appendChild(menu);
+    boardInner.appendChild(this.elements.cells);
+    boardInner.appendChild(secondaryMenu);
+
+    board.appendChild(boardInner);
 
     this.elements.main = document.createElement('div');
     this.elements.main.classList.add('container');
     this.elements.main.appendChild(title);
+    this.elements.main.appendChild(this.elements.message);
     this.elements.main.appendChild(board);
 
+    const body = document.querySelector('body');
+    body.classList.add('body', 'theme-light');
     document.body.appendChild(this.elements.main);
   }
 
@@ -176,6 +225,8 @@ class Board {
       element.classList.add('closed');
       element.innerText = '';
     }
+    this.elements.message.textContent = START_MESSAGE;
+    this.elements.timer.textContent = '000';
   }
 
   getCellClasses(i, j) {
@@ -296,7 +347,12 @@ class Board {
     this.stopTimer();
     saveScore(this.timer, this.moveCount);
     deleteSaveSlot();
-    this.audioWin.play();
+
+    if (!this.mute) {
+      this.audioWin.play();
+    }
+    this.elements.message.textContent = `Hooray! You found all mines in ${this.timer}
+      seconds and ${this.moveCount} moves!`;
   }
 
   gameOver() {
@@ -306,7 +362,11 @@ class Board {
     this.openMines();
     this.checkMistakes();
     deleteSaveSlot();
-    this.audioLose.play();
+
+    if (!this.mute) {
+      this.audioLose.play();
+    }
+    this.elements.message.textContent = 'Game over! Try again';
   }
 
   openMines() {
@@ -401,11 +461,9 @@ class Board {
   }
 
   startTimer() {
-    this.startTime = Date.now();
     this.timerId = setInterval(() => {
-      const now = Date.now();
-      const time = Math.floor((now - this.startTime) / 1000);
-      this.timer += time;
+      this.timer += 1;
+      this.elements.timer.textContent = this.timer;
     }, 1000);
   }
 
@@ -417,7 +475,6 @@ class Board {
     this.win = false;
     this.lose = false;
     this.timer = 0;
-    this.startTime = 0;
     this.moveCount = 0;
     this.generateEmptyMinefield();
     this.resetHtml();

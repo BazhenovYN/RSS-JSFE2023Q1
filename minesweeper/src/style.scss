@@ -1,5 +1,9 @@
 @import "~normalize.css";
 
+@import "./styles/variables";
+@import "./styles/light-theme";
+@import "./styles/dark-theme";
+
 * {
   box-sizing: border-box;
 }
@@ -8,7 +12,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 10px;
   font-family: monospace;
 }
 
@@ -19,19 +23,32 @@
 
 .board {
 
+  .board__inner {
+    margin: 10px;
+  }
 }
 
 .menu {
+  display: flex;
+  justify-content: space-between;
+  
+  .button {
+    width: 30%;
+    cursor: pointer;
+  }
 
-  &__new-game {
-
+  &__info {
+    font-weight: bold;
+    padding: 2px;
+    min-width: 35px;
+    text-align: center;
   }
 
 }
 
 .cells {
   width: fit-content;
-  margin: auto;
+  margin: 10px auto;
 }
 
 .line {
@@ -46,23 +63,10 @@
   height: 5vw;
   max-width: 30px;
   max-height: 30px;
-  background-color: #bdbdbd;
   font-size: 2em;
   font-weight: bold;
-
-  &.closed {
-    border-bottom: solid 3px #7b7b7b;
-    border-right: solid 3px #7b7b7b;
-    border-top: solid 3px #fff;
-    border-left: solid 3px #fff;
-  }
   
   &.opened {
-    border-left: solid 1px #7b7b7b;
-    border-top: solid 1px #7b7b7b;
-    border-bottom: none;
-    border-right: none;
-
     &[value="1"] {
       color: blue;
     }
