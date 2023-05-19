@@ -5,17 +5,24 @@ import {
   APP_TITLE,
   EASY_LEVEL,
   MEDIUM_LEVEL,
-  HARD_LEVEL 
+  HARD_LEVEL,
 } from './const';
-import { getRandomInteger } from './utils';
+import {
+  getRandomInteger,
+  saveGame,
+  loadGame,
+  deleteSaveSlot,
+} from './utils';
 
 class Board {
   constructor() {
+    this.difficultyLevel = null;
     this.sizeX = 0;
     this.sizeY = 0;
     this.mineCount = 0;
     this.minesRemaining = 0;
     this.startTime = 0;
+    this.timer = 0;
     this.timerId = 0;
     this.moveCount = 0;
     this.gameOn = false;
@@ -29,12 +36,44 @@ class Board {
     };
   }
 
+  toJSON() {
+    return {
+      difficultyLevel: this.difficultyLevel,
+      sizeX: this.sizeX,
+      sizeY: this.sizeY,
+      mineCount: this.mineCount,
+      minesRemaining: this.minesRemaining,
+      timer: this.timer,
+      moveCount: this.moveCount,
+      cells: this.cells,
+      mines: this.mines,
+    };
+  }
+
   init(difficultyLevel) {
-    this.sizeX = difficultyLevel.sizeX;
-    this.sizeY = difficultyLevel.sizeY;
-    this.mineCount = difficultyLevel.mineCount;
-    this.generateEmptyMinefield();
-    this.generateHtml();
+    const saveData = loadGame();
+    if (!saveData) {
+      // New game
+      this.difficultyLevel = difficultyLevel;
+      this.sizeX = difficultyLevel.sizeX;
+      this.sizeY = difficultyLevel.sizeY;
+      this.mineCount = difficultyLevel.mineCount;
+      this.generateEmptyMinefield();
+      this.generateHtml();
+    } else {
+      // Continue saved game
+      this.difficultyLevel = saveData.difficultyLevel;
+      this.sizeX = saveData.sizeX;
+      this.sizeY = saveData.sizeY;
+      this.mineCount = saveData.mineCount;
+      this.minesRemaining = saveData.minesRemaining;
+      this.timer = saveData.timer;
+      this.moveCount = saveData.moveCount;
+      this.cells = saveData.cells;
+      this.mines = saveData.mines;
+      this.generateHtml();
+      this.continueGame();
+    }
   }
 
   generateEmptyMinefield() {
@@ -73,7 +112,7 @@ class Board {
 
     this.elements.cells = document.createElement('div');
     this.elements.cells.classList.add('cells');
-    this.elements.cells.appendChild(this.createMinefield());
+    this.elements.cells.appendChild(this.generateHtmlCells());
 
     const board = document.createElement('div');
     board.classList.add('board');
@@ -88,15 +127,69 @@ class Board {
     document.body.appendChild(this.elements.main);
   }
 
+  generateHtmlCells() {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < this.sizeX; i += 1) {
+      const line = document.createElement('div');
+      line.classList.add('line');
+      for (let j = 0; j < this.sizeY; j += 1) {
+        const cell = document.createElement('div');
+        cell.id = `cell-${i}-${j}`;
+        cell.classList.add('cell');
+        cell.classList.add(...this.getCellClasses(i, j));
+
+        cell.setAttribute('i', i);
+        cell.setAttribute('j', j);
+
+        const cellValue = this.getCellValue(i, j);
+        if (cellValue > 0) {
+          cell.innerText = cellValue;
+          cell.setAttribute('value', cellValue);
+        }
+
+        cell.addEventListener('click', (event) => {
+          this.handleLeftClick(event);
+        });
+        cell.addEventListener('contextmenu', (event) => {
+          this.handleRightClick(event);
+        });
+        line.appendChild(cell);
+      }
+      fragment.appendChild(line);
+    }
+    return fragment;
+  }
+
   resetHtml() {
     const cells = this.elements.cells.querySelectorAll('.cell');
     for (let i = 0; i < cells.length; i += 1) {
       const element = cells[i];
-      element.classList.remove('mine', 'bang', 'empty', 'flag', 'mistake');
+      element.classList.remove('mine', 'bang', 'opened', 'flag', 'mistake');
       element.removeAttribute('value');
       element.classList.add('closed');
       element.innerText = '';
     }
+  }
+
+  getCellClasses(i, j) {
+    const classes = [];
+    const cell = this.cells[i][j];
+    if (cell.opened) {
+      classes.push('opened');
+    } else if (cell.flagged) {
+      classes.push('closed', 'flag');
+    } else {
+      classes.push('closed');
+    }
+    return classes;
+  }
+
+  getCellValue(i, j) {
+    const cell = this.cells[i][j];
+    if (cell.opened) {
+      return cell.neighborMineCount;
+    }
+    return '';
   }
 
   getCurrentCell(element) {
@@ -134,6 +227,10 @@ class Board {
     }
 
     this.openCell(cell);
+
+    if (this.gameOn) {
+      saveGame(this);
+    }
   }
 
   handleRightClick(event) {
@@ -163,6 +260,10 @@ class Board {
     } else {
       this.minesRemaining += 1;
     }
+
+    if (this.gameOn) {
+      saveGame(this);
+    }
   }
 
   isWin() {
@@ -173,6 +274,7 @@ class Board {
     this.gameOn = false;
     this.win = true;
     this.stopTimer();
+    deleteSaveSlot();
   }
 
   gameOver() {
@@ -181,6 +283,7 @@ class Board {
     this.stopTimer();
     this.openMines();
     this.checkMistakes();
+    deleteSaveSlot();
   }
 
   openMines() {
@@ -211,6 +314,7 @@ class Board {
 
     const element = this.getCurrentElement(cell);
     element.classList.remove('closed');
+    element.classList.add('opened');
     this.cells[cell.i][cell.j].opened = true;
 
     if (cell.mined) {
@@ -232,30 +336,6 @@ class Board {
         }
       }
     }
-  }
-
-  createMinefield() {
-    const fragment = document.createDocumentFragment();
-    for (let i = 0; i < this.sizeX; i += 1) {
-      const line = document.createElement('div');
-      line.classList.add('line');
-      for (let j = 0; j < this.sizeY; j += 1) {
-        const cell = document.createElement('div');
-        cell.id = `cell-${i}-${j}`;
-        cell.setAttribute('i', i);
-        cell.setAttribute('j', j);
-        cell.classList.add('cell', 'closed');
-        cell.addEventListener('click', (event) => {
-          this.handleLeftClick(event);
-        });
-        cell.addEventListener('contextmenu', (event) => {
-          this.handleRightClick(event);
-        });
-        line.appendChild(cell);
-      }
-      fragment.appendChild(line);
-    }
-    return fragment;
   }
 
   assignMines(startingCell) {
@@ -301,7 +381,8 @@ class Board {
     this.startTime = Date.now();
     this.timerId = setInterval(() => {
       const now = Date.now();
-      const timeElapsed = Math.floor((now - this.startTime) / 1000);
+      const time = Math.floor((now - this.startTime) / 1000);
+      this.timer += time;
     }, 1000);
   }
 
@@ -312,6 +393,7 @@ class Board {
   createNewGame() {
     this.win = false;
     this.lose = false;
+    this.timer = 0;
     this.startTime = 0;
     this.moveCount = 0;
     this.generateEmptyMinefield();
@@ -321,6 +403,12 @@ class Board {
   stopGame() {
     this.gameOn = false;
     this.stopTimer();
+    deleteSaveSlot();
+  }
+
+  continueGame() {
+    this.startTimer();
+    this.gameOn = true;
   }
 
   startNewGame(startingCell) {

@@ -22,7 +22,7 @@
 .menu {
 
   &__new-game {
-    
+
   }
 
 }
@@ -48,38 +48,6 @@
   font-size: 2em;
   font-weight: bold;
 
-  &[value="1"] {
-    color: blue;
-  }
-
-  &[value="2"] {
-    color: green;
-  }
-  
-  &[value="3"] {
-    color: red;
-  }
-  
-  &[value="4"] {
-    color: darkblue;
-  }
-  
-  &[value="5"] {
-    color: brown;
-  }
-  
-  &[value="6"] {
-    color: turquoise;
-  }
-  
-  &[value="7"] {
-    color: black;
-  }
-  
-  &[value="8"] {
-    color: white;
-  }
-
   &.closed {
     border-bottom: solid 3px #7b7b7b;
     border-right: solid 3px #7b7b7b;
@@ -87,11 +55,43 @@
     border-left: solid 3px #fff;
   }
   
-  &.empty {
+  &.opened {
     border-left: solid 1px #7b7b7b;
     border-top: solid 1px #7b7b7b;
     border-bottom: none;
     border-right: none;
+
+    &[value="1"] {
+      color: blue;
+    }
+  
+    &[value="2"] {
+      color: green;
+    }
+    
+    &[value="3"] {
+      color: red;
+    }
+    
+    &[value="4"] {
+      color: darkblue;
+    }
+    
+    &[value="5"] {
+      color: brown;
+    }
+    
+    &[value="6"] {
+      color: turquoise;
+    }
+    
+    &[value="7"] {
+      color: black;
+    }
+    
+    &[value="8"] {
+      color: white;
+    }
   }
   
   &.flag {
