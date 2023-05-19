@@ -11,6 +11,8 @@ import {
   saveGame,
   loadGame,
   deleteSaveSlot,
+  saveScore,
+  loadScore,
 } from './utils';
 
 class Board {
@@ -239,8 +241,6 @@ class Board {
       return;
     }
 
-    this.moveCount += 1;
-
     const element = event.currentTarget;
     const cell = this.getCurrentCell(element);
 
@@ -273,6 +273,7 @@ class Board {
     this.gameOn = false;
     this.win = true;
     this.stopTimer();
+    saveScore(this.timer, this.moveCount);
     deleteSaveSlot();
   }
 
@@ -307,7 +308,7 @@ class Board {
   }
 
   openCell(cell) {
-    if (cell.opened) {
+    if (cell.opened || cell.flagged) {
       return;
     }
 

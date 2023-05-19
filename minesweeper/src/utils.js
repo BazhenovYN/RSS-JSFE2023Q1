@@ -13,3 +13,20 @@ export function loadGame() {
 export function deleteSaveSlot() {
   localStorage.removeItem('saveSlot');
 }
+
+export function loadScore() {
+  return JSON.parse(localStorage.getItem('totalScore'));
+}
+
+export function saveScore(timer, moveCount) {
+  const score = loadScore() || [];
+  const length = score.unshift({
+    date: Date.now(),
+    timer,
+    moveCount,
+  });
+  if (length > 10) {
+    score.pop();
+  }
+  localStorage.setItem('totalScore', JSON.stringify(score));
+}
