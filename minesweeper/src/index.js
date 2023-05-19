@@ -35,6 +35,12 @@ class Board {
       main: null,
       cells: null,
     };
+    this.audioWin = new Audio();
+    this.audioWin.src = './assets/sounds/win.wav';
+    this.audioWin.preload = 'auto';
+    this.audioLose = new Audio();
+    this.audioLose.src = './assets/sounds/lose.wav';
+    this.audioLose.preload = 'auto';
   }
 
   toJSON() {
@@ -229,6 +235,10 @@ class Board {
 
     this.openCell(cell);
 
+    if (this.isAllCellsOpened()) {
+      this.victory();
+    }
+
     if (this.gameOn) {
       saveGame(this);
     }
@@ -253,7 +263,7 @@ class Board {
 
     if (cell.flagged) {
       this.minesRemaining -= 1;
-      if (this.minesRemaining === 0 && this.isWin()) {
+      if (this.minesRemaining === 0 && this.isMinesFlagged()) {
         this.victory();
       }
     } else {
@@ -265,8 +275,19 @@ class Board {
     }
   }
 
-  isWin() {
+  isMinesFlagged() {
     return this.mines.every((cell) => cell.flagged);
+  }
+
+  isAllCellsOpened() {
+    for (let i = 0; i < this.sizeX; i += 1) {
+      for (let j = 0; j < this.sizeY; j += 1) {
+        if (!this.cells[i][j].mined && !this.cells[i][j].opened) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 
   victory() {
@@ -275,6 +296,7 @@ class Board {
     this.stopTimer();
     saveScore(this.timer, this.moveCount);
     deleteSaveSlot();
+    this.audioWin.play();
   }
 
   gameOver() {
@@ -284,6 +306,7 @@ class Board {
     this.openMines();
     this.checkMistakes();
     deleteSaveSlot();
+    this.audioLose.play();
   }
 
   openMines() {
