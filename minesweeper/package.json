@@ -14,5 +14,8 @@
     "eslint-plugin-import": "^2.27.5",
     "gh-pages": "^5.0.0",
     "rss-scripts": "^0.2.4"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
   }
 }
