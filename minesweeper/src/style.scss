@@ -123,10 +123,6 @@
     background-image: url('./assets/svg/mine.svg');
   }
   
-  &.bang {
-    background-color: red;
-  }
-  
   &.mistake {
     background-image: url('./assets/svg/mistake.svg');
   }
@@ -134,7 +130,7 @@
 
 .settings {
   display: flex;
-  
+
   &.hidden {
     display: none;
   }

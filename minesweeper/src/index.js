@@ -139,7 +139,11 @@ class Board {
     btnSettings.textContent = 'Settings';
     btnSettings.classList.add('button', 'menu__settings');
     btnSettings.addEventListener('click', () => {
-      
+      if (this.elements.settings.classList.contains('hidden')) {
+        this.showSettings();
+      } else {
+        this.hideSettings();
+      }
     });
 
     const btnScore = document.createElement('button');
@@ -193,7 +197,7 @@ class Board {
 
     this.elements.timer = document.createElement('div');
     this.elements.timer.classList.add('info__value');
-    this.elements.timer.textContent = formatInteger(0);
+    this.elements.timer.textContent = formatInteger(this.timer);
 
     const timerInfoContainer = document.createElement('div');
     timerInfoContainer.classList.add('info__container');
@@ -207,7 +211,7 @@ class Board {
 
     this.elements.moveCount = document.createElement('div');
     this.elements.moveCount.classList.add('info__value');
-    this.elements.moveCount.textContent = formatInteger(0);
+    this.elements.moveCount.textContent = formatInteger(this.moveCount);
 
     const movesInfoContainer = document.createElement('div');
     movesInfoContainer.classList.add('info__container');
@@ -317,6 +321,18 @@ class Board {
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
     this.elements.timer.textContent = formatInteger(0);
     this.elements.moveCount.textContent = formatInteger(0);
+  }
+
+  showSettings() {
+    const { settings } = this.elements;
+
+    this.elements.score.classList.add('hidden');
+    settings.classList.remove('hidden');
+  }
+
+  hideSettings() {
+    const { settings } = this.elements;
+    settings.classList.add('hidden');
   }
 
   showScore() {
@@ -538,7 +554,7 @@ class Board {
     this.mines.filter((cell) => !cell.flagged && !cell.opened).forEach((cell) => {
       const element = this.getCurrentElement(cell);
       element.classList.remove('closed');
-      element.classList.add('mine');
+      element.classList.add('opened', 'mine');
     });
   }
 
@@ -549,7 +565,7 @@ class Board {
         if (cell.flagged && !cell.mined) {
           const element = this.elements.cells.querySelector(`#cell-${i}-${j}`);
           element.classList.remove('closed', 'flag');
-          element.classList.add('mistake');
+          element.classList.add('opened', 'mistake');
         }
       }
     }
@@ -629,6 +645,9 @@ class Board {
     this.timerId = setInterval(() => {
       this.timer += 1;
       this.elements.timer.textContent = formatInteger(this.timer);
+      if (this.gameOn) {
+        saveGame(this);
+      }
     }, 1000);
   }
 

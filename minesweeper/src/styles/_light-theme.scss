@@ -58,6 +58,10 @@
         border-bottom: none;
         border-right: none;
       }
+
+      &.bang {
+        background-color: red;
+      }
     }
   }
 }
