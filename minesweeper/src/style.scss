@@ -130,10 +130,19 @@
 
 .settings {
   display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   &.hidden {
     display: none;
   }
+
+  & > * {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
 }
 
 .score {
@@ -152,4 +161,8 @@
   &.hidden {
     display: none;
   }
+}
+
+.radio-button {
+  display: flex;
 }

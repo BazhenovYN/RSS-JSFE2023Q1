@@ -1,0 +1,41 @@
+export function createRadioButton(name, value, checked, listener) {
+  const fragment = document.createDocumentFragment();
+
+  const input = document.createElement('input');
+  input.type = 'radio';
+  input.name = name;
+  input.checked = checked;
+  input.setAttribute('value', value);
+  input.addEventListener('change', listener);
+
+  const label = document.createElement('label');
+  label.htmlFor = name;
+  label.textContent = value;
+
+  const container = document.createElement('div');
+  container.classList.add('radio-button');
+  container.appendChild(input);
+  container.appendChild(label);
+
+  fragment.appendChild(container);
+
+  return fragment;
+}
+
+export function createInputNumber(name) {
+  const fragment = document.createDocumentFragment();
+
+  const input = document.createElement('input');
+  input.type = 'number';
+  input.name = name;
+  input.min = 1;
+  input.max = 100;
+
+  const container = document.createElement('div');
+  container.classList.add('input-number');
+  container.appendChild(input);
+
+  fragment.appendChild(container);
+
+  return fragment;
+}

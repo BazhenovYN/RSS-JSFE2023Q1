@@ -16,7 +16,14 @@ import {
   deleteSaveSlot,
   saveScore,
   loadScore,
+  saveTheme,
+  loadTheme,
 } from './utils';
+
+import {
+  createRadioButton,
+  createInputNumber,
+} from './components';
 
 class Board {
   constructor() {
@@ -255,6 +262,10 @@ class Board {
 
     // Settings
     this.elements.settings = document.createElement('div');
+    this.elements.settings.appendChild(this.generateThemeSelection());
+    this.elements.settings.appendChild(this.generateSoundSelection());
+    this.elements.settings.appendChild(this.generateLevelSelection());
+    this.elements.settings.appendChild(this.generateMineCountSelection());
     this.elements.settings.classList.add('settings', 'hidden');
 
     // Score
@@ -271,7 +282,12 @@ class Board {
 
     // Body
     const body = document.querySelector('body');
-    body.classList.add('body', 'theme-light');
+    body.classList.add('body');
+    if (loadTheme() === 'dark') {
+      body.classList.add('body', 'theme-dark');
+    } else {
+      body.classList.add('body', 'theme-light');
+    }
     document.body.appendChild(this.elements.main);
   }
 
@@ -323,10 +339,92 @@ class Board {
     this.elements.moveCount.textContent = formatInteger(0);
   }
 
-  showSettings() {
-    const { settings } = this.elements;
+  handleThemeChange() {
+    const body = document.querySelector('.body');
+    if (this.value === 'Dark') {
+      body.classList.remove('theme-light');
+      body.classList.add('theme-dark');
+      saveTheme('dark');
+    } else {
+      body.classList.remove('theme-dark');
+      body.classList.add('theme-light');
+      saveTheme('light');
+    }
+  }
 
-    this.elements.score.classList.add('hidden');
+  generateThemeSelection() {
+    const isDarkTheme = loadTheme() === 'dark';
+
+    const fragment = document.createDocumentFragment();
+
+    const title = document.createElement('div');
+    title.textContent = 'Theme:';
+
+    const container = document.createElement('div');
+    container.classList.add('settings__theme');
+    container.appendChild(title);
+    container.appendChild(createRadioButton('theme', 'Light', !isDarkTheme, this.handleThemeChange));
+    container.appendChild(createRadioButton('theme', 'Dark', isDarkTheme, this.handleThemeChange));
+
+    fragment.appendChild(container);
+
+    return fragment;
+  }
+
+  generateSoundSelection() {
+    const fragment = document.createDocumentFragment();
+
+    const title = document.createElement('div');
+    title.textContent = 'Sounds:';
+
+    const container = document.createElement('div');
+    container.classList.add('settings__sounds');
+    container.appendChild(title);
+    container.appendChild(createRadioButton('sounds', 'On'));
+    container.appendChild(createRadioButton('sounds', 'Off'));
+
+    fragment.appendChild(container);
+
+    return fragment;
+  }
+
+  generateLevelSelection() {
+    const fragment = document.createDocumentFragment();
+
+    const title = document.createElement('div');
+    title.textContent = 'Difficulty:';
+
+    const container = document.createElement('div');
+    container.classList.add('settings__difficulty');
+    container.appendChild(title);
+    container.appendChild(createRadioButton('difficulty', 'Easy'));
+    container.appendChild(createRadioButton('difficulty', 'Medium'));
+    container.appendChild(createRadioButton('difficulty', 'Hard'));
+
+    fragment.appendChild(container);
+
+    return fragment;
+  }
+
+  generateMineCountSelection() {
+    const fragment = document.createDocumentFragment();
+
+    const title = document.createElement('div');
+    title.textContent = 'Mine count:';
+
+    const container = document.createElement('div');
+    container.classList.add('settings__mine-count');
+    container.appendChild(title);
+    container.appendChild(createInputNumber('mine-count'));
+
+    fragment.appendChild(container);
+
+    return fragment;
+  }
+
+  showSettings() {
+    const { score, settings } = this.elements;
+    score.classList.add('hidden');
     settings.classList.remove('hidden');
   }
 

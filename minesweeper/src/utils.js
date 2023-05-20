@@ -49,3 +49,11 @@ export function formatDate(int) {
   const date = new Date(int);
   return date.toLocaleString();
 }
+
+export function saveTheme(theme) {
+  return localStorage.setItem('mainTheme', theme);
+}
+
+export function loadTheme() {
+  return localStorage.getItem('mainTheme');
+}
