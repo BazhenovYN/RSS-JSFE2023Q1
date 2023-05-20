@@ -34,7 +34,7 @@
       }
     }
 
-    &__info {
+    .info__value {
       @extend %concave-element;
       color: $info-text-color;
       background-color: $info-background-color;

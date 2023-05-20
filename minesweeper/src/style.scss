@@ -31,19 +31,33 @@
 .menu {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   
   .button {
     width: 30%;
+    height: fit-content;
     cursor: pointer;
   }
 
-  &__info {
-    font-weight: bold;
-    padding: 2px;
-    min-width: 35px;
-    text-align: center;
-  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 
+    &__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3px;
+    }
+  
+    &__value {
+      font-weight: bold;
+      padding: 2px;
+      min-width: 35px;
+      text-align: center;
+    }
+  }
 }
 
 .cells {

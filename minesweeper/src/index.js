@@ -35,8 +35,10 @@ class Board {
     this.elements = {
       main: null,
       cells: null,
+      mineCount: null,
       minesRemaining: null,
       timer: null,
+      moveCount: null,
       message: null,
     };
     this.mute = false;
@@ -111,14 +113,17 @@ class Board {
   }
 
   generateHtml() {
+    // h1
     const title = document.createElement('h1');
     title.textContent = APP_TITLE;
     title.classList.add('title');
 
+    // Messege
     this.elements.message = document.createElement('div');
     this.elements.message.textContent = START_MESSAGE;
     this.elements.message.classList.add('message');
 
+    // Buttons
     const btnNewGame = document.createElement('button');
     btnNewGame.textContent = 'New game';
     btnNewGame.classList.add('button', 'menu__new-game');
@@ -141,31 +146,91 @@ class Board {
       
     });
 
+    // Menu => Mine count
+    const textMines = document.createElement('div');
+    textMines.classList.add('info__description');
+    textMines.textContent = 'Mines';
+
+    this.elements.mineCount = document.createElement('div');
+    this.elements.mineCount.classList.add('info__value');
+    this.elements.mineCount.textContent = formatInteger(this.mineCount);
+
+    const minesInfoContainer = document.createElement('div');
+    minesInfoContainer.classList.add('info__container');
+    minesInfoContainer.appendChild(this.elements.mineCount);
+    minesInfoContainer.appendChild(textMines);
+
+    // Menu => Flags
+    const textFlags = document.createElement('div');
+    textFlags.classList.add('info__description');
+    textFlags.textContent = 'Flags';
+
     this.elements.minesRemaining = document.createElement('div');
-    this.elements.minesRemaining.classList.add('menu__info');
-    this.elements.minesRemaining.title = 'Mines remaining';
+    this.elements.minesRemaining.classList.add('info__value');
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
 
+    const flagsInfoContainer = document.createElement('div');
+    flagsInfoContainer.classList.add('info__container');
+    flagsInfoContainer.appendChild(this.elements.minesRemaining);
+    flagsInfoContainer.appendChild(textFlags);
+
+    const minesInfo = document.createElement('div');
+    minesInfo.classList.add('info');
+    minesInfo.appendChild(minesInfoContainer);
+    minesInfo.appendChild(flagsInfoContainer);
+
+    // Menu => Timer
+    const textTimer = document.createElement('div');
+    textTimer.classList.add('info__description');
+    textTimer.textContent = 'Time';
+
     this.elements.timer = document.createElement('div');
-    this.elements.timer.classList.add('menu__info');
-    this.elements.timer.title = 'Game duration';
+    this.elements.timer.classList.add('info__value');
     this.elements.timer.textContent = formatInteger(0);
 
+    const timerInfoContainer = document.createElement('div');
+    timerInfoContainer.classList.add('info__container');
+    timerInfoContainer.appendChild(textTimer);
+    timerInfoContainer.appendChild(this.elements.timer);
+
+    // Menu => Moves
+    const textMoves = document.createElement('div');
+    textMoves.classList.add('info__description');
+    textMoves.textContent = 'Clicks';
+
+    this.elements.moveCount = document.createElement('div');
+    this.elements.moveCount.classList.add('info__value');
+    this.elements.moveCount.textContent = formatInteger(0);
+
+    const movesInfoContainer = document.createElement('div');
+    movesInfoContainer.classList.add('info__container');
+    movesInfoContainer.appendChild(textMoves);
+    movesInfoContainer.appendChild(this.elements.moveCount);
+
+    const gameInfo = document.createElement('div');
+    gameInfo.classList.add('info');
+    gameInfo.appendChild(timerInfoContainer);
+    gameInfo.appendChild(movesInfoContainer);
+
+    // Main menu
     const menu = document.createElement('div');
     menu.classList.add('menu');
-    menu.appendChild(this.elements.minesRemaining);
+    menu.appendChild(minesInfo);
     menu.appendChild(btnNewGame);
-    menu.appendChild(this.elements.timer);
+    menu.appendChild(gameInfo);
 
+    // Secondary menu
     const secondaryMenu = document.createElement('div');
     secondaryMenu.classList.add('menu');
     secondaryMenu.appendChild(btnSettings);
     secondaryMenu.appendChild(btnScore);
 
+    // Cells
     this.elements.cells = document.createElement('div');
     this.elements.cells.classList.add('cells');
     this.elements.cells.appendChild(this.generateHtmlCells());
 
+    // Board
     const board = document.createElement('div');
     board.classList.add('board');
 
@@ -183,6 +248,7 @@ class Board {
     this.elements.main.appendChild(this.elements.message);
     this.elements.main.appendChild(board);
 
+    // Body
     const body = document.querySelector('body');
     body.classList.add('body', 'theme-light');
     document.body.appendChild(this.elements.main);
@@ -233,6 +299,7 @@ class Board {
     this.elements.message.textContent = START_MESSAGE;
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
     this.elements.timer.textContent = formatInteger(0);
+    this.elements.moveCount.textContent = formatInteger(0);
   }
 
   getCellClasses(i, j) {
@@ -272,6 +339,7 @@ class Board {
     }
 
     this.moveCount += 1;
+    this.elements.moveCount.textContent = formatInteger(this.moveCount);
 
     const element = event.currentTarget;
     const cell = this.getCurrentCell(element);
@@ -324,7 +392,7 @@ class Board {
 
     if (cell.flagged) {
       this.minesRemaining -= 1;
-      if (this.minesRemaining === 0 && this.isMinesFlagged()) {
+      if (this.gameOn && this.minesRemaining === 0 && this.isMinesFlagged()) {
         this.victory();
       }
     } else {

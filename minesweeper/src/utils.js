@@ -35,8 +35,12 @@ export function formatInteger(int) {
   if (int > 999) {
     return '999';
   }
+  if (int < -99) {
+    return '-99';
+  }
   if (int < 0) {
-    return '000';
+    const str = `000${Math.abs(int)}`.slice(-2);
+    return `-${str}`;
   }
   return `000${int}`.slice(-3);
 }
