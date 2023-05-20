@@ -44,3 +44,8 @@ export function formatInteger(int) {
   }
   return `000${int}`.slice(-3);
 }
+
+export function formatDate(int) {
+  const date = new Date(int);
+  return date.toLocaleString();
+}

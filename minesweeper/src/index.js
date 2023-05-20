@@ -10,6 +10,7 @@ import {
 import {
   getRandomInteger,
   formatInteger,
+  formatDate,
   saveGame,
   loadGame,
   deleteSaveSlot,
@@ -40,6 +41,8 @@ class Board {
       timer: null,
       moveCount: null,
       message: null,
+      settings: null,
+      score: null,
     };
     this.mute = false;
     this.audioClick = new Audio();
@@ -143,7 +146,11 @@ class Board {
     btnScore.textContent = 'Score';
     btnScore.classList.add('button', 'menu__score');
     btnScore.addEventListener('click', () => {
-      
+      if (this.elements.score.classList.contains('hidden')) {
+        this.showScore();
+      } else {
+        this.hideScore();
+      }
     });
 
     // Menu => Mine count
@@ -242,11 +249,21 @@ class Board {
 
     board.appendChild(boardInner);
 
+    // Settings
+    this.elements.settings = document.createElement('div');
+    this.elements.settings.classList.add('settings', 'hidden');
+
+    // Score
+    this.elements.score = document.createElement('div');
+    this.elements.score.classList.add('score', 'hidden');
+
     this.elements.main = document.createElement('div');
     this.elements.main.classList.add('container');
     this.elements.main.appendChild(title);
     this.elements.main.appendChild(this.elements.message);
     this.elements.main.appendChild(board);
+    this.elements.main.appendChild(this.elements.settings);
+    this.elements.main.appendChild(this.elements.score);
 
     // Body
     const body = document.querySelector('body');
@@ -300,6 +317,67 @@ class Board {
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
     this.elements.timer.textContent = formatInteger(0);
     this.elements.moveCount.textContent = formatInteger(0);
+  }
+
+  showScore() {
+    const { score } = this.elements;
+    while (score.firstChild) {
+      score.removeChild(score.firstChild);
+    }
+
+    const title = document.createElement('div');
+    title.classList.add('score__title');
+    title.textContent = 'Total score';
+
+    const table = document.createElement('div');
+    table.classList.add('score__table');
+
+    const headerNum = document.createElement('div');
+    headerNum.textContent = '№';
+    table.appendChild(headerNum);
+
+    const headerDate = document.createElement('div');
+    headerDate.textContent = 'Date';
+    table.appendChild(headerDate);
+
+    const headerTime = document.createElement('div');
+    headerTime.textContent = 'Time';
+    table.appendChild(headerTime);
+
+    const headerMoves = document.createElement('div');
+    headerMoves.textContent = 'Clicks';
+    table.appendChild(headerMoves);
+
+    const scoreData = loadScore() || [];
+
+    scoreData.forEach((data, index) => {
+      const num = document.createElement('div');
+      num.textContent = index + 1;
+      table.appendChild(num);
+
+      const date = document.createElement('div');
+      date.textContent = formatDate(data.date);
+      table.appendChild(date);
+
+      const time = document.createElement('div');
+      time.textContent = data.timer;
+      table.appendChild(time);
+
+      const moves = document.createElement('div');
+      moves.textContent = data.moveCount;
+      table.appendChild(moves);
+    });
+
+    score.appendChild(title);
+    score.appendChild(table);
+
+    this.elements.settings.classList.add('hidden');
+    score.classList.remove('hidden');
+  }
+
+  hideScore() {
+    const { score } = this.elements;
+    score.classList.add('hidden');
   }
 
   getCellClasses(i, j) {
@@ -436,6 +514,10 @@ class Board {
     }
     this.elements.message.textContent = `Hooray! You found all mines in ${this.timer}
       seconds and ${this.moveCount} moves!`;
+
+    if (!this.elements.score.classList.contains('hidden')) {
+      this.showScore();
+    }
   }
 
   gameOver() {
