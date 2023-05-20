@@ -9,6 +9,7 @@ import {
 } from './const';
 import {
   getRandomInteger,
+  formatInteger,
   saveGame,
   loadGame,
   deleteSaveSlot,
@@ -70,6 +71,7 @@ class Board {
       this.sizeX = difficultyLevel.sizeX;
       this.sizeY = difficultyLevel.sizeY;
       this.mineCount = difficultyLevel.mineCount;
+      this.minesRemaining = difficultyLevel.mineCount;
       this.generateEmptyMinefield();
       this.generateHtml();
     } else {
@@ -139,12 +141,12 @@ class Board {
     this.elements.minesRemaining = document.createElement('div');
     this.elements.minesRemaining.classList.add('menu__info');
     this.elements.minesRemaining.title = 'Mines remaining';
-    this.elements.minesRemaining.textContent = '000';
+    this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
 
     this.elements.timer = document.createElement('div');
     this.elements.timer.classList.add('menu__info');
     this.elements.timer.title = 'Timer';
-    this.elements.timer.textContent = '000';
+    this.elements.timer.textContent = formatInteger(0);
 
     const menu = document.createElement('div');
     menu.classList.add('menu');
@@ -226,7 +228,8 @@ class Board {
       element.innerText = '';
     }
     this.elements.message.textContent = START_MESSAGE;
-    this.elements.timer.textContent = '000';
+    this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
+    this.elements.timer.textContent = formatInteger(0);
   }
 
   getCellClasses(i, j) {
@@ -320,6 +323,7 @@ class Board {
     } else {
       this.minesRemaining += 1;
     }
+    this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
 
     if (this.gameOn) {
       saveGame(this);
@@ -423,8 +427,8 @@ class Board {
 
   assignMines(startingCell) {
     this.mines = [];
-    this.minesRemaining = 0;
-    while (this.minesRemaining < this.mineCount) {
+    let count = 0;
+    while (count < this.mineCount) {
       const i = getRandomInteger(0, this.sizeX - 1);
       const j = getRandomInteger(0, this.sizeY - 1);
       if (!this.cells[i][j].mined
@@ -433,7 +437,7 @@ class Board {
       ) {
         this.cells[i][j].mined = true;
         this.mines.push(this.cells[i][j]);
-        this.minesRemaining += 1;
+        count += 1;
       }
     }
   }
@@ -463,7 +467,7 @@ class Board {
   startTimer() {
     this.timerId = setInterval(() => {
       this.timer += 1;
-      this.elements.timer.textContent = this.timer;
+      this.elements.timer.textContent = formatInteger(this.timer);
     }, 1000);
   }
 
@@ -476,6 +480,7 @@ class Board {
     this.lose = false;
     this.timer = 0;
     this.moveCount = 0;
+    this.minesRemaining = this.difficultyLevel.mineCount;
     this.generateEmptyMinefield();
     this.resetHtml();
   }

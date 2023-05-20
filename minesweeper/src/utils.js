@@ -30,3 +30,13 @@ export function saveScore(timer, moveCount) {
   }
   localStorage.setItem('totalScore', JSON.stringify(score));
 }
+
+export function formatInteger(int) {
+  if (int > 999) {
+    return '999';
+  }
+  if (int < 0) {
+    return '000';
+  }
+  return `000${int}`.slice(-3);
+}
