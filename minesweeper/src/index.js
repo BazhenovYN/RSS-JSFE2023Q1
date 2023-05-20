@@ -18,12 +18,17 @@ import {
   loadScore,
   saveTheme,
   loadTheme,
+  saveMuteSounds,
+  loadMuteSounds,
 } from './utils';
 
 import {
   createRadioButton,
   createInputNumber,
 } from './components';
+
+const mainTheme = loadTheme();
+let mute = loadMuteSounds();
 
 class Board {
   constructor() {
@@ -51,7 +56,6 @@ class Board {
       settings: null,
       score: null,
     };
-    this.mute = false;
     this.audioClick = new Audio();
     this.audioClick.src = './assets/sounds/click.wav';
     this.audioClick.preload = 'auto';
@@ -74,7 +78,6 @@ class Board {
       moveCount: this.moveCount,
       cells: this.cells,
       mines: this.mines,
-      mute: this.mute,
     };
   }
 
@@ -283,7 +286,7 @@ class Board {
     // Body
     const body = document.querySelector('body');
     body.classList.add('body');
-    if (loadTheme() === 'dark') {
+    if (mainTheme === 'dark') {
       body.classList.add('body', 'theme-dark');
     } else {
       body.classList.add('body', 'theme-light');
@@ -339,9 +342,9 @@ class Board {
     this.elements.moveCount.textContent = formatInteger(0);
   }
 
-  handleThemeChange() {
+  handleThemeChange(event) {
     const body = document.querySelector('.body');
-    if (this.value === 'Dark') {
+    if (event.target.value === 'Dark') {
       body.classList.remove('theme-light');
       body.classList.add('theme-dark');
       saveTheme('dark');
@@ -363,12 +366,17 @@ class Board {
     const container = document.createElement('div');
     container.classList.add('settings__theme');
     container.appendChild(title);
-    container.appendChild(createRadioButton('theme', 'Light', !isDarkTheme, this.handleThemeChange));
-    container.appendChild(createRadioButton('theme', 'Dark', isDarkTheme, this.handleThemeChange));
+    container.appendChild(createRadioButton('theme', 'Light', !isDarkTheme, this.handleThemeChange.bind(this)));
+    container.appendChild(createRadioButton('theme', 'Dark', isDarkTheme, this.handleThemeChange.bind(this)));
 
     fragment.appendChild(container);
 
     return fragment;
+  }
+
+  handleSoundsChange(event) {
+    mute = event.target.value === 'Off';
+    saveMuteSounds(mute);
   }
 
   generateSoundSelection() {
@@ -380,8 +388,8 @@ class Board {
     const container = document.createElement('div');
     container.classList.add('settings__sounds');
     container.appendChild(title);
-    container.appendChild(createRadioButton('sounds', 'On'));
-    container.appendChild(createRadioButton('sounds', 'Off'));
+    container.appendChild(createRadioButton('sounds', 'On', !mute, this.handleSoundsChange.bind(this)));
+    container.appendChild(createRadioButton('sounds', 'Off', mute, this.handleSoundsChange.bind(this)));
 
     fragment.appendChild(container);
 
@@ -556,7 +564,7 @@ class Board {
       this.victory();
     }
 
-    if (!this.win && !this.lose) {
+    if (!this.win && !this.lose && !mute) {
       this.audioClick.play();
     }
 
@@ -592,7 +600,7 @@ class Board {
     }
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
 
-    if (!this.win && !this.lose) {
+    if (!this.win && !this.lose && !mute) {
       this.audioClick.play();
     }
 
@@ -623,7 +631,7 @@ class Board {
     saveScore(this.timer, this.moveCount);
     deleteSaveSlot();
 
-    if (!this.mute) {
+    if (!mute) {
       this.audioWin.play();
     }
     this.elements.message.textContent = `Hooray! You found all mines in ${this.timer}
@@ -642,7 +650,7 @@ class Board {
     this.checkMistakes();
     deleteSaveSlot();
 
-    if (!this.mute) {
+    if (!mute) {
       this.audioLose.play();
     }
     this.elements.message.textContent = 'Game over! Try again';

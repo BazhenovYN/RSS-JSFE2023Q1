@@ -57,3 +57,11 @@ export function saveTheme(theme) {
 export function loadTheme() {
   return localStorage.getItem('mainTheme');
 }
+
+export function saveMuteSounds(mute) {
+  return localStorage.setItem('muteSounds', mute);
+}
+
+export function loadMuteSounds() {
+  return JSON.parse(localStorage.getItem('muteSounds'));
+}
