@@ -40,6 +40,9 @@ class Board {
       message: null,
     };
     this.mute = false;
+    this.audioClick = new Audio();
+    this.audioClick.src = './assets/sounds/click.wav';
+    this.audioClick.preload = 'auto';
     this.audioWin = new Audio();
     this.audioWin.src = './assets/sounds/win.wav';
     this.audioWin.preload = 'auto';
@@ -145,7 +148,7 @@ class Board {
 
     this.elements.timer = document.createElement('div');
     this.elements.timer.classList.add('menu__info');
-    this.elements.timer.title = 'Timer';
+    this.elements.timer.title = 'Game duration';
     this.elements.timer.textContent = formatInteger(0);
 
     const menu = document.createElement('div');
@@ -293,6 +296,10 @@ class Board {
       this.victory();
     }
 
+    if (!this.win && !this.lose) {
+      this.audioClick.play();
+    }
+
     if (this.gameOn) {
       saveGame(this);
     }
@@ -324,6 +331,10 @@ class Board {
       this.minesRemaining += 1;
     }
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
+
+    if (!this.win && !this.lose) {
+      this.audioClick.play();
+    }
 
     if (this.gameOn) {
       saveGame(this);
