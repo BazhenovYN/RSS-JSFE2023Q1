@@ -7,6 +7,7 @@ import {
   MEDIUM_LEVEL,
   HARD_LEVEL,
 } from './const';
+
 import {
   getRandomInteger,
   formatInteger,
@@ -20,19 +21,23 @@ import {
   loadTheme,
   saveMuteSounds,
   loadMuteSounds,
+  loadDifficultyLevel,
 } from './utils';
 
 import {
   createRadioButton,
   createInputNumber,
+  createWarning,
+  closeAllWarnings,
 } from './components';
 
-const mainTheme = loadTheme();
-let mute = loadMuteSounds();
+let mainTheme = loadTheme() || 'light';
+let mute = loadMuteSounds() || false;
+let difficultyLevel = loadDifficultyLevel() || EASY_LEVEL;
+let customMineCount = difficultyLevel.mineCount;
 
 class Board {
   constructor() {
-    this.difficultyLevel = null;
     this.sizeX = 0;
     this.sizeY = 0;
     this.mineCount = 0;
@@ -54,6 +59,7 @@ class Board {
       moveCount: null,
       message: null,
       settings: null,
+      customMineCount: null,
       score: null,
     };
     this.audioClick = new Audio();
@@ -69,7 +75,6 @@ class Board {
 
   toJSON() {
     return {
-      difficultyLevel: this.difficultyLevel,
       sizeX: this.sizeX,
       sizeY: this.sizeY,
       mineCount: this.mineCount,
@@ -81,11 +86,10 @@ class Board {
     };
   }
 
-  init(difficultyLevel) {
+  init() {
     const saveData = loadGame();
     if (!saveData) {
       // New game
-      this.difficultyLevel = difficultyLevel;
       this.sizeX = difficultyLevel.sizeX;
       this.sizeY = difficultyLevel.sizeY;
       this.mineCount = difficultyLevel.mineCount;
@@ -94,7 +98,6 @@ class Board {
       this.generateHtml();
     } else {
       // Continue saved game
-      this.difficultyLevel = saveData.difficultyLevel;
       this.sizeX = saveData.sizeX;
       this.sizeY = saveData.sizeY;
       this.mineCount = saveData.mineCount;
@@ -271,6 +274,8 @@ class Board {
     this.elements.settings.appendChild(this.generateMineCountSelection());
     this.elements.settings.classList.add('settings', 'hidden');
 
+    this.elements.customMineCount = this.elements.settings.querySelector('input[name="mine-count"]');
+
     // Score
     this.elements.score = document.createElement('div');
     this.elements.score.classList.add('score', 'hidden');
@@ -328,18 +333,17 @@ class Board {
   }
 
   resetHtml() {
-    const cells = this.elements.cells.querySelectorAll('.cell');
-    for (let i = 0; i < cells.length; i += 1) {
-      const element = cells[i];
-      element.classList.remove('mine', 'bang', 'opened', 'flag', 'mistake');
-      element.removeAttribute('value');
-      element.classList.add('closed');
-      element.innerText = '';
+    while (this.elements.cells.firstChild) {
+      this.elements.cells.removeChild(this.elements.cells.firstChild);
     }
+
+    this.elements.cells.appendChild(this.generateHtmlCells());
+
     this.elements.message.textContent = START_MESSAGE;
+    this.elements.mineCount.textContent = formatInteger(this.mineCount);
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
-    this.elements.timer.textContent = formatInteger(0);
-    this.elements.moveCount.textContent = formatInteger(0);
+    this.elements.timer.textContent = formatInteger(this.timer);
+    this.elements.moveCount.textContent = formatInteger(this.moveCount);
   }
 
   handleThemeChange(event) {
@@ -347,16 +351,17 @@ class Board {
     if (event.target.value === 'Dark') {
       body.classList.remove('theme-light');
       body.classList.add('theme-dark');
-      saveTheme('dark');
+      mainTheme = 'dark';
     } else {
       body.classList.remove('theme-dark');
       body.classList.add('theme-light');
-      saveTheme('light');
+      mainTheme = 'light';
     }
+    saveTheme(mainTheme);
   }
 
   generateThemeSelection() {
-    const isDarkTheme = loadTheme() === 'dark';
+    const isDarkTheme = mainTheme === 'dark';
 
     const fragment = document.createDocumentFragment();
 
@@ -396,7 +401,34 @@ class Board {
     return fragment;
   }
 
+  handleDifficultyLevelChange(event) {
+    if (event.target.value === 'Hard') {
+      difficultyLevel = HARD_LEVEL;
+    } else if (event.target.value === 'Medium') {
+      difficultyLevel = MEDIUM_LEVEL;
+    } else {
+      difficultyLevel = EASY_LEVEL;
+    }
+    customMineCount = difficultyLevel.mineCount;
+    this.elements.customMineCount.value = customMineCount;
+
+    const warning = document.querySelector('.settings__difficulty .warning-restart');
+    warning.classList.remove('hidden');
+  }
+
   generateLevelSelection() {
+    let isEasy;
+    let isMedium;
+    let isHard;
+
+    if (difficultyLevel.name === 'Hard') {
+      isHard = true;
+    } else if (difficultyLevel.name === 'Medium') {
+      isMedium = true;
+    } else {
+      isEasy = true;
+    }
+
     const fragment = document.createDocumentFragment();
 
     const title = document.createElement('div');
@@ -405,13 +437,21 @@ class Board {
     const container = document.createElement('div');
     container.classList.add('settings__difficulty');
     container.appendChild(title);
-    container.appendChild(createRadioButton('difficulty', 'Easy'));
-    container.appendChild(createRadioButton('difficulty', 'Medium'));
-    container.appendChild(createRadioButton('difficulty', 'Hard'));
+    container.appendChild(createRadioButton('difficulty', 'Easy', isEasy, this.handleDifficultyLevelChange.bind(this)));
+    container.appendChild(createRadioButton('difficulty', 'Medium', isMedium, this.handleDifficultyLevelChange.bind(this)));
+    container.appendChild(createRadioButton('difficulty', 'Hard', isHard, this.handleDifficultyLevelChange.bind(this)));
+    container.appendChild(createWarning());
 
     fragment.appendChild(container);
 
     return fragment;
+  }
+
+  handleMineCountChange(event) {
+    customMineCount = event.target.value;
+
+    const warning = document.querySelector('.settings__mine-count .warning-restart');
+    warning.classList.remove('hidden');
   }
 
   generateMineCountSelection() {
@@ -423,7 +463,8 @@ class Board {
     const container = document.createElement('div');
     container.classList.add('settings__mine-count');
     container.appendChild(title);
-    container.appendChild(createInputNumber('mine-count'));
+    container.appendChild(createInputNumber('mine-count', customMineCount, this.handleMineCountChange.bind(this)));
+    container.appendChild(createWarning());
 
     fragment.appendChild(container);
 
@@ -715,8 +756,8 @@ class Board {
       const i = getRandomInteger(0, this.sizeX - 1);
       const j = getRandomInteger(0, this.sizeY - 1);
       if (!this.cells[i][j].mined
-        && startingCell.i !== i
-        && startingCell.j !== j
+        && (startingCell.i !== i
+        || startingCell.j !== j)
       ) {
         this.cells[i][j].mined = true;
         this.mines.push(this.cells[i][j]);
@@ -766,9 +807,15 @@ class Board {
     this.lose = false;
     this.timer = 0;
     this.moveCount = 0;
-    this.minesRemaining = this.difficultyLevel.mineCount;
+
+    this.sizeX = difficultyLevel.sizeX;
+    this.sizeY = difficultyLevel.sizeY;
+    this.mineCount = customMineCount;
+    this.minesRemaining = customMineCount;
+
     this.generateEmptyMinefield();
     this.resetHtml();
+    closeAllWarnings();
   }
 
   stopGame() {

@@ -132,6 +132,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-width: 255px;
 
   &.hidden {
     display: none;
@@ -165,4 +166,19 @@
 
 .radio-button {
   display: flex;
+}
+
+.warning-restart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/svg/exclamation.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 15px;
+  height: 15px;
+
+  &.hidden {
+    display: none;
+  }
 }

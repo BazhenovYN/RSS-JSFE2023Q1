@@ -22,7 +22,7 @@ export function createRadioButton(name, value, checked, listener) {
   return fragment;
 }
 
-export function createInputNumber(name) {
+export function createInputNumber(name, value, listener) {
   const fragment = document.createDocumentFragment();
 
   const input = document.createElement('input');
@@ -30,6 +30,8 @@ export function createInputNumber(name) {
   input.name = name;
   input.min = 1;
   input.max = 100;
+  input.value = value;
+  input.addEventListener('change', listener);
 
   const container = document.createElement('div');
   container.classList.add('input-number');
@@ -38,4 +40,22 @@ export function createInputNumber(name) {
   fragment.appendChild(container);
 
   return fragment;
+}
+
+export function createWarning() {
+  const fragment = document.createDocumentFragment();
+
+  const container = document.createElement('div');
+  container.classList.add('warning-restart', 'hidden');
+  container.title = 'Need to create a new game';
+  fragment.appendChild(container);
+
+  return fragment;
+}
+
+export function closeAllWarnings() {
+  const warnings = document.querySelectorAll('.warning-restart:not(.hidden)');
+  warnings.forEach((element) => {
+    element.classList.add('hidden');
+  });
 }

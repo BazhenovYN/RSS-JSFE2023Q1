@@ -65,3 +65,11 @@ export function saveMuteSounds(mute) {
 export function loadMuteSounds() {
   return JSON.parse(localStorage.getItem('muteSounds'));
 }
+
+export function saveDifficultyLevel(difficultyLevel) {
+  return localStorage.setItem('difficultyLevel', JSON.stringify(difficultyLevel));
+}
+
+export function loadDifficultyLevel() {
+  return JSON.parse(localStorage.getItem('difficultyLevel'));
+}
