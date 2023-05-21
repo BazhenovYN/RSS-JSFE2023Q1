@@ -21,6 +21,7 @@ import {
   loadTheme,
   saveMuteSounds,
   loadMuteSounds,
+  saveDifficultyLevel,
   loadDifficultyLevel,
 } from './utils';
 
@@ -36,6 +37,61 @@ let mute = loadMuteSounds() || false;
 let difficultyLevel = loadDifficultyLevel() || EASY_LEVEL;
 let customMineCount = difficultyLevel.mineCount;
 
+function handleThemeChange(event) {
+  const body = document.querySelector('.body');
+  if (event.target.value === 'Dark') {
+    body.classList.remove('theme-light');
+    body.classList.add('theme-dark');
+    mainTheme = 'dark';
+  } else {
+    body.classList.remove('theme-dark');
+    body.classList.add('theme-light');
+    mainTheme = 'light';
+  }
+  saveTheme(mainTheme);
+}
+
+function generateThemeSelection() {
+  const isDarkTheme = mainTheme === 'dark';
+
+  const fragment = document.createDocumentFragment();
+
+  const title = document.createElement('div');
+  title.textContent = 'Theme:';
+
+  const container = document.createElement('div');
+  container.classList.add('settings__theme');
+  container.appendChild(title);
+  container.appendChild(createRadioButton('theme', 'Light', !isDarkTheme, handleThemeChange));
+  container.appendChild(createRadioButton('theme', 'Dark', isDarkTheme, handleThemeChange));
+
+  fragment.appendChild(container);
+
+  return fragment;
+}
+
+function handleSoundsChange(event) {
+  mute = event.target.value === 'Off';
+  saveMuteSounds(mute);
+}
+
+function generateSoundSelection() {
+  const fragment = document.createDocumentFragment();
+
+  const title = document.createElement('div');
+  title.textContent = 'Sounds:';
+
+  const container = document.createElement('div');
+  container.classList.add('settings__sounds');
+  container.appendChild(title);
+  container.appendChild(createRadioButton('sounds', 'On', !mute, handleSoundsChange));
+  container.appendChild(createRadioButton('sounds', 'Off', mute, handleSoundsChange));
+
+  fragment.appendChild(container);
+
+  return fragment;
+}
+
 class Board {
   constructor() {
     this.sizeX = 0;
@@ -48,10 +104,10 @@ class Board {
     this.gameOn = false;
     this.win = false;
     this.lose = false;
+    this.difficultyLevel = null;
     this.cells = [];
     this.mines = [];
     this.elements = {
-      main: null,
       cells: null,
       mineCount: null,
       minesRemaining: null,
@@ -83,6 +139,7 @@ class Board {
       moveCount: this.moveCount,
       cells: this.cells,
       mines: this.mines,
+      difficultyLevel: this.difficultyLevel,
     };
   }
 
@@ -94,12 +151,14 @@ class Board {
       this.sizeY = difficultyLevel.sizeY;
       this.mineCount = difficultyLevel.mineCount;
       this.minesRemaining = difficultyLevel.mineCount;
+      this.difficultyLevel = difficultyLevel;
       this.generateEmptyMinefield();
       this.generateHtml();
     } else {
       // Continue saved game
       this.sizeX = saveData.sizeX;
       this.sizeY = saveData.sizeY;
+      this.difficultyLevel = saveData.difficultyLevel;
       this.mineCount = saveData.mineCount;
       this.minesRemaining = saveData.minesRemaining;
       this.timer = saveData.timer;
@@ -257,6 +316,7 @@ class Board {
     // Board
     const board = document.createElement('div');
     board.classList.add('board');
+    board.classList.add(`board_${this.difficultyLevel.name.toLowerCase()}`);
 
     const boardInner = document.createElement('div');
     boardInner.classList.add('board__inner');
@@ -268,8 +328,8 @@ class Board {
 
     // Settings
     this.elements.settings = document.createElement('div');
-    this.elements.settings.appendChild(this.generateThemeSelection());
-    this.elements.settings.appendChild(this.generateSoundSelection());
+    this.elements.settings.appendChild(generateThemeSelection());
+    this.elements.settings.appendChild(generateSoundSelection());
     this.elements.settings.appendChild(this.generateLevelSelection());
     this.elements.settings.appendChild(this.generateMineCountSelection());
     this.elements.settings.classList.add('settings', 'hidden');
@@ -280,13 +340,13 @@ class Board {
     this.elements.score = document.createElement('div');
     this.elements.score.classList.add('score', 'hidden');
 
-    this.elements.main = document.createElement('div');
-    this.elements.main.classList.add('container');
-    this.elements.main.appendChild(title);
-    this.elements.main.appendChild(this.elements.message);
-    this.elements.main.appendChild(board);
-    this.elements.main.appendChild(this.elements.settings);
-    this.elements.main.appendChild(this.elements.score);
+    const main = document.createElement('div');
+    main.classList.add('container');
+    main.appendChild(title);
+    main.appendChild(this.elements.message);
+    main.appendChild(board);
+    main.appendChild(this.elements.settings);
+    main.appendChild(this.elements.score);
 
     // Body
     const body = document.querySelector('body');
@@ -296,7 +356,7 @@ class Board {
     } else {
       body.classList.add('body', 'theme-light');
     }
-    document.body.appendChild(this.elements.main);
+    document.body.appendChild(main);
   }
 
   generateHtmlCells() {
@@ -339,66 +399,16 @@ class Board {
 
     this.elements.cells.appendChild(this.generateHtmlCells());
 
+    this.elements.message.classList.remove('message_win', 'message_lose');
     this.elements.message.textContent = START_MESSAGE;
     this.elements.mineCount.textContent = formatInteger(this.mineCount);
     this.elements.minesRemaining.textContent = formatInteger(this.minesRemaining);
     this.elements.timer.textContent = formatInteger(this.timer);
     this.elements.moveCount.textContent = formatInteger(this.moveCount);
-  }
 
-  handleThemeChange(event) {
-    const body = document.querySelector('.body');
-    if (event.target.value === 'Dark') {
-      body.classList.remove('theme-light');
-      body.classList.add('theme-dark');
-      mainTheme = 'dark';
-    } else {
-      body.classList.remove('theme-dark');
-      body.classList.add('theme-light');
-      mainTheme = 'light';
-    }
-    saveTheme(mainTheme);
-  }
-
-  generateThemeSelection() {
-    const isDarkTheme = mainTheme === 'dark';
-
-    const fragment = document.createDocumentFragment();
-
-    const title = document.createElement('div');
-    title.textContent = 'Theme:';
-
-    const container = document.createElement('div');
-    container.classList.add('settings__theme');
-    container.appendChild(title);
-    container.appendChild(createRadioButton('theme', 'Light', !isDarkTheme, this.handleThemeChange.bind(this)));
-    container.appendChild(createRadioButton('theme', 'Dark', isDarkTheme, this.handleThemeChange.bind(this)));
-
-    fragment.appendChild(container);
-
-    return fragment;
-  }
-
-  handleSoundsChange(event) {
-    mute = event.target.value === 'Off';
-    saveMuteSounds(mute);
-  }
-
-  generateSoundSelection() {
-    const fragment = document.createDocumentFragment();
-
-    const title = document.createElement('div');
-    title.textContent = 'Sounds:';
-
-    const container = document.createElement('div');
-    container.classList.add('settings__sounds');
-    container.appendChild(title);
-    container.appendChild(createRadioButton('sounds', 'On', !mute, this.handleSoundsChange.bind(this)));
-    container.appendChild(createRadioButton('sounds', 'Off', mute, this.handleSoundsChange.bind(this)));
-
-    fragment.appendChild(container);
-
-    return fragment;
+    const board = document.querySelector('.board');
+    board.classList.remove('board_easy', 'board_medium', 'board_hard');
+    board.classList.add(`board_${difficultyLevel.name.toLowerCase()}`);
   }
 
   handleDifficultyLevelChange(event) {
@@ -409,6 +419,7 @@ class Board {
     } else {
       difficultyLevel = EASY_LEVEL;
     }
+    saveDifficultyLevel(difficultyLevel);
     customMineCount = difficultyLevel.mineCount;
     this.elements.customMineCount.value = customMineCount;
 
@@ -449,6 +460,14 @@ class Board {
 
   handleMineCountChange(event) {
     customMineCount = event.target.value;
+
+    if (customMineCount > difficultyLevel.maxMineCount) {
+      customMineCount = difficultyLevel.maxMineCount;
+      this.elements.customMineCount.value = customMineCount;
+    } else if (customMineCount < 1) {
+      customMineCount = 1;
+      this.elements.customMineCount.value = customMineCount;
+    }
 
     const warning = document.querySelector('.settings__mine-count .warning-restart');
     warning.classList.remove('hidden');
@@ -675,6 +694,8 @@ class Board {
     if (!mute) {
       this.audioWin.play();
     }
+
+    this.elements.message.classList.add('message_win');
     this.elements.message.textContent = `Hooray! You found all mines in ${this.timer}
       seconds and ${this.moveCount} moves!`;
 
@@ -694,6 +715,8 @@ class Board {
     if (!mute) {
       this.audioLose.play();
     }
+
+    this.elements.message.classList.add('message_lose');
     this.elements.message.textContent = 'Game over! Try again';
   }
 
@@ -810,6 +833,7 @@ class Board {
 
     this.sizeX = difficultyLevel.sizeX;
     this.sizeY = difficultyLevel.sizeY;
+    this.difficultyLevel = difficultyLevel;
     this.mineCount = customMineCount;
     this.minesRemaining = customMineCount;
 
@@ -833,6 +857,7 @@ class Board {
     this.assignMines(startingCell);
     this.calculateNeighborMineCounts();
     this.startTimer();
+    this.difficultyLevel = difficultyLevel;
     this.gameOn = true;
   }
 }

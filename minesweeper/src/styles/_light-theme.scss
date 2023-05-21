@@ -1,15 +1,15 @@
 %convex-element {
-  border-top: solid 3px $highlight;
-  border-left: solid 3px $highlight;
-  border-bottom: solid 3px $shadow;
-  border-right: solid 3px $shadow; 
+  border-top-color: $highlight;
+  border-left-color: $highlight;
+  border-bottom-color: $shadow;
+  border-right-color: $shadow; 
 }
 
 %concave-element {
-  border-top: solid 3px $shadow;
-  border-left: solid 3px $shadow;
-  border-bottom: solid 3px $highlight;
-  border-right: solid 3px $highlight;  
+  border-top-color: $shadow;
+  border-left-color: $shadow;
+  border-bottom-color: $highlight;
+  border-right-color: $highlight;  
 }
 
 .body.theme-light {
@@ -22,8 +22,7 @@
 
   .menu {
     @extend %concave-element;
-    padding: 10px;
-
+    
     .button {
       @extend %convex-element;
       color: $text-color;
@@ -42,8 +41,8 @@
   }
 
   .cells {
-    border-right: solid 1px $shadow;
-    border-bottom: solid 1px $shadow;
+    border-right-color: $shadow;
+    border-bottom-color: $shadow;
 
     .cell {
       background-color: $cell-background-color;
@@ -53,10 +52,8 @@
       }
   
       &.opened {
-        border-left: solid 1px $shadow;
-        border-top: solid 1px $shadow;
-        border-bottom: none;
-        border-right: none;
+        border-left-color: $shadow;
+        border-top-color: $shadow;
       }
 
       &.bang {

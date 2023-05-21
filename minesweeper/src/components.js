@@ -29,7 +29,7 @@ export function createInputNumber(name, value, listener) {
   input.type = 'number';
   input.name = name;
   input.min = 1;
-  input.max = 100;
+  input.max = 999;
   input.value = value;
   input.addEventListener('change', listener);
 

@@ -5,16 +5,19 @@ export const EASY_LEVEL = {
   sizeX: 10,
   sizeY: 10,
   mineCount: 10,
+  maxMineCount: 99,
 };
 export const MEDIUM_LEVEL = {
   name: 'Medium',
   sizeX: 15,
   sizeY: 15,
   mineCount: 40,
+  maxMineCount: 224,
 };
 export const HARD_LEVEL = {
   name: 'Hard',
   sizeX: 25,
   sizeY: 25,
   mineCount: 99,
+  maxMineCount: 624,
 };
