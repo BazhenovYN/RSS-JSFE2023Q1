@@ -6,7 +6,8 @@
     "scripts": {
         "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
         "build": "webpack --config ./webpack.config.js --env mode=prod",
-        "lint": "eslint . --ext .ts"
+        "lint": "eslint . --ext .ts",
+        "deploy": "gh-pages -d dist -e news-js"
     },
     "repository": {
         "type": "git",
@@ -29,6 +30,7 @@
         "eslint-plugin-import": "^2.23.3",
         "eslint-plugin-prettier": "^3.4.0",
         "eslint-webpack-plugin": "^4.0.1",
+        "gh-pages": "^5.0.0",
         "html-webpack-plugin": "^5.2.0",
         "prettier": "2.2.1",
         "style-loader": "^2.0.0",
