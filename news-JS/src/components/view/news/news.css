@@ -26,6 +26,7 @@
     right: 0;
     bottom: 0;
     left: 0;
+    background-image: url('../../../assets/img/news_placeholder.jpg');
     background-size: cover;
     background-position: center;
     transition: transform 0.2s;
