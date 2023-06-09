@@ -14,11 +14,12 @@ class News {
     const newsItemTemp = getElement<HTMLTemplateElement>(document, '#newsItemTemp');
 
     this.news.forEach((item: IArticle, idx: number) => {
-      const newsClone = newsItemTemp.content.cloneNode(true) as DocumentFragment;
-
-      if (idx % 2) {
-        getElement<HTMLDivElement>(newsClone, '.news__item').classList.add('alt');
+      const newsClone: Node = newsItemTemp.content.cloneNode(true);
+      if (!(newsClone instanceof DocumentFragment)) {
+        throw new Error();
       }
+
+      if (idx % 2) getElement<HTMLDivElement>(newsClone, '.news__item').classList.add('alt');
 
       const photo = getElement<HTMLDivElement>(newsClone, '.news__meta-photo');
       if (item.urlToImage !== '') {

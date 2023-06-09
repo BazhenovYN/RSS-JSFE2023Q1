@@ -18,12 +18,12 @@ class Sources {
     if (!sourceItemTemp) return;
     
     this.sources.forEach((item: ISource) => {
-      const sourceClone = sourceItemTemp.content.cloneNode(true) as DocumentFragment;
-
-      getElement<HTMLDivElement>(sourceClone, '.source__item-name').textContent = item.name;
-      getElement<HTMLDivElement>(sourceClone, '.source__item').setAttribute('data-source-id', item.id);
-
-      fragment.append(sourceClone);
+      const sourceClone: Node = sourceItemTemp.content.cloneNode(true);
+      if (sourceClone instanceof DocumentFragment) {
+        getElement<HTMLDivElement>(sourceClone, '.source__item-name').textContent = item.name;
+        getElement<HTMLDivElement>(sourceClone, '.source__item').setAttribute('data-source-id', item.id);
+        fragment.append(sourceClone);
+      }
     });
 
     getElement<HTMLDivElement>(document, '.sources').append(fragment);

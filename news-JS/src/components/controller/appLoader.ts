@@ -1,10 +1,11 @@
 import Loader from './loader';
 
+const BASE_LINK = 'https://newsapi.org/v2/';
+const API_KEY = '0e8f1ad263c5464b98e871f58b7b783e';
+
 class AppLoader extends Loader {
   constructor() {
-    super('https://newsapi.org/v2/', {
-      apiKey: '0e8f1ad263c5464b98e871f58b7b783e',
-    });
+    super(BASE_LINK, { apiKey: API_KEY });
   }
 }
 
