@@ -1,4 +1,4 @@
-import { HttpMethod, Endpoint, Options, IDrawSourcesFunc, IDrawNewsFunc } from '../../types';
+import { HttpMethod, Endpoint, Options, IDrawSourcesFunc, IDrawNewsFunc, ErrorCodes } from '../../types';
 
 const noCallback = (): void => {
   throw Error('No callback for GET response');
@@ -10,7 +10,11 @@ class Loader {
     this.options = options;
   }
 
-  public getResp(endpoint: Endpoint, callback: IDrawSourcesFunc | IDrawNewsFunc = noCallback, options: Options = {}): void {
+  public getResp(
+    endpoint: Endpoint,
+    callback: IDrawSourcesFunc | IDrawNewsFunc = noCallback,
+    options: Options = {},
+  ): void {
     this.load(HttpMethod.GET, endpoint, options, callback);
   }
 
@@ -25,11 +29,16 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  private load(method: HttpMethod, endpoint: Endpoint, options: Options, callback: IDrawSourcesFunc | IDrawNewsFunc): void {
+  private load(
+    method: HttpMethod,
+    endpoint: Endpoint,
+    options: Options,
+    callback: IDrawSourcesFunc | IDrawNewsFunc,
+  ): void {
     fetch(this.makeUrl(options, endpoint), { method })
-      .then((response) => {
+      .then((response: Response) => {
         if (!response.ok) {
-          if (response.status === 401 || response.status === 404) {
+          if (response.status === ErrorCodes.ERROR401 || response.status === ErrorCodes.ERROR404) {
             throw Error(`${response.status} error: ${response.statusText}`);
           }
         }

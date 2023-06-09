@@ -23,6 +23,11 @@ export enum APIEndpoint {
   Everything = 'everything',
 }
 
+export enum ErrorCodes {
+  ERROR401 = 401,
+  ERROR404 = 404,
+}
+
 export type Endpoint = APIEndpoint | string;
 
 export enum ResponseStatus {
@@ -46,8 +51,6 @@ export interface IResponseError {
   code: string,
   message: string,
 }
-
-export type IResponse = IResponseSources | IResponseNews | IResponseError;
 
 export type Options = Record<string, string>;
 
