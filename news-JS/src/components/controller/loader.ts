@@ -1,4 +1,4 @@
-import { HttpMethod, Endpoint, Options, IDrawFunc } from '../../types';
+import { HttpMethod, Endpoint, Options, IDrawSourcesFunc, IDrawNewsFunc } from '../../types';
 
 const noCallback = (): void => {
   throw Error('No callback for GET response');
@@ -10,7 +10,7 @@ class Loader {
     this.options = options;
   }
 
-  public getResp(endpoint: Endpoint, callback: IDrawFunc = noCallback, options: Options = {}): void {
+  public getResp(endpoint: Endpoint, callback: IDrawSourcesFunc | IDrawNewsFunc = noCallback, options: Options = {}): void {
     this.load(HttpMethod.GET, endpoint, options, callback);
   }
 
@@ -25,7 +25,7 @@ class Loader {
     return url.slice(0, -1);
   }
 
-  private load(method: HttpMethod, endpoint: Endpoint, options: Options, callback: IDrawFunc): void {
+  private load(method: HttpMethod, endpoint: Endpoint, options: Options, callback: IDrawSourcesFunc | IDrawNewsFunc): void {
     fetch(this.makeUrl(options, endpoint), { method })
       .then((response) => {
         if (!response.ok) {

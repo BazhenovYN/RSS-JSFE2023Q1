@@ -5,5 +5,3 @@ export const getElement = <T extends HTMLElement>(container: HTMLElement | Docum
   };
   return element
 }
-
-

@@ -51,6 +51,10 @@ export type IResponse = IResponseSources | IResponseNews | IResponseError;
 
 export type Options = Record<string, string>;
 
-export interface IDrawFunc {
-  (data: IResponseSources | IResponseNews): void;
+export interface IDrawSourcesFunc {
+  (data: IResponseSources): void;
+}
+
+export interface IDrawNewsFunc {
+  (data: IResponseNews): void;
 }
