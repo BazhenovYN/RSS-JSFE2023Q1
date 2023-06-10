@@ -46,18 +46,6 @@ export interface IResponseNews {
   articles: IArticle[],
 }
 
-export interface IResponseError {
-  status: string,
-  code: string,
-  message: string,
-}
-
 export type Options = Record<string, string>;
 
-export interface IDrawSourcesFunc {
-  (data: IResponseSources): void;
-}
-
-export interface IDrawNewsFunc {
-  (data: IResponseNews): void;
-}
+export type CallbackFn<T> = (data: T) => void;

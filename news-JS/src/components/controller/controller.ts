@@ -1,12 +1,12 @@
-import { IDrawSourcesFunc, IDrawNewsFunc, APIEndpoint } from '../../types';
+import { CallbackFn, APIEndpoint, IResponseNews, IResponseSources } from '../../types';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {
-  public getSources(callback: IDrawSourcesFunc): void {
-    super.getResp(APIEndpoint.Sources, callback);
+  public getSources(callback: CallbackFn<IResponseSources>): void {
+    super.getResp<IResponseSources>(APIEndpoint.Sources, callback);
   }
 
-  public getNews(event: MouseEvent, callback: IDrawNewsFunc): void {
+  public getNews(event: MouseEvent, callback: CallbackFn<IResponseNews>): void {
     let { target } = event;
     const newsContainer = event.currentTarget;
 
@@ -16,7 +16,7 @@ class AppController extends AppLoader {
         if (newsContainer instanceof Element) {
           if (newsContainer.getAttribute('data-source') !== sourceId && sourceId) {
             newsContainer.setAttribute('data-source', sourceId);
-            super.getResp(APIEndpoint.Everything, callback, { sources: sourceId });
+            super.getResp<IResponseNews>(APIEndpoint.Everything, callback, { sources: sourceId });
           }
         }
         return;
