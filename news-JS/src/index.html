@@ -8,33 +8,36 @@
         <title>NewsPortal</title>
     </head>
     <body>
-        <header>
-            <h1>News Portal</h1>
-        </header>
-        <main>
-            <div class="navbar">
-                <div class="dropdown">
-                    <div class="dropbtn">News
-                        <i class="fa fa-caret-down"></i>
-                    </div>
-                    <div class="dropdown-content">
-                        <div class="dropdown-header">
-                            <h2>Choose a news portal</h2>
+        <div class="wrapper">
+            <header>
+                <h1>News Portal</h1>
+            </header>
+            <main>
+                <div class="nav">
+                    <div class="dropdown">
+                        <div class="dropbtn">
+                            <span>News <i class="fa fa-caret-down"></i></span>
                         </div>
-                        <div class="sources"></div>
+                        <div class="dropdown-content">
+                            <div class="dropdown-header">
+                                <h2>Choose a news portal</h2>
+                                <input class="search" type="text" name="search" placeholder="Search.." autocomplete="off">
+                            </div>
+                            <div id="sources"></div>
+                        </div>
                     </div>
+                    <a href="#live">Live</a>
+                    <a href="#show">Shows</a>
+                    <a href="#video">Video</a>
                 </div>
-                <a href="#live">Live</a>
-                <a href="#show">Shows</a>
-                <a href="#video">Video</a>
-            </div>
-            <div class="news"></div>
-        </main>
-        <footer>
-            <p class="copyright">
-                Copyright <a href="https://newsapi.org">NewsAPI</a>
-            </p>
-        </footer>
+                <div class="news"></div>
+            </main>
+            <footer>
+                <p class="copyright">
+                    Copyright <a href="https://newsapi.org">NewsAPI</a>
+                </p>
+            </footer>
+        </div>
 
         <template id="sourceItemTemp">
             <div class="source__item">

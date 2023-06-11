@@ -13,9 +13,12 @@ class App {
   }
 
   public start(): void {
-    const sources = getElement<HTMLDivElement>(document, '.sources');
+    const sources = getElement<HTMLDivElement>(document, '#sources');
     sources.addEventListener('click', (event) => this.controller.getNews(event, (data) => this.view.drawNews(data)));
     this.controller.getSources((data) => this.view.drawSources(data));
+
+    const search = getElement<HTMLDivElement>(document, '.search');
+    search.addEventListener('input', () => this.view.filterSources());
   }
 }
 
