@@ -10,6 +10,10 @@ const baseConfig = {
     module: {
         rules: [
             {
+                test: /\.html$/i,
+                use: 'html-loader'
+            },
+            {
                 test: /\.ts$/i, 
                 use: 'ts-loader',
                 exclude: /node_modules/,
@@ -21,6 +25,9 @@ const baseConfig = {
             {
                 test: /\.(?:ico|gif|png|jpg|jpeg|svg|webp)$/i,
                 type: 'asset/resource',
+                generator: {
+                    filename: 'images/[name]-[hash][ext]'
+                }
             }
         ],
     },
