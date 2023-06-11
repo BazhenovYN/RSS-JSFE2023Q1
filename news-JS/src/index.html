@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>NewsPortal</title>
     </head>
     <body>
@@ -11,7 +12,22 @@
             <h1>News Portal</h1>
         </header>
         <main>
-            <div class="sources buttons"></div>
+            <div class="navbar">
+                <div class="dropdown">
+                    <div class="dropbtn">News
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+                    <div class="dropdown-content">
+                        <div class="dropdown-header">
+                            <h2>Choose a news portal</h2>
+                        </div>
+                        <div class="sources"></div>
+                    </div>
+                </div>
+                <a href="#live">Live</a>
+                <a href="#show">Shows</a>
+                <a href="#video">Video</a>
+            </div>
             <div class="news"></div>
         </main>
         <footer>
