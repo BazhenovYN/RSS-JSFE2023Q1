@@ -1,3 +1,9 @@
+@import "~normalize.css";
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     color: #fff;
     background: #17181c;
