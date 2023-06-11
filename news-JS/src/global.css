@@ -121,3 +121,18 @@ footer .copyright:before {
   margin: 1em;
   outline: none;
 }
+
+.rs-school {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-rss-logo {
+  width: 100px;
+}
+
+.made-by {
+  display: flex;
+  gap: 10px;
+}
