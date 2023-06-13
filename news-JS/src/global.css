@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  color: #fff;
+  color: #ffffff;
   background: #17181c;
   font-family: sans-serif;
   overflow-y: scroll;
@@ -42,17 +42,21 @@ footer {
   justify-content: center;
   flex: 0 0 auto;
 }
+
 footer .copyright {
   font-size: 14px;
-  color: #333;
+  color: #333333;
   text-align: center;
 }
+
 footer .copyright a {
-  color: #444;
+  color: #444444;
 }
+
 footer .copyright a:hover {
-  color: #555;
+  color: #555555;
 }
+
 footer .copyright:before {
   content: '©';
 }
@@ -60,13 +64,13 @@ footer .copyright:before {
 /* /////////////////////////////////////////////// */
 .nav {
   overflow: hidden;
-  background-color: #333;
+  background-color: #333333;
 }
 
 .nav a {
   float: left;
   font-size: 16px;
-  color: white;
+  color: #ffffff;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -85,7 +89,7 @@ footer .copyright:before {
 
 .nav a:hover,
 .dropdown:hover .dropbtn {
-  background-color: red;
+  background-color: #ff0000;
 }
 
 .dropdown-content {
@@ -101,7 +105,7 @@ footer .copyright:before {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  background: red;
+  background: #ff0000;
   padding: 16px;
 }
 
@@ -111,7 +115,7 @@ footer .copyright:before {
 
 .search {
   max-width: 200px;
-  border: 2px solid #ccc;
+  border: 2px solid #cccccc;
   border-radius: 4px;
   font-size: 16px;
   background-image: url('./assets/img/search.svg');

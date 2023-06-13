@@ -22,9 +22,9 @@
 
 .source__item:hover,
 .source__item:focus {
-    border-color: red;
-    color: red;
-    box-shadow: 0 0.5em 0.5em -0.4em red;
+    border-color: #ff0000;
+    color: #ff0000;
+    box-shadow: 0 0.5em 0.5em -0.4em #ff0000;
     transform: translateY(-0.10em);
 }
 
