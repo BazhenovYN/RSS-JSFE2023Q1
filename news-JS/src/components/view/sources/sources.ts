@@ -1,5 +1,5 @@
-import { ISource } from '../../../types';
-import { getElement } from '../../../utils';
+import { ISource } from 'types';
+import { getElement } from 'utils';
 import './sources.css';
 
 function generateHtml(data: ISource[]): void {

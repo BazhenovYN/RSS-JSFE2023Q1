@@ -1,5 +1,5 @@
-import { IArticle } from '../../../types';
-import { getElement } from '../../../utils';
+import { IArticle } from 'types';
+import { getElement } from 'utils';
 import './news.css';
 
 class News {

@@ -1,4 +1,4 @@
-import { HttpMethod, Endpoint, Options, ErrorCodes, CallbackFn } from '../../types';
+import { HttpMethod, Endpoint, Options, ErrorCodes, CallbackFn } from 'types';
 
 const noCallback = (): void => {
   throw Error('No callback for GET response');

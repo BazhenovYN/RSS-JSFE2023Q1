@@ -1,4 +1,4 @@
-import { CallbackFn, APIEndpoint, IResponseNews, IResponseSources } from '../../types';
+import { CallbackFn, APIEndpoint, IResponseNews, IResponseSources } from 'types';
 import AppLoader from './appLoader';
 
 class AppController extends AppLoader {

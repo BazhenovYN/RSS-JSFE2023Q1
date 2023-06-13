@@ -1,6 +1,6 @@
-import { IResponseNews, IResponseSources } from '../../types';
-import News from './news/news';
-import Sources from './sources/sources';
+import { IResponseNews, IResponseSources } from 'types';
+import News from 'components/view/news/news';
+import Sources from 'components/view/sources/sources';
 
 export class AppView {
   private readonly news: News;

@@ -1,6 +1,6 @@
-import { getElement } from '../../utils';
-import AppController from '../controller/controller';
-import { AppView } from '../view/appView';
+import { getElement } from 'utils';
+import AppController from 'components/controller/controller';
+import { AppView } from 'components/view/appView';
 
 class App {
   private readonly controller: AppController;
