@@ -3,17 +3,24 @@ export type CallbackFn = (event: MouseEvent) => void;
 export type ElementParams = {
   tag: string;
   classNames: string[];
+  id?: string;
   textContent?: string;
   callback?: CallbackFn;
 };
 
-type HtmpPattern = {
+type Attribute = Record<string, string>;
+
+export type HtmlPattern = {
   tag: string;
-  pseudoTag: string;
+  selected: boolean;
+  pseudo: PseudoHtmlPattern;
   id?: string;
-  class?: string[];
-  child?: HtmpPattern[];
+  classes?: string[];
+  attributes?: Attribute;
+  child?: HtmlPattern[];
 };
+
+type PseudoHtmlPattern = Pick<HtmlPattern, 'tag' | 'id' | 'classes' | 'attributes'>
 
 export type LevelData = {
   id: number;
@@ -23,7 +30,7 @@ export type LevelData = {
   examples: string[];
   selector: string;
   solution: string;
-  htmlPattern: HtmpPattern[];
+  htmlPattern: HtmlPattern[];
 };
 
 export type LevelDescription = Pick<LevelData, 'name' | 'title' | 'hint' | 'examples' | 'selector'>;
