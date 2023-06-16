@@ -1,3 +1,4 @@
+import './_header.scss';
 import ElementCreator from "utils/element-creator";
 import { ElementParams } from "types";
 import View from "components/view/view";
@@ -8,7 +9,7 @@ export default class HeaderView extends View {
   constructor() {
     const params: ElementParams = {
       tag: 'header',
-      classNames: ['header'],
+      classes: ['header'],
     }
     super(params);
   }

@@ -5,7 +5,7 @@ export default class ElementCreator {
 
   constructor(params: ElementParams) {
     this.element = document.createElement(params.tag);
-    this.setCssClasses(params.classNames);
+    this.setCssClasses(params.classes);
     this.setTextContent(params.textContent);
     this.setCallback(params.callback);
   }
@@ -14,7 +14,7 @@ export default class ElementCreator {
     return this.element;
   }
 
-  public addInnerElement(element: HTMLElement | ElementCreator): void {
+  public addInnerElement(element: HTMLElement | DocumentFragment | ElementCreator): void {
     if (element instanceof ElementCreator) {
       this.element.append(element.getElement());
     } else {

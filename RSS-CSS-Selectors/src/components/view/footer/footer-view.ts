@@ -1,7 +1,7 @@
-import ElementCreator from "utils/element-creator";
-import { ElementParams } from "types";
-import View from "components/view/view";
 import './_footer.scss';
+import ElementCreator from 'utils/element-creator';
+import { ElementParams } from 'types';
+import View from 'components/view/view';
 
 export default class FooterView extends View {
   protected viewElementCreator!: ElementCreator;
@@ -9,8 +9,8 @@ export default class FooterView extends View {
   constructor() {
     const params: ElementParams = {
       tag: 'footer',
-      classNames: ['footer'],
-    }
+      classes: ['footer'],
+    };
     super(params);
   }
 }

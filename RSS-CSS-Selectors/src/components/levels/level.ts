@@ -41,7 +41,7 @@ export default class Level {
   private createElement(pattern: HtmlPattern): HTMLElement {
     const param: ElementParams = {
       tag: pattern.tag,
-      classNames: pattern.classes ?? [],
+      classes: pattern.classes ?? [],
     };
   
     const element = new ElementCreator(param);
