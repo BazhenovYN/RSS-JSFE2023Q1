@@ -8,19 +8,20 @@ export default class MainView extends View {
 
   private currentLevel!: Level;
 
-  constructor() {
+  constructor(id: number) {
     super({ tag: 'main', classes: ['main'] });
     this.configureView();
+    this.loadLevel(id);
   }
 
 
-  private loadLevel(): void {
+  private loadLevel(id: number): void {
     const table = this.tableWrapper.getElement();
     while (table.firstElementChild) {
       table.firstElementChild.remove();
     }
 
-    this.currentLevel = new Level(1);
+    this.currentLevel = new Level(id);
     const levelView = this.currentLevel.getLevelVisualisation();
     this.tableWrapper.addInnerElement(levelView);
   }
@@ -31,7 +32,5 @@ export default class MainView extends View {
     gameWrapper.addInnerElement(this.tableWrapper);
 
     this.viewElementCreator.addInnerElement(gameWrapper);
-
-    this.loadLevel();
   }
 }

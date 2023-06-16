@@ -1,6 +1,7 @@
 import HeaderView from 'components/view/header/header-view';
 import MainView from 'components/view/main/main-view';
 import FooterView from 'components/view/footer/footer-view';
+import Sidebar from 'components/sidebar/sidebar-view';
 
 export default class App {
   private main: MainView;
@@ -9,9 +10,12 @@ export default class App {
 
   private footer: FooterView;
 
+  private sidebar: Sidebar;
+
   constructor() {
-    this.main = new MainView();
     this.header = new HeaderView();
+    this.main = new MainView(1);
+    this.sidebar = new Sidebar();
     this.footer = new FooterView();
   }
 
@@ -19,6 +23,7 @@ export default class App {
     document.body.append(
       this.header.getHtmlElement(),
       this.main.getHtmlElement(),
+      this.sidebar.getHtmlElement(),
       this.footer.getHtmlElement());
   }
 }
