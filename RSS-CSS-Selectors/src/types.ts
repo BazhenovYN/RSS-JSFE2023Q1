@@ -20,7 +20,7 @@ export type HtmlPattern = {
   child?: HtmlPattern[];
 };
 
-type PseudoHtmlPattern = Pick<HtmlPattern, 'tag' | 'id' | 'classes' | 'attributes'>
+type PseudoHtmlPattern = Pick<HtmlPattern, 'tag' | 'id' | 'classes' | 'attributes'>;
 
 export type LevelData = {
   id: number;
@@ -34,6 +34,15 @@ export type LevelData = {
 };
 
 export type LevelDescription = Pick<LevelData, 'name' | 'title' | 'hint' | 'examples' | 'selector'>;
+
+export type LevelStatus = Pick<LevelData, 'id' | 'selector'> & { completed: boolean };
+
+export type GameProgress = {
+  currentLevelNumber: number;
+  totalLevels: number;
+  currentLevelCompleted: boolean;
+  score: LevelStatus[];
+};
 
 export type SaveSlot = {
   currentLevel: number;

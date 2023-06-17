@@ -1,28 +1,24 @@
 import './_main.scss';
 import View from 'components/common/view';
-import Level from 'components/levels/level';
+import Level from 'components/common/level';
 import ElementCreator from 'utils/element-creator';
 
 export default class MainView extends View {
   private tableWrapper!: ElementCreator;
 
-  private currentLevel!: Level;
-
-  constructor(id: number) {
+  constructor(currentLevel: Level) {
     super({ tag: 'main', classes: ['main'] });
     this.configureView();
-    this.loadLevel(id);
+    this.createLevel(currentLevel);
   }
 
-
-  private loadLevel(id: number): void {
+  public createLevel(currentLevel: Level): void {
     const table = this.tableWrapper.getElement();
     while (table.firstElementChild) {
       table.firstElementChild.remove();
     }
 
-    this.currentLevel = new Level(id);
-    const levelView = this.currentLevel.getLevelVisualisation();
+    const levelView = currentLevel.getLevelVisualisation();
     this.tableWrapper.addInnerElement(levelView);
   }
 

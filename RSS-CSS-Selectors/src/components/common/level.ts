@@ -7,7 +7,7 @@ export default class Level {
 
   private levelView: DocumentFragment;
 
-  public selectedElements: HTMLElement[];
+  private selectedElements: HTMLElement[];
 
   constructor(id: number) {
     this.level = LEVEL_DATA.find((elem) => elem.id === id) ?? LEVEL_DATA[0];

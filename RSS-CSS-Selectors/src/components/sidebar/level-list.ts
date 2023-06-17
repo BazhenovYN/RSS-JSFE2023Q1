@@ -1,12 +1,13 @@
 import View from "components/common/view";
+import { GameProgress } from "types";
 
-export default class LevelList extends View {
-  constructor() {
+export default class LevelListView extends View {
+  constructor(progress: GameProgress) {
     super({ tag: 'div', classes: ['level-list'] });
-    // this.configureView();
+    this.configureView(progress);
   }
 
-  // private configureView(): void {
+  private configureView(progress: GameProgress): void {
 
-  // }
+  }
 }

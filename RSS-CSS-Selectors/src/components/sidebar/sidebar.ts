@@ -1,23 +1,25 @@
 import './_sidebar.scss';
+import { GameProgress } from 'types';
 import View from 'components/common/view';
 import Menu from 'components/menu/menu';
+import Level from 'components/common/level';
 import Help from './help';
-import LevelList from './level-list';
+import LevelListView from './level-list';
 
 export default class Sidebar extends View {
-  constructor() {
+  constructor(currentLevel: Level, progress: GameProgress) {
     super({ tag: 'div', classes: ['sidebar'] });
-    this.configureView();
+    this.configureView(currentLevel, progress);
   }
 
-  private configureView(): void {
+  private configureView(currentLevel: Level, progress: GameProgress): void {
     const menu = new Menu();
     this.viewElementCreator.addInnerElement(menu.getHtmlElement());
 
-    const help = new Help();
+    const help = new Help(currentLevel);
     this.viewElementCreator.addInnerElement(help.getHtmlElement());
 
-    const levelList = new LevelList();
+    const levelList = new LevelListView(progress);
     this.viewElementCreator.addInnerElement(levelList.getHtmlElement());
   }
 }
