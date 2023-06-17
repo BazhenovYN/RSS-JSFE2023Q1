@@ -19,7 +19,7 @@ module.exports = {
     open: true,
     port: 'auto',
     static: {
-      directory: path.join(__dirname, 'src'),
+      directory: path.join(__dirname, './dist'),
       watch: true,
     },
   },
