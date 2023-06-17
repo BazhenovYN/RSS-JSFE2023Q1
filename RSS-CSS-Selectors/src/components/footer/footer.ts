@@ -1,7 +1,7 @@
 import './_footer.scss';
 import ElementCreator from 'utils/element-creator';
 import { ElementParams } from 'types';
-import View from 'components/view/view';
+import View from 'components/common/view';
 
 export default class FooterView extends View {
   protected viewElementCreator!: ElementCreator;

@@ -1,6 +1,6 @@
 import { ElementParams, HtmlPattern, LevelData, LevelDescription } from 'types';
 import ElementCreator from 'utils/element-creator';
-import LEVEL_DATA from './data';
+import LEVEL_DATA from 'data/data';
 
 export default class Level {
   private level: LevelData;

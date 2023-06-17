@@ -1,5 +1,5 @@
 import './_main.scss';
-import View from 'components/view/view';
+import View from 'components/common/view';
 import Level from 'components/levels/level';
 import ElementCreator from 'utils/element-creator';
 

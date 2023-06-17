@@ -1,6 +1,6 @@
 import './_sidebar.scss';
-import View from 'components/view/view';
-import Menu from './menu';
+import View from 'components/common/view';
+import Menu from 'components/menu/menu';
 import Help from './help';
 import LevelList from './level-list';
 

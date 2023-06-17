@@ -1,4 +1,4 @@
-import View from "components/view/view";
+import View from "components/common/view";
 
 export default class LevelList extends View {
   constructor() {

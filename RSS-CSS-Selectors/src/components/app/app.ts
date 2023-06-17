@@ -1,7 +1,7 @@
-import HeaderView from 'components/view/header/header-view';
-import MainView from 'components/view/main/main-view';
-import FooterView from 'components/view/footer/footer-view';
-import Sidebar from 'components/sidebar/sidebar-view';
+import HeaderView from 'components/header/header';
+import MainView from 'components/main/main';
+import FooterView from 'components/footer/footer';
+import Sidebar from 'components/sidebar/sidebar';
 
 export default class App {
   private main: MainView;

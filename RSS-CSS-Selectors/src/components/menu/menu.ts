@@ -1,4 +1,4 @@
-import View from "components/view/view";
+import View from "components/common/view";
 
 export default class Menu extends View {
   constructor() {
