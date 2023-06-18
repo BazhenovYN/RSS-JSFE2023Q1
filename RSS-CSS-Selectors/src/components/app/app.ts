@@ -3,6 +3,7 @@ import MainView from 'components/main/main';
 import FooterView from 'components/footer/footer';
 import Sidebar from 'components/sidebar/sidebar';
 import LevelManager from 'components/common/level-manager';
+import ElementCreator from 'utils/element-creator';
 
 export default class App {
   private levelManager: LevelManager;
@@ -27,10 +28,13 @@ export default class App {
   }
 
   public start(): void {
-    document.body.append(
+    const wrapper = new ElementCreator({tag: 'div', classes: ['wrapper']});
+    wrapper.addInnerElement(
       this.header.getHtmlElement(),
       this.main.getHtmlElement(),
       this.sidebar.getHtmlElement(),
-      this.footer.getHtmlElement());
+      this.footer.getHtmlElement()
+    );
+    document.body.append(wrapper.getElement());
   }
 }

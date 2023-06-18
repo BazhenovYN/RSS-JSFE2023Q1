@@ -7,19 +7,26 @@ import Help from './help';
 import LevelListView from './level-list';
 
 export default class Sidebar extends View {
+  private menu!: Menu;
+
+  private help!: Help;
+
+  private levelList!: Menu;
+
   constructor(currentLevel: Level, progress: GameProgress) {
     super({ tag: 'div', classes: ['sidebar'] });
     this.configureView(currentLevel, progress);
   }
 
   private configureView(currentLevel: Level, progress: GameProgress): void {
-    const menu = new Menu();
-    this.viewElementCreator.addInnerElement(menu.getHtmlElement());
+    this.menu = new Menu();
+    this.help = new Help(currentLevel);
+    this.levelList = new LevelListView(progress);
 
-    const help = new Help(currentLevel);
-    this.viewElementCreator.addInnerElement(help.getHtmlElement());
-
-    const levelList = new LevelListView(progress);
-    this.viewElementCreator.addInnerElement(levelList.getHtmlElement());
+    this.viewElement.addInnerElement(
+      this.menu.getHtmlElement(),
+      this.help.getHtmlElement(),
+      this.levelList.getHtmlElement(),
+    );
   }
 }

@@ -2,6 +2,8 @@ import { ElementParams, HtmlPattern, LevelData, LevelDescription } from 'types';
 import ElementCreator from 'utils/element-creator';
 import LEVEL_DATA from 'data/data';
 
+const START_LEVEL = 1;
+
 export default class Level {
   private level: LevelData;
 
@@ -9,7 +11,7 @@ export default class Level {
 
   private selectedElements: HTMLElement[];
 
-  constructor(id: number) {
+  constructor(id = START_LEVEL) {
     this.level = LEVEL_DATA.find((elem) => elem.id === id) ?? LEVEL_DATA[0];
     this.selectedElements = [];
     this.levelView = document.createDocumentFragment();
@@ -25,7 +27,7 @@ export default class Level {
       name: this.level?.name ?? '',
       title: this.level?.title ?? '',
       hint: this.level?.hint ?? '',
-      examples: this.level?.examples ?? [],
+      example: this.level?.example ?? '',
       selector: this.level?.selector ?? '',
     };
   }

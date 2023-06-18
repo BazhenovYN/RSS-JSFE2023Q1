@@ -4,7 +4,7 @@ import { ElementParams } from 'types';
 import View from 'components/common/view';
 
 export default class FooterView extends View {
-  protected viewElementCreator!: ElementCreator;
+  protected viewElement!: ElementCreator;
 
   constructor() {
     const params: ElementParams = {

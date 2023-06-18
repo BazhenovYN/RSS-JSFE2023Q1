@@ -27,6 +27,6 @@ export default class MainView extends View {
     this.tableWrapper = new ElementCreator({ tag: 'div', classes: ['table-wrapper'] });
     gameWrapper.addInnerElement(this.tableWrapper);
 
-    this.viewElementCreator.addInnerElement(gameWrapper);
+    this.viewElement.addInnerElement(gameWrapper);
   }
 }

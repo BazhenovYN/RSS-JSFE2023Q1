@@ -9,14 +9,25 @@ function getLevelIdByNumber(levelNumber: number): number {
 export default class LevelManager {
   private currentLevel: Level;
 
-  private progress!: GameProgress;
+  private progress: GameProgress;
 
   constructor() {
-    this.currentLevel = new Level(1);
+    this.currentLevel = new Level();
+    this.progress = {
+      currentLevelNumber: 0,
+      totalLevels: 0,
+      currentLevelCompleted: false,
+      score: [],
+    }
     this.loadGameProgress();
   }
 
   private loadGameProgress(): void {
+    this.resetProgress();
+  }
+
+  public resetProgress(): void {
+    this.currentLevel = new Level();
     this.progress.currentLevelNumber = 1;
     this.progress.totalLevels = LEVEL_DATA.length;
     this.progress.currentLevelCompleted = false;
@@ -25,6 +36,7 @@ export default class LevelManager {
         id: level.id,
         selector: level.selector,
         completed: false,
+        hint: false,
       };
       acc.push(levelStatus);
       return acc;
@@ -40,7 +52,7 @@ export default class LevelManager {
   // public checkUserSelector(selector: string): boolean {
   // }
 
-  public previousLevel(): Level {
+  public previousLevel(): void {
     if (this.progress.currentLevelNumber > 1) {
       this.progress.currentLevelNumber -= 1;
     }
@@ -48,11 +60,9 @@ export default class LevelManager {
     const id = getLevelIdByNumber(this.progress.currentLevelNumber);
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
-
-    return this.currentLevel;
   }
 
-  public nextLevel(currentLevelCompleted = false): Level {
+  public nextLevel(currentLevelCompleted = false): void {
     if (currentLevelCompleted) {
       this.updateScore();
     }
@@ -64,17 +74,13 @@ export default class LevelManager {
     const id = getLevelIdByNumber(this.progress.currentLevelNumber);
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
-
-    return this.currentLevel;
   }
 
-  public pickLevel(levelNumber: number): Level {
+  public pickLevel(levelNumber: number): void {
     this.progress.currentLevelNumber = levelNumber;
     const id = getLevelIdByNumber(levelNumber);
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
-
-    return this.currentLevel;
   }
 
   private updateLevelStatus(): void {

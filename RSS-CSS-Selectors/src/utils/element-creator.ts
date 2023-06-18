@@ -1,4 +1,4 @@
-import { CallbackFn, ElementParams } from "types";
+import { CallbackFn, ElementParams } from 'types';
 
 export default class ElementCreator {
   private element: HTMLElement;
@@ -14,19 +14,22 @@ export default class ElementCreator {
     return this.element;
   }
 
-  public addInnerElement(element: HTMLElement | DocumentFragment | ElementCreator): void {
-    if (element instanceof ElementCreator) {
-      this.element.append(element.getElement());
-    } else {
-      this.element.append(element);
-    }
+  public addInnerElement<T extends ElementCreator | HTMLElement | DocumentFragment>(...elements: T[]): void {
+    elements.forEach((element) => {
+      if (element instanceof ElementCreator) {
+        this.element.append(element.getElement());
+      }
+      if (element instanceof HTMLElement || element instanceof DocumentFragment) {
+        this.element.append(element);
+      }
+    });
   }
 
-  private setCssClasses(cssClasses: string[] = []): void {
+  public setCssClasses(cssClasses: string[] = []): void {
     this.element.classList.add(...cssClasses);
   }
 
-  private setTextContent(text = ''): void {
+  public setTextContent(text = ''): void {
     this.element.textContent = text;
   }
 

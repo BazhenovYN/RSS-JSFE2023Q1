@@ -3,3 +3,34 @@
 * {
   box-sizing: border-box;
 }
+
+.wrapper {
+  display: grid;
+  grid-template-areas:
+    'header sidebar'
+    'main sidebar'
+    'footer sidebar';
+  grid-template-rows: 40px auto 40px;
+  grid-template-columns: auto 20%;
+  height: 100vh;
+}
+
+.header {
+  grid-area: header;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+.main {
+  grid-area: main;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.game-wrapper {
+  height: 100%;
+}
