@@ -46,6 +46,7 @@ export type GameProgress = {
   currentLevelNumber: number;
   totalLevels: number;
   currentLevelCompleted: boolean;
+  hint: boolean,
   score: LevelStatus[];
 };
 

@@ -7,6 +7,8 @@ export default class LevelListView extends View {
 
   private items = new Map<number, ElementCreator>();
 
+  public resetButton!: ElementCreator;
+
   constructor(progress: GameProgress) {
     super({ tag: 'div', classes: ['levels-wrapper'] });
     this.configureView(progress);
@@ -14,7 +16,12 @@ export default class LevelListView extends View {
 
   private configureView(progress: GameProgress): void {
     this.list = new ElementCreator({ tag: 'ol', classes: ['level-list'] });
-    this.viewElement.addInnerElement(this.list);
+    this.resetButton = new ElementCreator({
+      tag: 'button',
+      classes: ['btn', 'level-reset'],
+      textContent: 'Reset progress',
+    });
+    this.viewElement.addInnerElement(this.list, this.resetButton);
     this.createListItems(progress);
   }
 

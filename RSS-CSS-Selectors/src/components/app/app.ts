@@ -70,9 +70,15 @@ export default class App {
     this.update();
   }
 
+  private ResetHandler(): void {
+    this.levelManager.resetProgress();
+    this.update();
+  }
+
   private setListeners(): void {
     this.sidebar.setPickLevelListener(this.pickLevelHandler.bind(this));
     this.sidebar.setNextLevelListener(this.nextLevelHandler.bind(this));
     this.sidebar.setPrevLevelListener(this.prevLevelHandler.bind(this));
+    this.sidebar.setResetListener(this.ResetHandler.bind(this));
   }
 }

@@ -17,6 +17,7 @@ export default class LevelManager {
       currentLevelNumber: 0,
       totalLevels: 0,
       currentLevelCompleted: false,
+      hint: false,
       score: [],
     }
     this.loadGameProgress();
@@ -31,6 +32,7 @@ export default class LevelManager {
     this.progress.currentLevelNumber = 1;
     this.progress.totalLevels = LEVEL_DATA.length;
     this.progress.currentLevelCompleted = false;
+    this.progress.hint = false;
     this.progress.score = LEVEL_DATA.reduce((acc: LevelStatus[], level: LevelData) => {
       const levelStatus: LevelStatus = {
         id: level.id,
