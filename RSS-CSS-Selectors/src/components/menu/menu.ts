@@ -5,9 +5,9 @@ import ElementCreator from "utils/element-creator";
 export default class Menu extends View {
   private title!: ElementCreator;
 
-  private nextButton!: ElementCreator;
+  public nextButton!: ElementCreator;
 
-  private prevButton!: ElementCreator;
+  public prevButton!: ElementCreator;
   
   constructor(progress: GameProgress) {
     super({ tag: 'div', classes: ['menu'] });
@@ -20,7 +20,7 @@ export default class Menu extends View {
     this.prevButton = new ElementCreator({ tag: 'button', classes: ['btn', 'menu__prev'] });
 
     const nav = new ElementCreator({ tag: 'div', classes: ['menu__nav'] });
-    nav.addInnerElement(this.nextButton, this.prevButton);
+    nav.addInnerElement(this.prevButton, this.nextButton);
 
     this.viewElement.addInnerElement(
       this.title,

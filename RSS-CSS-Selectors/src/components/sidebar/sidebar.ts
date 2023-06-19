@@ -34,6 +34,14 @@ export default class Sidebar extends View {
     this.levelList.setCallback(callback);
   }
 
+  public setNextLevelListener(callback: CallbackFn): void {
+    this.menu.nextButton.setCallback(callback);
+  }
+
+  public setPrevLevelListener(callback: CallbackFn): void {
+    this.menu.prevButton.setCallback(callback);
+  }
+
   public update(currentLevel: Level, progress: GameProgress): void {
     this.menu.update(progress);
     this.help.update(currentLevel);

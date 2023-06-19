@@ -52,7 +52,7 @@ export default class LevelManager {
   // public checkUserSelector(selector: string): boolean {
   // }
 
-  public previousLevel(): void {
+  public prevLevel(): void {
     if (this.progress.currentLevelNumber > 1) {
       this.progress.currentLevelNumber -= 1;
     }

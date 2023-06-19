@@ -39,6 +39,14 @@ export default class App {
     this.setListeners();
   }
 
+  private update(): void {
+    const currentLevel = this.levelManager.getCurrentLevel();
+    const gameProgress = this.levelManager.getGameProgress();
+
+    this.main.createLevel(currentLevel);
+    this.sidebar.update(currentLevel, gameProgress);
+  }
+
   private pickLevelHandler(event: MouseEvent): void {
     let level = 0;
     const eventTarget = event.target;
@@ -48,16 +56,23 @@ export default class App {
 
     if (level > 0) {
       this.levelManager.pickLevel(level);
-
-      const currentLevel = this.levelManager.getCurrentLevel();
-      const gameProgress = this.levelManager.getGameProgress();
-
-      this.main.createLevel(currentLevel);
-      this.sidebar.update(currentLevel, gameProgress);
+      this.update();
     }
+  }
+
+  private nextLevelHandler(): void {
+    this.levelManager.nextLevel();
+    this.update();
+  }
+
+  private prevLevelHandler(): void {
+    this.levelManager.prevLevel();
+    this.update();
   }
 
   private setListeners(): void {
     this.sidebar.setPickLevelListener(this.pickLevelHandler.bind(this));
+    this.sidebar.setNextLevelListener(this.nextLevelHandler.bind(this));
+    this.sidebar.setPrevLevelListener(this.prevLevelHandler.bind(this));
   }
 }
