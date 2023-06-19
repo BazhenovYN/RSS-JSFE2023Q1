@@ -5,10 +5,11 @@ export type ElementParams = {
   classes: string[];
   id?: string;
   textContent?: string;
+  attributes?: Attribute;
   callback?: CallbackFn;
 };
 
-type Attribute = Record<string, string>;
+export type Attribute = Record<string, string>;
 
 export type HtmlPattern = {
   tag: string;

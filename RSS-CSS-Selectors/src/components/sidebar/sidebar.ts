@@ -1,5 +1,5 @@
 import './_sidebar.scss';
-import { GameProgress } from 'types';
+import { CallbackFn, GameProgress } from 'types';
 import View from 'components/common/view';
 import Menu from 'components/menu/menu';
 import Level from 'components/common/level';
@@ -11,7 +11,7 @@ export default class Sidebar extends View {
 
   private help!: Help;
 
-  private levelList!: Menu;
+  private levelList!: LevelListView;
 
   constructor(currentLevel: Level, progress: GameProgress) {
     super({ tag: 'div', classes: ['sidebar'] });
@@ -19,7 +19,7 @@ export default class Sidebar extends View {
   }
 
   private configureView(currentLevel: Level, progress: GameProgress): void {
-    this.menu = new Menu();
+    this.menu = new Menu(progress);
     this.help = new Help(currentLevel);
     this.levelList = new LevelListView(progress);
 
@@ -28,5 +28,14 @@ export default class Sidebar extends View {
       this.help.getHtmlElement(),
       this.levelList.getHtmlElement(),
     );
+  }
+
+  public setPickLevelListener(callback: CallbackFn): void {
+    this.levelList.setCallback(callback);
+  }
+
+  public update(currentLevel: Level, progress: GameProgress): void {
+    this.menu.update(progress);
+    this.help.update(currentLevel);
   }
 }

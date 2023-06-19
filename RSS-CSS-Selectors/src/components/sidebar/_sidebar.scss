@@ -1,3 +1,18 @@
 .sidebar {
   background: #dde87c;
 }
+
+.btn {
+  width: 25px;
+  height: 25px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 50px;
+
+  &__nav {
+    display: inline-flex;
+  }
+}

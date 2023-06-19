@@ -25,17 +25,18 @@ export default class LevelListView extends View {
       if (level.hint) {
         classes.push('hint');
       } else if (level.completed) {
-        classes.push('completed')
-      };
+        classes.push('completed');
+      }
 
       const item = new ElementCreator({
         tag: 'li',
         classes,
         textContent: level.selector,
+        attributes: { level: String(level.id) },
       });
 
       this.items.set(level.id, item);
-      
+
       this.list.addInnerElement(item);
     });
   }

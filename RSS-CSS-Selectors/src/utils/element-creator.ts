@@ -1,4 +1,4 @@
-import { CallbackFn, ElementParams } from 'types';
+import { CallbackFn, ElementParams, Attribute } from 'types';
 
 export default class ElementCreator {
   private element: HTMLElement;
@@ -7,6 +7,7 @@ export default class ElementCreator {
     this.element = document.createElement(params.tag);
     this.setCssClasses(params.classes);
     this.setTextContent(params.textContent);
+    this.setAttributes(params.attributes);
     this.setCallback(params.callback);
   }
 
@@ -33,7 +34,15 @@ export default class ElementCreator {
     this.element.textContent = text;
   }
 
-  private setCallback(callback: CallbackFn | undefined): void {
+  public setAttributes(attributes: Attribute | undefined): void {
+    if (!attributes) return;
+
+    Object.entries(attributes).forEach(([key, value]) => {
+      this.element.setAttribute(key, value);
+    });
+  }
+
+  public setCallback(callback: CallbackFn | undefined): void {
     if (typeof callback === 'function') {
       this.element.addEventListener('click', (event) => callback(event));
     }

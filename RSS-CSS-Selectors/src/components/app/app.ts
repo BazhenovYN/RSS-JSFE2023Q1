@@ -28,13 +28,36 @@ export default class App {
   }
 
   public start(): void {
-    const wrapper = new ElementCreator({tag: 'div', classes: ['wrapper']});
+    const wrapper = new ElementCreator({ tag: 'div', classes: ['wrapper'] });
     wrapper.addInnerElement(
       this.header.getHtmlElement(),
       this.main.getHtmlElement(),
       this.sidebar.getHtmlElement(),
-      this.footer.getHtmlElement()
+      this.footer.getHtmlElement(),
     );
     document.body.append(wrapper.getElement());
+    this.setListeners();
+  }
+
+  private pickLevelHandler(event: MouseEvent): void {
+    let level = 0;
+    const eventTarget = event.target;
+    if (eventTarget instanceof HTMLElement) {
+      level = Number(eventTarget.getAttribute('level')) ?? 0;
+    }
+
+    if (level > 0) {
+      this.levelManager.pickLevel(level);
+
+      const currentLevel = this.levelManager.getCurrentLevel();
+      const gameProgress = this.levelManager.getGameProgress();
+
+      this.main.createLevel(currentLevel);
+      this.sidebar.update(currentLevel, gameProgress);
+    }
+  }
+
+  private setListeners(): void {
+    this.sidebar.setPickLevelListener(this.pickLevelHandler.bind(this));
   }
 }

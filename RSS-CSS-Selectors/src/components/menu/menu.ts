@@ -1,12 +1,35 @@
+import { GameProgress } from "types";
 import View from "components/common/view";
+import ElementCreator from "utils/element-creator";
 
 export default class Menu extends View {
-  constructor() {
+  private title!: ElementCreator;
+
+  private nextButton!: ElementCreator;
+
+  private prevButton!: ElementCreator;
+  
+  constructor(progress: GameProgress) {
     super({ tag: 'div', classes: ['menu'] });
-    // this.configureView();
+    this.configureView().update(progress);
   }
 
-  // private configureView(): void {
+  private configureView(): Menu {
+    this.title = new ElementCreator({ tag: 'div', classes: ['menu__title'] });
+    this.nextButton = new ElementCreator({ tag: 'button', classes: ['btn', 'menu__next'] });
+    this.prevButton = new ElementCreator({ tag: 'button', classes: ['btn', 'menu__prev'] });
 
-  // }
+    const nav = new ElementCreator({ tag: 'div', classes: ['menu__nav'] });
+    nav.addInnerElement(this.nextButton, this.prevButton);
+
+    this.viewElement.addInnerElement(
+      this.title,
+      nav,
+    );
+    return this;
+  }
+
+  public update(progress: GameProgress): void {
+    this.title.setTextContent(`Level ${progress.currentLevelNumber} of ${progress.totalLevels}`);
+  }
 }
