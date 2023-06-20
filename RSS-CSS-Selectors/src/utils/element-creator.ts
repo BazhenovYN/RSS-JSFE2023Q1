@@ -8,7 +8,7 @@ export default class ElementCreator {
     this.setCssClasses(params.classes);
     this.setTextContent(params.textContent);
     this.setAttributes(params.attributes);
-    this.setCallback(params.callback);
+    this.setClickEventListener(params.callback);
   }
 
   public getElement(): HTMLElement {
@@ -30,6 +30,10 @@ export default class ElementCreator {
     this.element.classList.add(...cssClasses);
   }
 
+  public removeCssClasses(cssClasses: string[] = []): void {
+    this.element.classList.remove(...cssClasses);
+  }
+
   public setTextContent(text = ''): void {
     this.element.textContent = text;
   }
@@ -42,9 +46,21 @@ export default class ElementCreator {
     });
   }
 
-  public setCallback(callback: CallbackFn | undefined): void {
+  public setClickEventListener(callback: CallbackFn | undefined): void {
     if (typeof callback === 'function') {
       this.element.addEventListener('click', (event) => callback(event));
+    }
+  }
+
+  public setMouseEnterEventListener(callback: CallbackFn | undefined): void {
+    if (typeof callback === 'function') {
+      this.element.addEventListener('mouseenter', (event) => callback(event));
+    }
+  }
+
+  public setMouseLeaveEventListener(callback: CallbackFn | undefined): void {
+    if (typeof callback === 'function') {
+      this.element.addEventListener('mouseleave', (event) => callback(event));
     }
   }
 }

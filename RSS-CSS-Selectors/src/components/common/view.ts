@@ -12,7 +12,7 @@ export default abstract class View {
     return this.viewElement.getElement();
   }
 
-  public setCallback(callback: CallbackFn): void {
-    this.viewElement.setCallback(callback);
+  public setClickEventListener(callback: CallbackFn): void {
+    this.viewElement.setClickEventListener(callback);
   }
 }
