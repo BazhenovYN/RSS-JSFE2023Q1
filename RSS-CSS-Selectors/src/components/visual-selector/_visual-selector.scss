@@ -1,0 +1,31 @@
+.table-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.plate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+.fancy {
+  border: solid 5px #009ff2;
+}
+
+.apple {
+  width: 35px;
+  height: 35px;
+  background-color: #ff0000;
+  border-radius: 50%;
+
+  &.small {
+    width: 20px;
+    height: 20px;
+  }
+}

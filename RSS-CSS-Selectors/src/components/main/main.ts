@@ -1,10 +1,11 @@
 import './_main.scss';
+import ElementCreator from 'utils/element-creator';
 import View from 'components/common/view';
 import Level from 'components/common/level';
-import ElementCreator from 'utils/element-creator';
+import VisualSelector from 'components/visual-selector/visual-selector';
 
 export default class MainView extends View {
-  private tableWrapper!: ElementCreator;
+  private visualSelector!: VisualSelector;
 
   constructor(currentLevel: Level) {
     super({ tag: 'main', classes: ['main'] });
@@ -13,19 +14,13 @@ export default class MainView extends View {
   }
 
   public createLevel(currentLevel: Level): void {
-    const table = this.tableWrapper.getElement();
-    while (table.firstElementChild) {
-      table.firstElementChild.remove();
-    }
-
-    const levelView = currentLevel.getLevelVisualisation();
-    this.tableWrapper.addInnerElement(levelView);
+    this.visualSelector.createLevel(currentLevel);
   }
 
   private configureView(): void {
+    this.visualSelector = new VisualSelector();
     const gameWrapper = new ElementCreator({ tag: 'div', classes: ['game-wrapper'] });
-    this.tableWrapper = new ElementCreator({ tag: 'div', classes: ['table-wrapper'] });
-    gameWrapper.addInnerElement(this.tableWrapper);
+    gameWrapper.addInnerElement(this.visualSelector.getHtmlElement());
 
     this.viewElement.addInnerElement(gameWrapper);
   }
