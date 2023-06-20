@@ -51,7 +51,7 @@ export default class App {
     let level = 0;
     const eventTarget = event.target;
     if (eventTarget instanceof HTMLElement) {
-      level = Number(eventTarget.getAttribute('level')) ?? 0;
+      level = Number(eventTarget.dataset.level) ?? 0;
     }
 
     if (level > 0) {

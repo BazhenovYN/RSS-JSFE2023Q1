@@ -39,7 +39,7 @@ export default class LevelListView extends View {
         tag: 'li',
         classes,
         textContent: level.selector,
-        attributes: { level: String(level.id) },
+        attributes: { 'data-level': String(level.id) },
       });
 
       this.items.set(level.id, item);
