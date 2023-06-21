@@ -1,6 +1,7 @@
-import { ElementParams, HtmlPattern, LevelData, LevelDescription } from 'types';
+import { HtmlPattern, LevelData, LevelDescription } from 'types';
 import ElementCreator from 'utils/element-creator';
 import LEVEL_DATA from 'data/data';
+import HtmlLine from 'components/html-editor/html-line';
 
 const START_LEVEL = 1;
 
@@ -9,13 +10,16 @@ export default class Level {
 
   private levelView: DocumentFragment;
 
+  private htmlLevelView: DocumentFragment;
+
   private selectedElements: HTMLElement[] = [];
 
-  private tooltipElement: ElementCreator[] = [];
+  private tooltipElements: ElementCreator[] = [];
 
   constructor(id = START_LEVEL) {
     this.level = LEVEL_DATA.find((elem) => elem.id === id) ?? LEVEL_DATA[0];
     this.levelView = document.createDocumentFragment();
+    this.htmlLevelView = document.createDocumentFragment();
     this.createVisualisation();
   }
 
@@ -41,6 +45,10 @@ export default class Level {
     return this.levelView;
   }
 
+  public getHtmlLevelVisualisation(): DocumentFragment {
+    return this.htmlLevelView;
+  }
+
   private createTooltip(element: ElementCreator, pattern: HtmlPattern): ElementCreator {
     const tooltip = new ElementCreator({
       tag: 'span',
@@ -50,13 +58,13 @@ export default class Level {
 
     const handleMouseEnter = (): void => {
       element.setCssClasses(['tooltip']);
-      this.tooltipElement.forEach((item) => item.removeCssClasses(['tooltip']));
-      this.tooltipElement.push(element);
+      this.tooltipElements.forEach((item) => item.removeCssClasses(['tooltip']));
+      this.tooltipElements.push(element);
     };
 
     const handleMouseLeave = (): void => {
-      this.tooltipElement.pop()?.removeCssClasses(['tooltip']);
-      this.tooltipElement.slice(-1)[0]?.setCssClasses(['tooltip']);
+      this.tooltipElements.pop()?.removeCssClasses(['tooltip']);
+      this.tooltipElements.slice(-1)[0]?.setCssClasses(['tooltip']);
     };
 
     element.setMouseEnterEventListener(handleMouseEnter);
@@ -65,19 +73,22 @@ export default class Level {
     return tooltip;
   }
 
-  private createElement(pattern: HtmlPattern): HTMLElement {
-    const param: ElementParams = {
+  private createElement(pattern: HtmlPattern): HTMLElement[] {
+    const element = new ElementCreator({
       tag: pattern.tag,
       classes: pattern.classes ?? [],
-    };
-
-    const element = new ElementCreator(param);
+    });
 
     element.addInnerElement(this.createTooltip(element, pattern));
 
+    const htmlElement = new HtmlLine(pattern);
+
     if (pattern.child) {
       pattern.child.forEach((childPattern) => {
-        element.addInnerElement(this.createElement(childPattern));
+        const [innerElement, innerHtmlElement] = this.createElement(childPattern);
+        element.addInnerElement(innerElement);
+        htmlElement.addInnerElement(innerHtmlElement);
+        htmlElement.addClosingTag(pattern);
       });
     }
 
@@ -85,13 +96,15 @@ export default class Level {
       this.selectedElements.push(element.getElement());
     }
 
-    return element.getElement();
+    return [element.getElement(), htmlElement.getElement()];
   }
 
   private createVisualisation(): void {
+    // perform parallel creation of elements for visualization and html editor
     this.level.htmlPattern.forEach((pattern) => {
-      const element: HTMLElement = this.createElement(pattern);
+      const [element, htmlElement] = this.createElement(pattern);
       this.levelView.append(element);
+      this.htmlLevelView.append(htmlElement);
     });
   }
 }

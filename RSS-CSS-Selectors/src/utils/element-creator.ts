@@ -27,7 +27,9 @@ export default class ElementCreator {
   }
 
   public setCssClasses(cssClasses: string[] = []): void {
-    this.element.classList.add(...cssClasses);
+    if (cssClasses.length) {
+      this.element.classList.add(...cssClasses);
+    }
   }
 
   public removeCssClasses(cssClasses: string[] = []): void {

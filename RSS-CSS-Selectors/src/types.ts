@@ -2,7 +2,7 @@ export type CallbackFn = (event: MouseEvent) => void;
 
 export type ElementParams = {
   tag: string;
-  classes: string[];
+  classes?: string[];
   id?: string;
   textContent?: string;
   attributes?: Attribute;
