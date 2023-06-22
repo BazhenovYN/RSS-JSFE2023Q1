@@ -1,3 +1,12 @@
 .html-viewer div {
   padding-left: 20px;
 }
+
+.html-viewer {
+  width: 500px;
+  height: 200px;
+}
+
+.html-viewer .selected {
+  text-shadow:0 0 10px #ffffff;
+}

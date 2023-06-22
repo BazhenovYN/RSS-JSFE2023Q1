@@ -40,6 +40,10 @@ export default class ElementCreator {
     this.element.textContent = text;
   }
 
+  public setInnerHTML(text = ''): void {
+    this.element.innerHTML = text;
+  }
+
   public setAttributes(attributes: Attribute | undefined): void {
     if (!attributes) return;
 

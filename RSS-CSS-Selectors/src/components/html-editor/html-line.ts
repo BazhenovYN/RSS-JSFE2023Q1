@@ -1,38 +1,15 @@
 import { HtmlPattern } from 'types';
+import { getHtmlString } from 'utils/utils';
 import ElementCreator from 'utils/element-creator';
-
-function getId(pattern: HtmlPattern): string {
-  if (!pattern.pseudo?.id) {
-    return '';
-  }
-  return ` id="${pattern.pseudo.id}"`;
-}
-
-function getClasses(pattern: HtmlPattern): string {
-  if (!pattern.pseudo?.classes) {
-    return '';
-  }
-  return ` class="${pattern.pseudo.classes.join(' ')}"`;
-}
-
-function getHtmlString(pattern: HtmlPattern, closingTag: boolean): string {
-  if (closingTag) {
-    return `</${pattern.pseudo.tag}>`;
-  }
-  let close = '';
-  if (!pattern.child) {
-    close = '/';
-  }
-  return `<${pattern.pseudo.tag}${getId(pattern)}${getClasses(pattern)}${close}>`;
-}
+import hljs from './highlight/es/common';
+import './highlight/styles/atom-one-dark.css';
 
 function addLineOfCode(pattern: HtmlPattern, closingTag = false): ElementCreator {
   const line = new ElementCreator({ tag: 'pre' });
-  const code = new ElementCreator({
-    tag: 'code',
-    classes: ['language-html'],
-    textContent: getHtmlString(pattern, closingTag),
-  });
+  const code = new ElementCreator({ tag: 'code', classes: ['language-xml'] });
+
+  const html = hljs.highlight(getHtmlString(pattern, closingTag), { language: 'xml' }).value;
+  code.setInnerHTML(html);
   line.addInnerElement(code);
   return line;
 }

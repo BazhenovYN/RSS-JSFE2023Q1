@@ -8,7 +8,7 @@ export default class HtmlEditor extends View {
 
   constructor() {
     super({ tag: 'div', classes: ['html-editor'] });
-    this.htmlViewer = new ElementCreator({ tag: 'div', classes: ['html-viewer'] });
+    this.htmlViewer = new ElementCreator({ tag: 'div', classes: ['hljs', 'html-viewer'] });
     this.viewElement.addInnerElement(this.htmlViewer);
   }
 

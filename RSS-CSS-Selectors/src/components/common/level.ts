@@ -1,4 +1,5 @@
 import { HtmlPattern, LevelData, LevelDescription } from 'types';
+import { getHtmlString } from 'utils/utils';
 import ElementCreator from 'utils/element-creator';
 import LEVEL_DATA from 'data/data';
 import HtmlLine from 'components/html-editor/html-line';
@@ -12,9 +13,11 @@ export default class Level {
 
   private htmlLevelView: DocumentFragment;
 
-  private selectedElements: HTMLElement[] = [];
+  private goal: HTMLElement[] = [];
 
-  private tooltipElements: ElementCreator[] = [];
+  private selectedElements: ElementCreator[] = [];
+
+  private selectedHtmlElements: HtmlLine[] = [];
 
   constructor(id = START_LEVEL) {
     this.level = LEVEL_DATA.find((elem) => elem.id === id) ?? LEVEL_DATA[0];
@@ -49,28 +52,29 @@ export default class Level {
     return this.htmlLevelView;
   }
 
-  private createTooltip(element: ElementCreator, pattern: HtmlPattern): ElementCreator {
-    const tooltip = new ElementCreator({
-      tag: 'span',
-      classes: ['tooltiptext'],
-      textContent: pattern.pseudo.tag,
-    });
-
+  private createMouseHandlers(element: ElementCreator, htmlElement: HtmlLine): void {
     const handleMouseEnter = (): void => {
-      element.setCssClasses(['tooltip']);
-      this.tooltipElements.forEach((item) => item.removeCssClasses(['tooltip']));
-      this.tooltipElements.push(element);
+      element.setCssClasses(['selected']);
+      this.selectedElements.forEach((item) => item.removeCssClasses(['selected']));
+      this.selectedElements.push(element);
+
+      htmlElement.setCssClasses(['selected']);
+      this.selectedHtmlElements.forEach((item) => item.removeCssClasses(['selected']));
+      this.selectedHtmlElements.push(htmlElement);
     };
 
     const handleMouseLeave = (): void => {
-      this.tooltipElements.pop()?.removeCssClasses(['tooltip']);
-      this.tooltipElements.slice(-1)[0]?.setCssClasses(['tooltip']);
+      this.selectedElements.pop()?.removeCssClasses(['selected']);
+      this.selectedElements.slice(-1)[0]?.setCssClasses(['selected']);
+
+      this.selectedHtmlElements.pop()?.removeCssClasses(['selected']);
+      this.selectedHtmlElements.slice(-1)[0]?.setCssClasses(['selected']);
     };
 
     element.setMouseEnterEventListener(handleMouseEnter);
     element.setMouseLeaveEventListener(handleMouseLeave);
-
-    return tooltip;
+    htmlElement.setMouseEnterEventListener(handleMouseEnter);
+    htmlElement.setMouseLeaveEventListener(handleMouseLeave);
   }
 
   private createElement(pattern: HtmlPattern): HTMLElement[] {
@@ -79,9 +83,15 @@ export default class Level {
       classes: pattern.classes ?? [],
     });
 
-    element.addInnerElement(this.createTooltip(element, pattern));
-
     const htmlElement = new HtmlLine(pattern);
+
+    const tooltip = new ElementCreator({
+      tag: 'span',
+      classes: ['tooltiptext'],
+      textContent: getHtmlString(pattern, false),
+    });
+
+    element.addInnerElement(tooltip);
 
     if (pattern.child) {
       pattern.child.forEach((childPattern) => {
@@ -93,14 +103,16 @@ export default class Level {
     }
 
     if (pattern.selected) {
-      this.selectedElements.push(element.getElement());
+      this.goal.push(element.getElement());
     }
+
+    this.createMouseHandlers(element, htmlElement);
 
     return [element.getElement(), htmlElement.getElement()];
   }
 
   private createVisualisation(): void {
-    // perform parallel creation of elements for visualization and html editor
+    // parallel creation of elements for visualization and html editor
     this.level.htmlPattern.forEach((pattern) => {
       const [element, htmlElement] = this.createElement(pattern);
       this.levelView.append(element);

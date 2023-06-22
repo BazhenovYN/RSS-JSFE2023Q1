@@ -37,29 +37,27 @@
   justify-content: space-evenly;
   align-items: center;
   height: 100%;
-}
 
-.tooltip {
-  position: relative;
-}
+  & .tooltiptext {
+    position: absolute;
+    z-index: 1;
+    top: -50px;
+    left: 50%;
+    visibility: hidden;
+    width: max-content;
+    font-family: monospace;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px 5px;
+  }
 
-.tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 10px 0;
-  
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 1;
-  top: -50px;
-  left: 50%;
-  margin-left: -60px;
-}
+  & .selected {
+    position: relative;
+  }
 
-.tooltip > .tooltiptext {
-  visibility: visible;
+  & .selected > .tooltiptext {
+    visibility: visible;
+  }
 }
