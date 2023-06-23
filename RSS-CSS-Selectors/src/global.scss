@@ -13,22 +13,22 @@
   grid-template-rows: 40px auto 40px;
   grid-template-columns: auto 20%;
   height: 100vh;
-}
 
-.header {
-  grid-area: header;
-}
-
-.footer {
-  grid-area: footer;
-}
-
-.main {
-  grid-area: main;
-}
-
-.sidebar {
-  grid-area: sidebar;
+  .header {
+    grid-area: header;
+  }
+  
+  .footer {
+    grid-area: footer;
+  }
+  
+  .main {
+    grid-area: main;
+  }
+  
+  .sidebar {
+    grid-area: sidebar;
+  }
 }
 
 .game-wrapper {
@@ -38,7 +38,7 @@
   align-items: center;
   height: 100%;
 
-  & .tooltiptext {
+  .tooltiptext {
     position: absolute;
     z-index: 1;
     top: -50px;
@@ -53,11 +53,11 @@
     padding: 10px 5px;
   }
 
-  & .selected {
+  .selected {
     position: relative;
   }
 
-  & .selected > .tooltiptext {
+  .selected > .tooltiptext {
     visibility: visible;
   }
 }
