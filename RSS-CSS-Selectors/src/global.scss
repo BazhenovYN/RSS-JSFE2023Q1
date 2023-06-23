@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  font-family: monospace;
+}
+
 .wrapper {
   display: grid;
   grid-template-areas:
@@ -45,7 +49,6 @@
     left: 50%;
     visibility: hidden;
     width: max-content;
-    font-family: monospace;
     background-color: black;
     color: #fff;
     text-align: center;
@@ -59,5 +62,9 @@
 
   .selected > .tooltiptext {
     visibility: visible;
+  }
+
+  .task {
+    font-size: 4rem;
   }
 }

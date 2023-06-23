@@ -26,6 +26,10 @@ export default class Level {
     this.createVisualisation();
   }
 
+  public getTaskLevel(): string {
+    return this.level.task;
+  }
+
   public getLevelId(): number {
     return this.level.id;
   }

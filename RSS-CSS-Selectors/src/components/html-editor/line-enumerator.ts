@@ -1,6 +1,6 @@
 import ElementCreator from 'utils/element-creator';
 
-const DEFAULT_ROW_COUNT = 10;
+const DEFAULT_ROW_COUNT = 15;
 
 export default class LineEnumerator extends ElementCreator {
   constructor(count = DEFAULT_ROW_COUNT) {

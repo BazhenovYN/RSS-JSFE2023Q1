@@ -10,6 +10,8 @@ export default class MainView extends View {
 
   private htmlEditor!: HtmlEditor;
 
+  private levelTask!: ElementCreator;
+
   constructor(currentLevel: Level) {
     super({ tag: 'main', classes: ['main'] });
     this.configureView();
@@ -17,6 +19,7 @@ export default class MainView extends View {
   }
 
   public createLevel(currentLevel: Level): void {
+    this.levelTask.setTextContent(currentLevel.getTaskLevel());
     this.visualSelector.createLevel(currentLevel);
     this.htmlEditor.createLevel(currentLevel);
   }
@@ -24,8 +27,10 @@ export default class MainView extends View {
   private configureView(): void {
     this.visualSelector = new VisualSelector();
     this.htmlEditor = new HtmlEditor();
+    this.levelTask = new ElementCreator({ tag: 'div', classes: ['task']});
 
     const gameWrapper = new ElementCreator({ tag: 'div', classes: ['game-wrapper'] });
+    gameWrapper.addInnerElement(this.levelTask);
     gameWrapper.addInnerElement(this.visualSelector.getHtmlElement());
     gameWrapper.addInnerElement(this.htmlEditor.getHtmlElement());
 
