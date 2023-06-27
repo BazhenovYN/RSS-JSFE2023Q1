@@ -2,7 +2,6 @@ import { HtmlPattern } from 'types';
 import { getHtmlString } from 'utils/utils';
 import ElementCreator from 'utils/element-creator';
 import hljs from 'highlight.js/lib/common';
-import 'highlight.js/styles/atom-one-dark.css';
 
 function addLineOfCode(pattern: HtmlPattern, closingTag = false): ElementCreator {
   const line = new ElementCreator({ tag: 'pre' });
