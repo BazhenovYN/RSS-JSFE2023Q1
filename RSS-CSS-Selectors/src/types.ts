@@ -16,14 +16,11 @@ export type Attribute = Record<string, string>;
 export type HtmlPattern = {
   tag: string;
   selected: boolean;
-  pseudo: PseudoHtmlPattern;
   id?: string;
   classes?: string[];
   attributes?: Attribute;
   child?: HtmlPattern[];
 };
-
-type PseudoHtmlPattern = Pick<HtmlPattern, 'tag' | 'id' | 'classes' | 'attributes'>;
 
 export type LevelData = {
   id: number;

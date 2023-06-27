@@ -1,26 +1,26 @@
 import { HtmlPattern } from 'types';
 
 function getId(pattern: HtmlPattern): string {
-  if (!pattern.pseudo?.id) {
+  if (!pattern?.id) {
     return '';
   }
-  return ` id="${pattern.pseudo.id}"`;
+  return ` id="${pattern.id}"`;
 }
 
 function getClasses(pattern: HtmlPattern): string {
-  if (!pattern.pseudo?.classes) {
+  if (!pattern?.classes) {
     return '';
   }
-  return ` class="${pattern.pseudo.classes.join(' ')}"`;
+  return ` class="${pattern.classes.join(' ')}"`;
 }
 
 export function getHtmlString(pattern: HtmlPattern, closingTag: boolean): string {
   if (closingTag) {
-    return `</${pattern.pseudo.tag}>`;
+    return `</${pattern.tag}>`;
   }
   let close = '';
   if (!pattern.child) {
     close = '/';
   }
-  return `<${pattern.pseudo.tag}${getId(pattern)}${getClasses(pattern)}${close}>`;
+  return `<${pattern.tag}${getId(pattern)}${getClasses(pattern)}${close}>`;
 }

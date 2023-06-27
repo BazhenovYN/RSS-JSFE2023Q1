@@ -14,16 +14,10 @@ const LEVEL_DATA: LevelData[] = [
       {
         tag: 'plate',
         selected: true,
-        pseudo: {
-          tag: 'plate',
-        },
       },
       {
         tag: 'plate',
         selected: true,
-        pseudo: {
-          tag: 'plate',
-        },
       },
     ],
   },
@@ -41,17 +35,10 @@ const LEVEL_DATA: LevelData[] = [
         tag: 'plate',
         id: 'fancy',
         selected: true,
-        pseudo: {
-          tag: 'plate',
-          id: '#fancy',
-        },
       },
       {
         tag: 'plate',
         selected: false,
-        pseudo: {
-          tag: 'plate',
-        },
       },
     ],
   },
@@ -68,32 +55,20 @@ const LEVEL_DATA: LevelData[] = [
       {
         tag: 'plate',
         selected: false,
-        pseudo: {
-          tag: 'plate',
-        },
       },
       {
         tag: 'plate',
         selected: false,
-        pseudo: {
-          tag: 'plate',
-        },
         child: [
           {
             tag: 'apple',
             selected: true,
-            pseudo: {
-              tag: 'apple',
-            },
           },
         ],
       },
       {
         tag: 'apple',
         selected: false,
-        pseudo: {
-          tag: 'apple',
-        },
       },
     ],
   },
@@ -110,43 +85,26 @@ const LEVEL_DATA: LevelData[] = [
       {
         tag: 'apple',
         selected: false,
-        pseudo: {
-          tag: 'apple',
-        },
       },
       {
         tag: 'apple',
         selected: true,
         classes: ['small'],
-        pseudo: {
-          tag: 'apple',
-          classes: ['small'],
-        },
       },
       {
         tag: 'plate',
         selected: false,
-        pseudo: {
-          tag: 'plate',
-        },
         child: [
           {
             tag: 'apple',
             selected: true,
             classes: ['small'],
-            pseudo: {
-              tag: 'apple',
-              classes: ['small'],
-            },
           },
         ],
       },
       {
         tag: 'plate',
         selected: false,
-        pseudo: {
-          tag: 'plate',
-        },
       },
     ],
   },
