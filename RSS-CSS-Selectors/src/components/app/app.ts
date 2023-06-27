@@ -47,9 +47,15 @@ export default class App {
   private checkUserSelector(selector: string): void {
     if (selector === '') return;
 
-    if (this.levelManager.isCorrectSelector(this.testingContainer, selector)) {
-      this.levelManager.nextLevel();
+    const currentLevelCompleted = this.levelManager.isCorrectSelector(this.testingContainer, selector);
+
+    if (currentLevelCompleted) {
+      this.levelManager.nextLevel(currentLevelCompleted);
       this.update();
+
+      if (this.levelManager.isWin()) {
+        this.main.showWinMessage();
+      }
     }
   }
 

@@ -19,7 +19,7 @@ export default class LevelManager {
       currentLevelCompleted: false,
       hint: false,
       score: [],
-    }
+    };
     this.loadGameProgress();
   }
 
@@ -51,11 +51,15 @@ export default class LevelManager {
   // private saveGame(): void {
   // }
 
+  public isWin(): boolean {
+    return this.progress.score.every((level) => level.completed);
+  }
+
   public isCorrectSelector(container: HTMLElement, selector: string): boolean {
     const userElements = [...container.querySelectorAll(`${selector}:not(.tooltiptext)`)];
     const answer = this.currentLevel.getAnswer();
     if (userElements.length !== answer.length) {
-      return false
+      return false;
     }
 
     return userElements.every((element) => {
@@ -63,7 +67,7 @@ export default class LevelManager {
         return answer.includes(element);
       }
       return false;
-  });
+    });
   }
 
   public prevLevel(): void {
@@ -108,7 +112,9 @@ export default class LevelManager {
     const levelStatus = this.progress.score.find((level) => level.id === id);
     if (levelStatus) {
       levelStatus.completed = true;
+      levelStatus.hint = this.progress.hint;
     }
+    
     // saveGame(); // TODO: сохранение игры при прохождении очередного уровня
   }
 

@@ -27,7 +27,7 @@ export default class MainView extends View {
   private configureView(): void {
     this.visualSelector = new VisualSelector();
     this.htmlEditor = new HtmlEditor();
-    this.levelTask = new ElementCreator({ tag: 'div', classes: ['task']});
+    this.levelTask = new ElementCreator({ tag: 'div', classes: ['task'] });
 
     const gameWrapper = new ElementCreator({ tag: 'div', classes: ['game-wrapper'] });
     gameWrapper.addInnerElement(this.levelTask);
@@ -39,5 +39,9 @@ export default class MainView extends View {
 
   public getTestingContainer(): HTMLElement {
     return this.visualSelector.getHtmlElement();
+  }
+
+  public showWinMessage(): void {
+    this.levelTask.setTextContent('Congratulation! Now you are the guru of CSS-selectors!');
   }
 }
