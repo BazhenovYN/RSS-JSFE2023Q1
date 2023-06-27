@@ -13,11 +13,11 @@ export default class Level {
 
   private htmlLevelView: DocumentFragment;
 
-  private goal: HTMLElement[] = [];
+  private answer: HTMLElement[] = [];
 
-  private selectedElements: ElementCreator[] = [];
+  private hoveredElements: ElementCreator[] = [];
 
-  private selectedHtmlElements: HtmlLine[] = [];
+  private hoveredMarkupElements: HtmlLine[] = [];
 
   constructor(id = START_LEVEL) {
     this.level = LEVEL_DATA.find((elem) => elem.id === id) ?? LEVEL_DATA[0];
@@ -58,21 +58,21 @@ export default class Level {
 
   private createMouseHandlers(element: ElementCreator, htmlElement: HtmlLine): void {
     const handleMouseEnter = (): void => {
-      element.setCssClasses(['selected']);
-      this.selectedElements.forEach((item) => item.removeCssClasses(['selected']));
-      this.selectedElements.push(element);
+      element.setCssClasses(['hover']);
+      this.hoveredElements.forEach((item) => item.removeCssClasses(['hover']));
+      this.hoveredElements.push(element);
 
-      htmlElement.setCssClasses(['selected']);
-      this.selectedHtmlElements.forEach((item) => item.removeCssClasses(['selected']));
-      this.selectedHtmlElements.push(htmlElement);
+      htmlElement.setCssClasses(['hover']);
+      this.hoveredMarkupElements.forEach((item) => item.removeCssClasses(['hover']));
+      this.hoveredMarkupElements.push(htmlElement);
     };
 
     const handleMouseLeave = (): void => {
-      this.selectedElements.pop()?.removeCssClasses(['selected']);
-      this.selectedElements.slice(-1)[0]?.setCssClasses(['selected']);
+      this.hoveredElements.pop()?.removeCssClasses(['hover']);
+      this.hoveredElements.slice(-1)[0]?.setCssClasses(['hover']);
 
-      this.selectedHtmlElements.pop()?.removeCssClasses(['selected']);
-      this.selectedHtmlElements.slice(-1)[0]?.setCssClasses(['selected']);
+      this.hoveredMarkupElements.pop()?.removeCssClasses(['hover']);
+      this.hoveredMarkupElements.slice(-1)[0]?.setCssClasses(['hover']);
     };
 
     element.setMouseEnterEventListener(handleMouseEnter);
@@ -84,6 +84,7 @@ export default class Level {
   private createElement(pattern: HtmlPattern): HTMLElement[] {
     const element = new ElementCreator({
       tag: pattern.tag,
+      id: pattern.id,
       classes: pattern.classes ?? [],
     });
 
@@ -107,7 +108,7 @@ export default class Level {
     }
 
     if (pattern.selected) {
-      this.goal.push(element.getElement());
+      this.answer.push(element.getElement());
     }
 
     this.createMouseHandlers(element, htmlElement);
@@ -122,5 +123,9 @@ export default class Level {
       this.levelView.append(element);
       this.htmlLevelView.append(htmlElement);
     });
+  }
+
+  public getAnswer(): HTMLElement[] {
+    return this.answer;
   }
 }

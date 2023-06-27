@@ -56,11 +56,11 @@ html {
     padding: 10px 5px;
   }
 
-  .selected {
+  .hover {
     position: relative;
   }
 
-  .selected > .tooltiptext {
+  .hover > .tooltiptext {
     visibility: visible;
   }
 

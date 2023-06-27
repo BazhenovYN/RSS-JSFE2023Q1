@@ -17,6 +17,8 @@ export default class App {
 
   private sidebar: Sidebar;
 
+  private testingContainer: HTMLElement;
+
   constructor() {
     this.levelManager = new LevelManager();
     const currentLevel = this.levelManager.getCurrentLevel();
@@ -26,6 +28,8 @@ export default class App {
     this.main = new MainView(currentLevel);
     this.sidebar = new Sidebar(currentLevel, gameProgress);
     this.footer = new FooterView();
+
+    this.testingContainer = this.main.getTestingContainer();
   }
 
   public start(): void {
@@ -38,11 +42,12 @@ export default class App {
     );
     document.body.append(wrapper.getElement());
     this.setListeners();
-    emitter.subscribe('event:selector-enter', (selector: string) => this.checkUserSelector(selector));
   }
 
   private checkUserSelector(selector: string): void {
-    if (selector !== '') {
+    if (selector === '') return;
+
+    if (this.levelManager.isCorrectSelector(this.testingContainer, selector)) {
       this.levelManager.nextLevel();
       this.update();
     }
@@ -89,5 +94,7 @@ export default class App {
     this.sidebar.setNextLevelListener(this.nextLevelHandler.bind(this));
     this.sidebar.setPrevLevelListener(this.prevLevelHandler.bind(this));
     this.sidebar.setResetListener(this.ResetHandler.bind(this));
+
+    emitter.subscribe('event:selector-enter', (selector: string) => this.checkUserSelector(selector));
   }
 }

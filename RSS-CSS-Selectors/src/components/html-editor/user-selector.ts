@@ -21,15 +21,23 @@ export default class UserSelector extends View {
   }
 
   private configureView(): void {
-    const EnterSelectorHandler = (): void => {
+    const enterSelectorHandler = (): void => {
       emitter.emit('event:selector-enter', this.input.getValue());
     };
+
+    const keyEnterSelectorHandler = (event: KeyboardEvent): void => {
+      if (event.code === 'Enter') {
+        emitter.emit('event:selector-enter', this.input.getValue());
+      }
+    };
+
+    this.input.setKeydownListener(keyEnterSelectorHandler);
 
     const enterButton = new ElementCreator({
       tag: 'button',
       classes: ['selector__enter'],
       textContent: 'Enter',
-      callback: EnterSelectorHandler,
+      callback: enterSelectorHandler,
     });
 
     this.viewElement.addInnerElement(this.input);

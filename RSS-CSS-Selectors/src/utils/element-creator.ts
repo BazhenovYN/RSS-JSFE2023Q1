@@ -5,6 +5,7 @@ export default class ElementCreator {
 
   constructor(params: ElementParams) {
     this.element = document.createElement(params.tag);
+    this.setId(params.id);
     this.setCssClasses(params.classes);
     this.setTextContent(params.textContent);
     this.setAttributes(params.attributes);
@@ -24,6 +25,12 @@ export default class ElementCreator {
         this.element.append(element);
       }
     });
+  }
+
+  public setId(id = ''): void {
+    if (id) {
+      this.element.id = id;
+    }
   }
 
   public setCssClasses(cssClasses: string[] = []): void {

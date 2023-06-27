@@ -36,4 +36,8 @@ export default class MainView extends View {
 
     this.viewElement.addInnerElement(gameWrapper);
   }
+
+  public getTestingContainer(): HTMLElement {
+    return this.visualSelector.getHtmlElement();
+  }
 }

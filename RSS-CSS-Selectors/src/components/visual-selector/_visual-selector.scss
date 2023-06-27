@@ -4,7 +4,7 @@
   gap: 5px;
 }
 
-.plate {
+plate {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +14,11 @@
   border-radius: 50%;
 }
 
-.fancy {
+#fancy {
   border: solid 5px #009ff2;
 }
 
-.apple {
+apple {
   width: 35px;
   height: 35px;
   background-color: #ff0000;

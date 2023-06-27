@@ -12,17 +12,15 @@ const LEVEL_DATA: LevelData[] = [
     solution: 'plate',
     htmlPattern: [
       {
-        tag: 'div',
+        tag: 'plate',
         selected: true,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
       },
       {
-        tag: 'div',
+        tag: 'plate',
         selected: true,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
@@ -40,18 +38,17 @@ const LEVEL_DATA: LevelData[] = [
     solution: '#fancy',
     htmlPattern: [
       {
-        tag: 'div',
+        tag: 'plate',
+        id: 'fancy',
         selected: true,
-        classes: ['plate', 'fancy'],
         pseudo: {
           tag: 'plate',
           id: '#fancy',
         },
       },
       {
-        tag: 'div',
+        tag: 'plate',
         selected: false,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
@@ -69,25 +66,22 @@ const LEVEL_DATA: LevelData[] = [
     solution: 'plate apple',
     htmlPattern: [
       {
-        tag: 'div',
+        tag: 'plate',
         selected: false,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
       },
       {
-        tag: 'div',
+        tag: 'plate',
         selected: false,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
         child: [
           {
-            tag: 'div',
+            tag: 'apple',
             selected: true,
-            classes: ['apple'],
             pseudo: {
               tag: 'apple',
             },
@@ -95,9 +89,8 @@ const LEVEL_DATA: LevelData[] = [
         ],
       },
       {
-        tag: 'div',
+        tag: 'apple',
         selected: false,
-        classes: ['apple'],
         pseudo: {
           tag: 'apple',
         },
@@ -115,34 +108,32 @@ const LEVEL_DATA: LevelData[] = [
     solution: '.small',
     htmlPattern: [
       {
-        tag: 'div',
+        tag: 'apple',
         selected: false,
-        classes: ['apple'],
         pseudo: {
           tag: 'apple',
         },
       },
       {
-        tag: 'div',
+        tag: 'apple',
         selected: true,
-        classes: ['apple', 'small'],
+        classes: ['small'],
         pseudo: {
           tag: 'apple',
           classes: ['small'],
         },
       },
       {
-        tag: 'div',
+        tag: 'plate',
         selected: false,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
         child: [
           {
-            tag: 'div',
+            tag: 'apple',
             selected: true,
-            classes: ['apple', 'small'],
+            classes: ['small'],
             pseudo: {
               tag: 'apple',
               classes: ['small'],
@@ -151,9 +142,8 @@ const LEVEL_DATA: LevelData[] = [
         ],
       },
       {
-        tag: 'div',
+        tag: 'plate',
         selected: false,
-        classes: ['plate'],
         pseudo: {
           tag: 'plate',
         },
