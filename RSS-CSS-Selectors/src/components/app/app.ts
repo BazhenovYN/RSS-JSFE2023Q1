@@ -4,6 +4,7 @@ import FooterView from 'components/footer/footer';
 import Sidebar from 'components/sidebar/sidebar';
 import LevelManager from 'components/common/level-manager';
 import ElementCreator from 'utils/element-creator';
+import emitter from 'components/common/event-emmitter';
 
 export default class App {
   private levelManager: LevelManager;
@@ -37,6 +38,14 @@ export default class App {
     );
     document.body.append(wrapper.getElement());
     this.setListeners();
+    emitter.subscribe('event:selector-enter', (selector: string) => this.checkUserSelector(selector));
+  }
+
+  private checkUserSelector(selector: string): void {
+    if (selector !== '') {
+      this.levelManager.nextLevel();
+      this.update();
+    }
   }
 
   private update(): void {

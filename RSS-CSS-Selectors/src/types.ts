@@ -9,6 +9,8 @@ export type ElementParams = {
   callback?: CallbackFn;
 };
 
+export type InputElementParams = Pick<ElementParams, 'classes' | 'attributes'>;
+
 export type Attribute = Record<string, string>;
 
 export type HtmlPattern = {
@@ -55,3 +57,9 @@ export type SaveSlot = {
   userSelector: string;
   score: LevelStatus[];
 };
+
+export type EventHandler = (value: string) => void;
+
+export type Events = Record<string, EventHandler[]>;
+
+export type EventData = string;
