@@ -6,6 +6,8 @@ import InputView from 'utils/input-element-creator';
 export default class UserSelector extends View {
   private input: InputView;
 
+  private answer = '';
+
   constructor() {
     super({ tag: 'div', classes: ['selector'] });
     this.input = new InputView({
@@ -17,7 +19,7 @@ export default class UserSelector extends View {
     });
 
     this.configureView();
-    
+    emitter.subscribe('event:help-click', this.getHelp.bind(this, 0));
   }
 
   private configureView(): void {
@@ -46,5 +48,18 @@ export default class UserSelector extends View {
 
   public clearInput(): void {
     this.input.setValue('');
+  }
+
+  public setAnswer(answer: string): void {
+    this.answer = answer;
+  }
+
+  public getHelp(index: number): void {
+    if (index <= this.answer.length) {
+      this.input.setValue(this.answer.slice(0, index));
+    }
+    if (index + 1 <= this.answer.length) {
+      setTimeout(() => this.getHelp(index + 1), 300);
+    }
   }
 }

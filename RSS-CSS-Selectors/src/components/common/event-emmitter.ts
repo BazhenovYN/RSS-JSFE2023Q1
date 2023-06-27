@@ -1,4 +1,4 @@
-import { EventData, EventHandler, Events } from 'types';
+import { EventHandler, Events } from 'types';
 
 class EventEmitter {
   private events: Events;
@@ -15,7 +15,7 @@ class EventEmitter {
     this.events[eventName].push(fn);
   }
 
-  public emit(eventName: string, data: EventData): void {
+  public emit(eventName: string, data: string): void {
     const event = this.events[eventName];
     if (event) {
       event.forEach((fn) => {

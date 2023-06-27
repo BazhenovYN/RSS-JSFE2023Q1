@@ -4,6 +4,7 @@ import View from 'components/common/view';
 import Level from 'components/common/level';
 import VisualSelector from 'components/visual-selector/visual-selector';
 import HtmlEditor from 'components/html-editor/html-editor';
+import emitter from 'components/common/event-emmitter';
 
 export default class MainView extends View {
   private visualSelector!: VisualSelector;
@@ -25,12 +26,23 @@ export default class MainView extends View {
   }
 
   private configureView(): void {
+    const helpHandler = (): void => {
+      emitter.emit('event:help-click', '');
+    }
+
     this.visualSelector = new VisualSelector();
     this.htmlEditor = new HtmlEditor();
     this.levelTask = new ElementCreator({ tag: 'div', classes: ['task'] });
+    const helpButton = new ElementCreator({
+      tag: 'button',
+      classes: ['help-button'],
+      textContent: `Help, I'm stuck!`,
+      callback: helpHandler,
+    });
 
     const gameWrapper = new ElementCreator({ tag: 'div', classes: ['game-wrapper'] });
     gameWrapper.addInnerElement(this.levelTask);
+    gameWrapper.addInnerElement(helpButton);
     gameWrapper.addInnerElement(this.visualSelector.getHtmlElement());
     gameWrapper.addInnerElement(this.htmlEditor.getHtmlElement());
 

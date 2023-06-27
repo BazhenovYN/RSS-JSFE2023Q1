@@ -1,6 +1,7 @@
 import { GameProgress, LevelData, LevelStatus } from 'types';
 import Level from 'components/common/level';
 import LEVEL_DATA from 'data/data';
+import emitter from 'components/common/event-emmitter';
 
 function getLevelIdByNumber(levelNumber: number): number {
   return levelNumber; // for now, id is the level number in order
@@ -20,7 +21,12 @@ export default class LevelManager {
       hint: false,
       score: [],
     };
+    
     this.loadGameProgress();
+
+    emitter.subscribe('event:help-click', (): void => {
+      this.progress.hint = true;
+    });
   }
 
   private loadGameProgress(): void {
@@ -114,7 +120,7 @@ export default class LevelManager {
       levelStatus.completed = true;
       levelStatus.hint = this.progress.hint;
     }
-    
+
     // saveGame(); // TODO: сохранение игры при прохождении очередного уровня
   }
 

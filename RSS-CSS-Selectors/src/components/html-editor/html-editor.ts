@@ -22,5 +22,6 @@ export default class HtmlEditor extends View {
     this.htmlViewer.createLevel(currentLevel);
     this.viewElement.addInnerElement(this.htmlViewer);
     this.input.clearInput();
+    this.input.setAnswer(currentLevel.getSolution());
   }
 }
