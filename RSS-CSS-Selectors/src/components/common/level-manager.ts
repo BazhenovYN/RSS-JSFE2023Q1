@@ -13,7 +13,6 @@ export default class LevelManager {
   private progress: GameProgress;
 
   constructor() {
-    this.currentLevel = new Level();
     this.progress = {
       currentLevelNumber: 0,
       totalLevels: 0,
@@ -21,19 +20,44 @@ export default class LevelManager {
       hint: false,
       score: [],
     };
-    
+
     this.loadGameProgress();
+
+    const id = getLevelIdByNumber(this.progress.currentLevelNumber);
+    this.currentLevel = new Level(id);
 
     emitter.subscribe('event:help-click', (): void => {
       this.progress.hint = true;
+      this.updateScore();
+      this.saveGame();
     });
   }
 
   private loadGameProgress(): void {
-    this.resetProgress();
+    if (!this.loadGame()) {
+      this.createNewGame();
+    }
+  }
+
+  private loadGame(): boolean {
+    const progress = localStorage.getItem('progress');
+    if (progress) {
+      Object.assign(this.progress, JSON.parse(progress));
+      return true;
+    }
+    return false;
+  }
+
+  private saveGame(): void {
+    localStorage.setItem('progress', JSON.stringify(this.progress));
   }
 
   public resetProgress(): void {
+    localStorage.removeItem('progress');
+    this.createNewGame();
+  }
+
+  public createNewGame(): void {
     this.currentLevel = new Level();
     this.progress.currentLevelNumber = 1;
     this.progress.totalLevels = LEVEL_DATA.length;
@@ -50,12 +74,6 @@ export default class LevelManager {
       return acc;
     }, []);
   }
-
-  // private loadGame(): void {
-  // }
-
-  // private saveGame(): void {
-  // }
 
   public isWin(): boolean {
     return this.progress.score.every((level) => level.completed);
@@ -84,6 +102,7 @@ export default class LevelManager {
     const id = getLevelIdByNumber(this.progress.currentLevelNumber);
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
+    this.saveGame();
   }
 
   public nextLevel(currentLevelCompleted = false): void {
@@ -98,6 +117,7 @@ export default class LevelManager {
     const id = getLevelIdByNumber(this.progress.currentLevelNumber);
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
+    this.saveGame();
   }
 
   public pickLevel(levelNumber: number): void {
@@ -105,12 +125,14 @@ export default class LevelManager {
     const id = getLevelIdByNumber(levelNumber);
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
+    this.saveGame();
   }
 
   private updateLevelStatus(): void {
     const id = this.currentLevel.getLevelId();
     const levelStatus = this.progress.score.find((level) => level.id === id);
     this.progress.currentLevelCompleted = levelStatus?.completed ?? false;
+    this.progress.hint = levelStatus?.hint ?? false;
   }
 
   private updateScore(): void {
@@ -120,8 +142,6 @@ export default class LevelManager {
       levelStatus.completed = true;
       levelStatus.hint = this.progress.hint;
     }
-
-    // saveGame(); // TODO: сохранение игры при прохождении очередного уровня
   }
 
   public getCurrentLevel(): Level {

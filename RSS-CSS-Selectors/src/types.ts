@@ -49,12 +49,6 @@ export type GameProgress = {
   score: LevelStatus[];
 };
 
-export type SaveSlot = {
-  currentLevelNumber: number;
-  userSelector: string;
-  score: LevelStatus[];
-};
-
 export type EventHandler = (value: string) => void;
 
 export type Events = Record<string, EventHandler[]>;
