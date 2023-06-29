@@ -1,0 +1,26 @@
+.nav-btn {
+  background-size: contain;
+  border: none;
+  width: 25px;
+  height: 25px;
+  background-size: contain;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  transition: transform .2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
+}
+
+.menu__next {
+  background-image: url('assets/svg/arrow_next.svg');
+}
+
+.menu__prev {
+  background-image: url('assets/svg/arrow_prev.svg');
+}

@@ -1,31 +1,93 @@
 .table-wrapper {
   display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-plate {
-  display: flex;
   justify-content: center;
+  align-items: flex-end;
+  gap: 5px;
+  background-image: url('assets/images/table.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 50vw;
+  padding-bottom: 10vw;
+}
+
+basket {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   align-items: center;
-  width: 50px;
-  height: 50px;
-  background-color: #ffffff;
-  border-radius: 50%;
+  background-image: url('assets/images/basket.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 15vw;
+  height: 10vw;
+  padding-bottom: 4vw;
+  margin-bottom: -1vw;
+
+  corn {
+    height: 100%;
+  }
 }
 
-#fancy {
-  border: solid 5px #009ff2;
-}
-
-apple {
-  width: 35px;
-  height: 35px;
-  background-color: #ff0000;
-  border-radius: 50%;
+pepper {
+  background-image: url('assets/images/pepper.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 120px;
+  height: 107px;
 
   &.small {
-    width: 20px;
-    height: 20px;
+    width: 40px;
   }
+}
+
+#chili {
+  background-image: url('assets/images/chili.png');
+  width: 70px;
+}
+
+eggplant {
+  background-image: url('assets/images/eggplant.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 120px;
+  height: 107px;
+}
+
+carrot {
+  background-image: url('assets/images/carrot.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 120px;
+  height: 107px;
+}
+
+cucumber {
+  background-image: url('assets/images/cucumber.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: 120px;
+  height: 107px;
+
+  &.small {
+    width: 60px;
+  }
+}
+
+.bounce {
+  animation: bounce 2s ease infinite;
+}
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+	40% {transform: translateY(-15px);}
+	60% {transform: translateY(-8px);}
+}
+
+.table-wrapper .hover {
+  filter: drop-shadow(0 0 5px #fff);
 }

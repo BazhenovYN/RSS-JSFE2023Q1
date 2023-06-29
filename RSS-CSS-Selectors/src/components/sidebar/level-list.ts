@@ -1,6 +1,7 @@
 import { GameProgress } from 'types';
 import View from 'components/common/view';
 import ElementCreator from 'utils/element-creator';
+import emitter from 'components/common/event-emmitter';
 
 export default class LevelListView extends View {
   private list!: ElementCreator;
@@ -12,6 +13,7 @@ export default class LevelListView extends View {
   constructor(progress: GameProgress) {
     super({ tag: 'div', classes: ['levels-wrapper'] });
     this.configureView(progress);
+    emitter.subscribe('event:show-level-list', (status: string) => this.showList(status));
   }
 
   private configureView(progress: GameProgress): void {
@@ -46,5 +48,13 @@ export default class LevelListView extends View {
 
       this.list.addInnerElement(item);
     });
+  }
+
+  private showList(status: string): void {
+    if (status === 'show') {
+      this.viewElement.setCssClasses(['levels-wrapper_show']);
+    } else {
+      this.viewElement.removeCssClasses(['levels-wrapper_show']);
+    }
   }
 }

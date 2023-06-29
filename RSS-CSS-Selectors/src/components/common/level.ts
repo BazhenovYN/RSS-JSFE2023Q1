@@ -88,6 +88,10 @@ export default class Level {
       classes: pattern.classes ?? [],
     });
 
+    if(pattern.selected) {
+      element.setCssClasses(['bounce']);
+    }
+
     const htmlElement = new HtmlLine(pattern);
 
     const tooltip = new ElementCreator({

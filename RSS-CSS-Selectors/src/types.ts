@@ -53,4 +53,3 @@ export type EventHandler = (value: string) => void;
 
 export type Events = Record<string, EventHandler[]>;
 
-export type EventData = string;

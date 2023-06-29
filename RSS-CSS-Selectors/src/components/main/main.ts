@@ -28,7 +28,7 @@ export default class MainView extends View {
   private configureView(): void {
     const helpHandler = (): void => {
       emitter.emit('event:help-click', '');
-    }
+    };
 
     this.visualSelector = new VisualSelector();
     this.htmlEditor = new HtmlEditor();
