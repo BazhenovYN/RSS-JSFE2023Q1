@@ -6,6 +6,8 @@ import LevelManager from 'components/common/level-manager';
 import ElementCreator from 'utils/element-creator';
 import emitter from 'components/common/event-emmitter';
 
+const LEVEL_CHANGE_DELAY = 1500;
+
 export default class App {
   private levelManager: LevelManager;
 
@@ -45,17 +47,25 @@ export default class App {
   }
 
   private checkUserSelector(selector: string): void {
-    if (selector === '') return;
+    if (selector === '') {
+      emitter.emit('event:level-uncompleted', '');
+      return;
+    }
 
     const currentLevelCompleted = this.levelManager.isCorrectSelector(this.testingContainer, selector);
 
     if (currentLevelCompleted) {
-      this.levelManager.nextLevel(currentLevelCompleted);
-      this.update();
+      emitter.emit('event:level-completed', '');
+      setTimeout(() => {
+        this.levelManager.nextLevel(true);
+        this.update();
 
-      if (this.levelManager.isWin()) {
-        this.main.showWinMessage();
-      }
+        if (this.levelManager.isWin()) {
+          this.main.showWinMessage();
+        }
+      }, LEVEL_CHANGE_DELAY);
+    } else {
+      emitter.emit('event:level-uncompleted', '');
     }
   }
 

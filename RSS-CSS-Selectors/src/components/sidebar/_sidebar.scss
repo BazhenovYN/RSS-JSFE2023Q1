@@ -1,16 +1,24 @@
+%arrow {
+  display: block;
+  position: absolute;
+  width: 5px;
+  height: 11px;
+  border-width: 0 2px 2px 0;
+  border-style: solid;
+  border-color: #000000;
+  transform-origin: bottom left;
+  transform: rotate(45deg);
+}
+
 .sidebar {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   background: rgba(203, 223, 208, 0.4);
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   position: relative;
   padding: 20px;
   overflow: hidden;
-
-  @media (max-width: 1024px) {
-    font-size: 1rem;
-  }
 
   .help {
     display: flex;
@@ -22,7 +30,8 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: #e08f2a;
+    gap: 50px;
+    background-color: #b3d5b8;
     padding: 20px;
     top: 0;
     bottom: 0;
@@ -37,21 +46,97 @@
   }
 
   .level-reset {
+    width: 150px;
+    height: 40px;
     align-self: center;
+    border: 1px solid #000000;
+    border-radius: 20px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      opacity: 0.8;
+      transform: scale(1);
+    }
   }
 }
 
-.nav-btn {
-  width: 25px;
-  height: 25px;
+.level-title {
+  font-weight: bold;
 }
 
-.menu {
-  display: flex;
-  justify-content: space-between;
-  padding-right: 50px;
+.level-list {
+  margin: 0;
+  padding-left: 50px;
 
-  &__nav {
-    display: inline-flex;
+  & li {
+    position: relative;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+
+    &:hover {
+      color: #000000;
+      font-weight: 600;
+    }
+  }
+}
+
+.level-list__item_completed:before {
+  content: '';
+  @extend %arrow;
+  left: -60px;
+  top: -5px;
+}
+
+.level-list__item_completed:not(.level-list__item_hint):after {
+  content: '';
+  @extend %arrow;
+  left: -55px;
+  top: -5px;
+}
+
+.level-list__item_current {
+  font-weight: bold;
+  color: #ff0000;
+}
+
+.level-stamp {
+  position: absolute;
+  left: 0;
+  bottom: 50vh;
+  background-image: url('assets/images/stamp.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100px;
+  opacity: 0;
+}
+
+.level-stamp_show {
+  opacity: 1;
+}
+
+.level-stamp_show-fist-time {
+  animation: stamp 0.3s ease forwards;
+}
+
+@keyframes stamp {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+    transform-origin: 50% 50%;
+    transform: scale(5);
+    transition: all 0.3s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+  }
+  100% {
+    opacity: 1;
   }
 }

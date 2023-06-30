@@ -1,3 +1,14 @@
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 50px;
+
+  &__nav {
+    display: inline-flex;
+  }
+}
+
 .nav-btn {
   background-size: contain;
   border: none;
@@ -7,13 +18,15 @@
   background-color: transparent;
   background-repeat: no-repeat;
   transition: transform .2s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     transform: scale(1.2);
   }
 
   &:active {
-    opacity: 0.3;
+    opacity: 0.5;
+    transform: scale(1);
   }
 }
 

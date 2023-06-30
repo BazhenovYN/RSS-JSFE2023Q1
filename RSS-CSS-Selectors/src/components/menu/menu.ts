@@ -28,6 +28,6 @@ export default class Menu extends View {
   }
 
   public update(progress: GameProgress): void {
-    this.title.setTextContent(`Level ${progress.currentLevelNumber} of ${progress.totalLevels}`);
+    this.title.setTextContent(`Level#${progress.currentLevelNumber}`);
   }
 }

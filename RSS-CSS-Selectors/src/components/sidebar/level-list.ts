@@ -17,13 +17,18 @@ export default class LevelListView extends View {
   }
 
   private configureView(progress: GameProgress): void {
+    const title = new ElementCreator({
+      tag: 'div',
+      classes: ['level-title'],
+      textContent: 'Choose a level'
+    });
     this.list = new ElementCreator({ tag: 'ol', classes: ['level-list'] });
     this.resetButton = new ElementCreator({
       tag: 'button',
       classes: ['btn', 'level-reset'],
       textContent: 'Reset progress',
     });
-    this.viewElement.addInnerElement(this.list, this.resetButton);
+    this.viewElement.addInnerElement(title, this.list, this.resetButton);
     this.createListItems(progress);
   }
 
@@ -31,10 +36,16 @@ export default class LevelListView extends View {
     progress.score.forEach((level) => {
       const classes = ['level-list__item'];
 
+      if (level.completed) {
+        classes.push('level-list__item_completed');
+      }
+
       if (level.hint) {
-        classes.push('hint');
-      } else if (level.completed) {
-        classes.push('completed');
+        classes.push('level-list__item_hint');
+      }
+
+      if (progress.currentLevelNumber === level.id) {
+        classes.push('level-list__item_current');
       }
 
       const item = new ElementCreator({
@@ -47,6 +58,30 @@ export default class LevelListView extends View {
       this.items.set(level.id, item);
 
       this.list.addInnerElement(item);
+    });
+  }
+
+  public update(progress: GameProgress): void {
+    progress.score.forEach((level) => {
+      const item = this.items.get(level.id);
+      if (!item) return;
+
+      if (level.completed) {
+        item.setCssClasses(['level-list__item_completed']);
+      } else {
+        item.removeCssClasses(['level-list__item_completed'])
+      }
+      if (level.hint) {
+        item.setCssClasses(['level-list__item_hint']);
+      } else {
+        item.removeCssClasses(['level-list__item_hint']);
+      }
+
+      if (progress.currentLevelNumber === level.id) {
+        item.setCssClasses(['level-list__item_current']);
+      } else {
+        item.removeCssClasses(['level-list__item_current']);
+      }
     });
   }
 

@@ -80,7 +80,14 @@ export default class LevelManager {
   }
 
   public isCorrectSelector(container: HTMLElement, selector: string): boolean {
-    const userElements = [...container.querySelectorAll(`${selector}:not(.tooltiptext)`)];
+    let userElements;
+    try {
+      userElements = [...container.querySelectorAll(`${selector}:not(.tooltiptext)`)];
+    }
+    catch(err) {
+      return false;
+    }
+    
     const answer = this.currentLevel.getAnswer();
     if (userElements.length !== answer.length) {
       return false;

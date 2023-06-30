@@ -27,7 +27,7 @@ export default class Level {
   }
 
   public getTaskLevel(): string {
-    return this.level.task;
+    return `#${this.level.id} ${this.level.task}`;
   }
 
   public getLevelId(): number {

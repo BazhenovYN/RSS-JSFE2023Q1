@@ -24,7 +24,7 @@ export default class Sidebar extends View {
   private configureView(currentLevel: Level, progress: GameProgress): void {
     this.hamburger = new Hamburger();
     this.menu = new Menu(progress);
-    this.help = new Help(currentLevel);
+    this.help = new Help(currentLevel, progress);
     this.levelList = new LevelListView(progress);
 
     this.viewElement.addInnerElement(
@@ -37,7 +37,8 @@ export default class Sidebar extends View {
 
   public update(currentLevel: Level, progress: GameProgress): void {
     this.menu.update(progress);
-    this.help.update(currentLevel);
+    this.help.update(currentLevel, progress);
+    this.levelList.update(progress);
   }
 
   public setPickLevelListener(callback: CallbackFn): void {
