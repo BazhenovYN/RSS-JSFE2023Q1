@@ -8,6 +8,8 @@ export default class UserSelector extends View {
 
   private answer = '';
 
+  private isTimerStart = false;;
+
   constructor() {
     super({ tag: 'div', classes: ['selector'] });
     this.input = new InputView({
@@ -19,7 +21,7 @@ export default class UserSelector extends View {
     });
 
     this.configureView();
-    emitter.subscribe('event:help-click', this.getHelp.bind(this, 0));
+    emitter.subscribe('event:help-click', this.getHelp.bind(this, 0, false));
   }
 
   private configureView(): void {
@@ -54,12 +56,19 @@ export default class UserSelector extends View {
     this.answer = answer;
   }
 
-  public getHelp(index: number): void {
+  public getHelp(index: number, timer: boolean): void {
+    if (this.isTimerStart && !timer) {
+      return; // answer not yet printed
+    }
+
     if (index <= this.answer.length) {
       this.input.setValue(this.answer.slice(0, index));
     }
     if (index + 1 <= this.answer.length) {
-      setTimeout(() => this.getHelp(index + 1), 300);
+      this.isTimerStart = true;
+      setTimeout(() => this.getHelp(index + 1, true), 300);
+    } else {
+      this.isTimerStart = false;
     }
   }
 }
