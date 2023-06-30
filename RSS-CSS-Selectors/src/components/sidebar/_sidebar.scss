@@ -1,24 +1,28 @@
 .sidebar {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
-  background: rgb(203 223 208 / 67%);
-  font-size: 1.5em;
+  gap: 1.5rem;
+  background: rgba(203, 223, 208, 0.4);
+  font-size: 1.5rem;
   position: relative;
   padding: 20px;
   overflow: hidden;
 
+  @media (max-width: 1024px) {
+    font-size: 1rem;
+  }
+
   .help {
     display: flex;
     flex-direction: column;
-    gap: 1.5em;
+    gap: 1.5rem;
   }
 
   .levels-wrapper {
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: orange;
+    background-color: #e08f2a;
     padding: 20px;
     top: 0;
     bottom: 0;
