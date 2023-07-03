@@ -24,6 +24,23 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+
+    &__name {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+
+    &__selector {
+      background-color: #9ab481;
+      border-bottom: 2px solid #7d9666;
+      width: fit-content;
+      padding: 5px;
+    }
+
+    &__hint,
+    &__example {
+      font-size: 1rem;
+    }
   }
 
   .levels-wrapper {
