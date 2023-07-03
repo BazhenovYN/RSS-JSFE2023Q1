@@ -7,7 +7,7 @@
     "start": "webpack serve --open --config ./webpack.config.js --env mode=dev",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
     "lint": "eslint . --ext .ts",
-    "deploy": "gh-pages -d dist -e news-js",
+    "deploy": "gh-pages -d dist -e rss-css-selectors",
     "test": "jest"
   },
   "author": "Iurii Bazhenov",
