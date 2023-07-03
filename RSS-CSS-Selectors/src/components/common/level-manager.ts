@@ -3,10 +3,6 @@ import Level from 'components/common/level';
 import LEVEL_DATA from 'data/data';
 import emitter from 'components/common/event-emmitter';
 
-function getLevelIdByNumber(levelNumber: number): number {
-  return levelNumber; // for now, id is the level number in order
-}
-
 export default class LevelManager {
   private currentLevel: Level;
 
@@ -23,7 +19,7 @@ export default class LevelManager {
 
     this.loadGameProgress();
 
-    const id = getLevelIdByNumber(this.progress.currentLevelNumber);
+    const id = this.progress.currentLevelNumber;
     this.currentLevel = new Level(id);
 
     emitter.subscribe('event:help-click', (): void => {
@@ -106,7 +102,7 @@ export default class LevelManager {
       this.progress.currentLevelNumber -= 1;
     }
 
-    const id = getLevelIdByNumber(this.progress.currentLevelNumber);
+    const id = this.progress.currentLevelNumber;
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
     this.saveGame();
@@ -121,7 +117,7 @@ export default class LevelManager {
       this.progress.currentLevelNumber += 1;
     }
 
-    const id = getLevelIdByNumber(this.progress.currentLevelNumber);
+    const id = this.progress.currentLevelNumber;
     this.currentLevel = new Level(id);
     this.updateLevelStatus();
     this.saveGame();
@@ -129,8 +125,7 @@ export default class LevelManager {
 
   public pickLevel(levelNumber: number): void {
     this.progress.currentLevelNumber = levelNumber;
-    const id = getLevelIdByNumber(levelNumber);
-    this.currentLevel = new Level(id);
+    this.currentLevel = new Level(levelNumber);
     this.updateLevelStatus();
     this.saveGame();
   }

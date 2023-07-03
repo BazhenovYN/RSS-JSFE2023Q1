@@ -36,11 +36,11 @@ export default class Level {
 
   public getDescription(): LevelDescription {
     return {
-      name: this.level?.name ?? '',
-      title: this.level?.title ?? '',
-      hint: this.level?.hint ?? '',
-      example: this.level?.example ?? '',
-      selector: this.level?.selector ?? '',
+      name: this.level.name,
+      title: this.level.title,
+      hint: this.level.hint,
+      example: this.level.example,
+      selector: this.level.selector,
     };
   }
 
