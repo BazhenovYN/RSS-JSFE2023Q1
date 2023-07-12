@@ -17,12 +17,7 @@ module.exports = {
     'import/extensions': 'off',
     'import/prefer-default-export': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/array-type': [
-      'error',
-      {
-        default: 'array',
-      },
-    ],
+    '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/explicit-member-accessibility': [
       'error',
       {
