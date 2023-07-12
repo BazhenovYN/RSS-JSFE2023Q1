@@ -4,6 +4,8 @@ import ElementCreator from 'utils/element-creator';
 
 import './_hamburger.scss';
 
+const LINE_NUMBER = 3;
+
 export const menuStatus = {
   hide: 'hide',
   show: 'show',
@@ -19,7 +21,7 @@ export class Hamburger extends View {
   }
 
   private configureView(): void {
-    for (let i = 0; i < 3; i += 1) {
+    for (let i = 0; i < LINE_NUMBER; i += 1) {
       const span = new ElementCreator({ tag: 'span' });
       this.viewElement.addInnerElement(span);
     }
