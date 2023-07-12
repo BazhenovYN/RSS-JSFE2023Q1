@@ -3,6 +3,8 @@ import Level from 'components/common/level';
 import LEVEL_DATA from 'data/data';
 import { emitter, events } from 'components/common/event-emmitter';
 
+const GAME_PROGRESS = 'progress';
+
 export default class LevelManager {
   private currentLevel: Level;
 
@@ -36,7 +38,7 @@ export default class LevelManager {
   }
 
   private loadGame(): boolean {
-    const progress = localStorage.getItem('progress');
+    const progress = localStorage.getItem(GAME_PROGRESS);
     if (progress) {
       Object.assign(this.progress, JSON.parse(progress));
       return true;
@@ -45,11 +47,11 @@ export default class LevelManager {
   }
 
   private saveGame(): void {
-    localStorage.setItem('progress', JSON.stringify(this.progress));
+    localStorage.setItem(GAME_PROGRESS, JSON.stringify(this.progress));
   }
 
   public resetProgress(): void {
-    localStorage.removeItem('progress');
+    localStorage.removeItem(GAME_PROGRESS);
     this.createNewGame();
   }
 
