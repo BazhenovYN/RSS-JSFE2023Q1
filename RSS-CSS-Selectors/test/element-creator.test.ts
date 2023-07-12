@@ -65,7 +65,7 @@ describe('element-creator', () => {
 
   it('should add "click" event listener', () => {
     const callback = jest.fn();
-    block.setClickEventListener(callback);
+    block.setEventListener('click', callback);
 
     const event = new Event('click');
     block.getElement().dispatchEvent(event);
@@ -75,7 +75,7 @@ describe('element-creator', () => {
 
   it('should add "mouseenter" event listener', () => {
     const callback = jest.fn();
-    block.setMouseEnterEventListener(callback);
+    block.setEventListener('mouseenter', callback);
 
     const event = new Event('mouseenter');
     block.getElement().dispatchEvent(event);
@@ -85,7 +85,7 @@ describe('element-creator', () => {
 
   it('should add "mouseleave" event listener', () => {
     const callback = jest.fn();
-    block.setMouseLeaveEventListener(callback);
+    block.setEventListener('mouseleave', callback);
 
     const event = new Event('mouseleave');
     block.getElement().dispatchEvent(event);

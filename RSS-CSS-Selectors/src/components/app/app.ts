@@ -77,7 +77,7 @@ export default class App {
     this.sidebar.update(currentLevel, gameProgress);
   }
 
-  private pickLevelHandler(event: MouseEvent): void {
+  private pickLevelHandler(event: Event): void {
     let level = 0;
     const eventTarget = event.target;
     if (eventTarget instanceof HTMLElement) {

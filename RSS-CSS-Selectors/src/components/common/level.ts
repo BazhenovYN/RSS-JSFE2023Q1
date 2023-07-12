@@ -70,10 +70,10 @@ export default class Level {
       this.hoveredMarkupElements.slice(-1)[0]?.setCssClasses(['hover']);
     };
 
-    element.setMouseEnterEventListener(handleMouseEnter);
-    element.setMouseLeaveEventListener(handleMouseLeave);
-    htmlElement.setMouseEnterEventListener(handleMouseEnter);
-    htmlElement.setMouseLeaveEventListener(handleMouseLeave);
+    element.setEventListener('mouseenter', handleMouseEnter);
+    element.setEventListener('mouseleave', handleMouseLeave);
+    htmlElement.setEventListener('mouseenter', handleMouseEnter);
+    htmlElement.setEventListener('mouseleave', handleMouseLeave);
   }
 
   private createElement(pattern: HtmlPattern): HTMLElement[] {

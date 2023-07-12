@@ -1,4 +1,4 @@
-export type CallbackFn = (event: MouseEvent) => void;
+export type CallbackFn = <K extends keyof HTMLElementEventMap>(event: HTMLElementEventMap[K]) => void;
 
 export type ElementParams = {
   tag: string;

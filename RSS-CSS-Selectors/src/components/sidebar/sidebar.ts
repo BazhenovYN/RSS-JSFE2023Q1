@@ -47,14 +47,14 @@ export default class Sidebar extends View {
   }
 
   public setNextLevelListener(callback: CallbackFn): void {
-    this.menu.nextButton.setClickEventListener(callback);
+    this.menu.nextButton.setEventListener('click', callback);
   }
 
   public setPrevLevelListener(callback: CallbackFn): void {
-    this.menu.prevButton.setClickEventListener(callback);
+    this.menu.prevButton.setEventListener('click', callback);
   }
 
   public setResetListener(callback: CallbackFn): void {
-    this.levelList.resetButton.setClickEventListener(callback);
+    this.levelList.resetButton.setEventListener('click', callback);
   }
 }

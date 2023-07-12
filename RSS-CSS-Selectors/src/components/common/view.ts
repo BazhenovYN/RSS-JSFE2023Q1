@@ -13,6 +13,6 @@ export default abstract class View {
   }
 
   public setClickEventListener(callback: CallbackFn): void {
-    this.viewElement.setClickEventListener(callback);
+    this.viewElement.setEventListener('click', callback);
   }
 }

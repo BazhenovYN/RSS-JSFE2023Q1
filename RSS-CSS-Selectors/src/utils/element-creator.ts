@@ -9,7 +9,7 @@ export default class ElementCreator {
     this.setCssClasses(params.classes);
     this.setTextContent(params.textContent);
     this.setAttributes(params.attributes);
-    this.setClickEventListener(params.callback);
+    this.setEventListener('click', params.callback);
   }
 
   public getElement(): HTMLElement {
@@ -59,21 +59,9 @@ export default class ElementCreator {
     });
   }
 
-  public setClickEventListener(callback: CallbackFn | undefined): void {
+  public setEventListener<K extends keyof HTMLElementEventMap>(eventType: K, callback?: CallbackFn): void {
     if (typeof callback === 'function') {
-      this.element.addEventListener('click', (event) => callback(event));
-    }
-  }
-
-  public setMouseEnterEventListener(callback: CallbackFn | undefined): void {
-    if (typeof callback === 'function') {
-      this.element.addEventListener('mouseenter', (event) => callback(event));
-    }
-  }
-
-  public setMouseLeaveEventListener(callback: CallbackFn | undefined): void {
-    if (typeof callback === 'function') {
-      this.element.addEventListener('mouseleave', (event) => callback(event));
+      this.element.addEventListener(eventType, (event) => callback(event));
     }
   }
 }
