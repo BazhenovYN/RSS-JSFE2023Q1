@@ -4,6 +4,8 @@ import LEVEL_DATA from 'data/data';
 import { emitter, events } from 'components/common/event-emmitter';
 
 const GAME_PROGRESS = 'progress';
+const FIRST_LEVEL = 1;
+const STEP = 1;
 
 export default class LevelManager {
   private currentLevel: Level;
@@ -57,7 +59,7 @@ export default class LevelManager {
 
   public createNewGame(): void {
     this.currentLevel = new Level();
-    this.progress.currentLevelNumber = 1;
+    this.progress.currentLevelNumber = FIRST_LEVEL;
     this.progress.totalLevels = LEVEL_DATA.length;
     this.progress.currentLevelCompleted = false;
     this.progress.hint = false;
@@ -100,8 +102,8 @@ export default class LevelManager {
   }
 
   public prevLevel(): void {
-    if (this.progress.currentLevelNumber > 1) {
-      this.progress.currentLevelNumber -= 1;
+    if (this.progress.currentLevelNumber > FIRST_LEVEL) {
+      this.progress.currentLevelNumber -= STEP;
     }
 
     const id = this.progress.currentLevelNumber;
@@ -116,7 +118,7 @@ export default class LevelManager {
     }
 
     if (this.progress.currentLevelNumber < this.progress.totalLevels) {
-      this.progress.currentLevelNumber += 1;
+      this.progress.currentLevelNumber += STEP;
     }
 
     const id = this.progress.currentLevelNumber;
