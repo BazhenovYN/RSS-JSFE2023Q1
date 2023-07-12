@@ -35,13 +35,8 @@ export default class Level {
   }
 
   public getDescription(): LevelDescription {
-    return {
-      name: this.level.name,
-      title: this.level.title,
-      hint: this.level.hint,
-      example: this.level.example,
-      selector: this.level.selector,
-    };
+    const { name, title, hint, example, selector } = this.level; 
+    return { name, title, hint, example, selector, };
   }
 
   public getSolution(): string {
