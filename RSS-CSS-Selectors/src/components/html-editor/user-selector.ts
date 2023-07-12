@@ -8,7 +8,7 @@ export default class UserSelector extends View {
 
   private answer = '';
 
-  private isTimerStart = false;;
+  private isTimerStart = false;
 
   constructor() {
     super({ tag: 'div', classes: ['selector'] });
