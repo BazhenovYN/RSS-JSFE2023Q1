@@ -1,5 +1,5 @@
-import ElementCreator from 'utils/element-creator';
 import Level from 'components/common/level';
+import ElementCreator from 'utils/element-creator';
 import LineEnumerator from './line-enumerator';
 
 export default class HtmlViewer extends ElementCreator {

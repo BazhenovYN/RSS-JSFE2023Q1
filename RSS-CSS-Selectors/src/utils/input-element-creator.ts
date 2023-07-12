@@ -1,4 +1,4 @@
-import { InputElementParams } from 'types';
+import type { InputElementParams } from 'types';
 import ElementCreator from './element-creator';
 
 export default class InputView extends ElementCreator {

@@ -1,8 +1,9 @@
 import View from "components/common/view";
 import Level from "components/common/level";
-import ElementCreator from "utils/element-creator";
 import { emitter, events } from "components/common/event-emmitter";
-import { GameProgress } from "types";
+import ElementCreator from "utils/element-creator";
+
+import type { GameProgress } from "types";
 
 export default class Help extends View {
   private name!: ElementCreator;

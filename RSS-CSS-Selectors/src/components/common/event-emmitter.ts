@@ -1,4 +1,4 @@
-import { EventHandler, Events } from 'types';
+import type { EventHandler, Events } from 'types';
 
 class EventEmitter {
   private events: Events;

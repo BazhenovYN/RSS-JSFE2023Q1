@@ -1,4 +1,4 @@
-import { CallbackFn, ElementParams, Attribute } from 'types';
+import type { CallbackFn, ElementParams, Attribute } from 'types';
 
 export default class ElementCreator {
   private element: HTMLElement;

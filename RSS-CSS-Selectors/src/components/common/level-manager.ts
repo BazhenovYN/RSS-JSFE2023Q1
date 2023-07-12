@@ -1,7 +1,7 @@
-import { GameProgress, LevelData, LevelStatus } from 'types';
-import Level from 'components/common/level';
 import LEVEL_DATA from 'data/data';
+import Level from 'components/common/level';
 import { emitter, events } from 'components/common/event-emmitter';
+import type { GameProgress, LevelData, LevelStatus } from 'types';
 
 const GAME_PROGRESS = 'progress';
 const FIRST_LEVEL = 1;

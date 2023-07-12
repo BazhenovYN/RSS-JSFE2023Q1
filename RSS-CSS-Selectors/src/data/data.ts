@@ -1,4 +1,4 @@
-import { LevelData } from 'types';
+import type { LevelData } from 'types';
 
 const LEVEL_DATA: LevelData[] = [
   {

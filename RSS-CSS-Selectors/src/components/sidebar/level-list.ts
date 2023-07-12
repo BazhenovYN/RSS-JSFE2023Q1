@@ -1,7 +1,8 @@
-import { GameProgress } from 'types';
 import View from 'components/common/view';
-import ElementCreator from 'utils/element-creator';
 import { emitter, events } from 'components/common/event-emmitter';
+import ElementCreator from 'utils/element-creator';
+
+import type { GameProgress } from 'types';
 
 export default class LevelListView extends View {
   private list!: ElementCreator;

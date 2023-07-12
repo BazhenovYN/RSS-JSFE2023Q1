@@ -3,8 +3,8 @@ import MainView from 'components/main/main';
 import FooterView from 'components/footer/footer';
 import Sidebar from 'components/sidebar/sidebar';
 import LevelManager from 'components/common/level-manager';
-import ElementCreator from 'utils/element-creator';
 import { emitter, events } from 'components/common/event-emmitter';
+import ElementCreator from 'utils/element-creator';
 
 const LEVEL_CHANGE_DELAY = 1500;
 

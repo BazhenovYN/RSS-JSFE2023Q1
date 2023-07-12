@@ -1,10 +1,11 @@
-import './_main.scss';
-import ElementCreator from 'utils/element-creator';
 import View from 'components/common/view';
 import Level from 'components/common/level';
 import VisualSelector from 'components/visual-selector/visual-selector';
 import HtmlEditor from 'components/html-editor/html-editor';
 import { emitter, events } from 'components/common/event-emmitter';
+import ElementCreator from 'utils/element-creator';
+
+import './_main.scss';
 
 export default class MainView extends View {
   private visualSelector!: VisualSelector;

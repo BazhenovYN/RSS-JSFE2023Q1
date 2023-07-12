@@ -1,4 +1,4 @@
-import { HtmlPattern } from 'types';
+import type { HtmlPattern } from 'types';
 
 function getId(pattern: HtmlPattern): string {
   if (!pattern?.id) {

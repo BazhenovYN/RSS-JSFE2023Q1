@@ -1,8 +1,8 @@
-import { HtmlPattern, LevelData, LevelDescription } from 'types';
-import { getHtmlString } from 'utils/utils';
-import ElementCreator from 'utils/element-creator';
 import LEVEL_DATA from 'data/data';
 import HtmlLine from 'components/html-editor/html-line';
+import ElementCreator from 'utils/element-creator';
+import { getHtmlString } from 'utils/utils';
+import type { HtmlPattern, LevelData, LevelDescription } from 'types';
 
 const START_LEVEL = 1;
 

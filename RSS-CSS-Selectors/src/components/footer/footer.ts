@@ -1,9 +1,12 @@
-import './_footer.scss';
-import ElementCreator from 'utils/element-creator';
-import { ElementParams } from 'types';
 import View from 'components/common/view';
+import ElementCreator from 'utils/element-creator';
+
+import type { ElementParams } from 'types';
+
 import rssSvg from 'assets/svg/rss.svg';
 import githubSvg from 'assets/svg/github.svg';
+
+import './_footer.scss';
 
 export default class FooterView extends View {
   constructor() {

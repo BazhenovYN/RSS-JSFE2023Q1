@@ -1,5 +1,5 @@
-import { CallbackFn, ElementParams } from 'types';
 import ElementCreator from 'utils/element-creator';
+import type { CallbackFn, ElementParams } from 'types';
 
 export default abstract class View {
   protected viewElement: ElementCreator;

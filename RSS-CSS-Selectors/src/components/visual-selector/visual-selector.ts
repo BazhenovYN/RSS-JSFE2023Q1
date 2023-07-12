@@ -1,6 +1,7 @@
-import './_visual-selector.scss';
 import Level from 'components/common/level';
 import View from "components/common/view";
+
+import './_visual-selector.scss';
 
 export default class VisualSelector extends View {
     

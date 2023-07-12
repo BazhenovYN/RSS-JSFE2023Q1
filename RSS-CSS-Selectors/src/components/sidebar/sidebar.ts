@@ -1,11 +1,12 @@
-import './_sidebar.scss';
-import { CallbackFn, GameProgress } from 'types';
 import View from 'components/common/view';
 import Menu from 'components/menu/menu';
 import Level from 'components/common/level';
 import Hamburger from 'components/hamburger/hamburger';
+import type { CallbackFn, GameProgress } from 'types';
 import Help from './help';
 import LevelListView from './level-list';
+
+import './_sidebar.scss';
 
 export default class Sidebar extends View {
   private menu!: Menu;

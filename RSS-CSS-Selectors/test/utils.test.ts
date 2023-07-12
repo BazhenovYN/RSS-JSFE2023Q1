@@ -1,5 +1,5 @@
-import { HtmlPattern } from 'types';
 import { getHtmlString } from 'utils/utils';
+import type { HtmlPattern } from 'types';
 
 describe('utils', () => {
   describe('getHtmlString should creates tag html', () => {

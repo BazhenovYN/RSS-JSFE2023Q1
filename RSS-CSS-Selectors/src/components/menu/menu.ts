@@ -1,6 +1,8 @@
-import { GameProgress } from 'types';
 import View from 'components/common/view';
 import ElementCreator from 'utils/element-creator';
+
+import type { GameProgress } from 'types';
+
 import './_menu.scss';
 
 export default class Menu extends View {

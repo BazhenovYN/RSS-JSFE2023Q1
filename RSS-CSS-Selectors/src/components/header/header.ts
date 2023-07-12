@@ -1,8 +1,11 @@
-import './_header.scss';
-import ElementCreator from "utils/element-creator";
-import { ElementParams } from "types";
 import View from "components/common/view";
+import ElementCreator from "utils/element-creator";
+
 import logo from 'assets/images/chili.png';
+
+import type { ElementParams } from "types";
+
+import './_header.scss';
 
 export default class HeaderView extends View {
   protected viewElement!: ElementCreator;

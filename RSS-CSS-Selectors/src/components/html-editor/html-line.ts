@@ -1,7 +1,9 @@
-import { HtmlPattern } from 'types';
+import hljs from 'highlight.js/lib/common';
+
 import { getHtmlString } from 'utils/utils';
 import ElementCreator from 'utils/element-creator';
-import hljs from 'highlight.js/lib/common';
+
+import type { HtmlPattern } from 'types';
 
 function addLineOfCode(pattern: HtmlPattern, closingTag = false): ElementCreator {
   const line = new ElementCreator({ tag: 'pre' });

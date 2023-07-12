@@ -1,7 +1,8 @@
 import View from 'components/common/view';
-import ElementCreator from 'utils/element-creator';
-import './_hamburger.scss';
 import { emitter, events } from 'components/common/event-emmitter';
+import ElementCreator from 'utils/element-creator';
+
+import './_hamburger.scss';
 
 export default class Hamburger extends View {
   private status: string;

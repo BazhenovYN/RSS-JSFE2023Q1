@@ -1,9 +1,10 @@
-import './_html-editor.scss';
 import Level from 'components/common/level';
 import View from 'components/common/view';
 import { emitter, events } from 'components/common/event-emmitter';
-import UserSelector from './user-selector';
 import HtmlViewer from './html-viewer';
+import UserSelector from './user-selector';
+
+import './_html-editor.scss';
 
 export default class HtmlEditor extends View {
   private htmlViewer: HtmlViewer;
