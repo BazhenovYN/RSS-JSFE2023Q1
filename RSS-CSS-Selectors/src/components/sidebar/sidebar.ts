@@ -1,5 +1,5 @@
 import View from 'components/common/view';
-import Menu from 'components/menu/menu';
+import Menu from 'components/menu';
 import Level from 'components/common/level';
 import { Hamburger } from 'components/hamburger';
 import type { CallbackFn, GameProgress } from 'types';

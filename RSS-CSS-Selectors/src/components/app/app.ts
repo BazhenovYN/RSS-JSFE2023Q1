@@ -1,7 +1,7 @@
-import HeaderView from 'components/header/header';
-import MainView from 'components/main/main';
-import FooterView from 'components/footer/footer';
-import Sidebar from 'components/sidebar/sidebar';
+import HeaderView from 'components/header';
+import MainView from 'components/main';
+import FooterView from 'components/footer';
+import Sidebar from 'components/sidebar';
 import LevelManager from 'components/common/level-manager';
 import { emitter, events } from 'components/common/event-emmitter';
 import ElementCreator from 'utils/element-creator';

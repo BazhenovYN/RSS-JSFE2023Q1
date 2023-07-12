@@ -1,7 +1,7 @@
 import View from 'components/common/view';
 import Level from 'components/common/level';
-import VisualSelector from 'components/visual-selector/visual-selector';
-import HtmlEditor from 'components/html-editor/html-editor';
+import VisualSelector from 'components/visual-selector';
+import HtmlEditor from 'components/html-editor';
 import { emitter, events } from 'components/common/event-emmitter';
 import ElementCreator from 'utils/element-creator';
 
