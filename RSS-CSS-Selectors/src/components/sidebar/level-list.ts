@@ -1,5 +1,6 @@
 import View from 'components/common/view';
 import { emitter, events } from 'components/common/event-emmitter';
+import { menuStatus } from 'components/hamburger';
 import ElementCreator from 'utils/element-creator';
 
 import type { GameProgress } from 'types';
@@ -87,7 +88,7 @@ export default class LevelListView extends View {
   }
 
   private showList(status: string): void {
-    if (status === 'show') {
+    if (status === menuStatus.show) {
       this.viewElement.setCssClasses(['levels-wrapper_show']);
     } else {
       this.viewElement.removeCssClasses(['levels-wrapper_show']);

@@ -4,12 +4,17 @@ import ElementCreator from 'utils/element-creator';
 
 import './_hamburger.scss';
 
-export default class Hamburger extends View {
+export const menuStatus = {
+  hide: 'hide',
+  show: 'show',
+};
+
+export class Hamburger extends View {
   private status: string;
 
   constructor() {
     super({ tag: 'button', classes: ['hamburger'] });
-    this.status = 'hide';
+    this.status = menuStatus.hide;
     this.configureView();
   }
 
@@ -19,8 +24,8 @@ export default class Hamburger extends View {
       this.viewElement.addInnerElement(span);
     }
     this.setClickEventListener(() => {
-      this.status = this.status === 'show' ? 'hide' : 'show';
-      if (this.status === 'show') {
+      this.status = this.status === menuStatus.show ? menuStatus.hide : menuStatus.show;
+      if (this.status === menuStatus.show) {
         this.viewElement.setCssClasses(['hamburger_show']);
       } else {
         this.viewElement.removeCssClasses(['hamburger_show']);
