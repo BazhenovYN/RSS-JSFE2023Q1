@@ -1,3 +1,5 @@
+@import 'variables';
+
 @mixin background-img($img) {
   background-image: url($img);
   background-size: contain;
@@ -94,5 +96,5 @@ cucumber {
 }
 
 .table-wrapper .hover {
-  filter: drop-shadow(0 0 5px #fff);
+  filter: drop-shadow(0 0 5px $glow-color);
 }

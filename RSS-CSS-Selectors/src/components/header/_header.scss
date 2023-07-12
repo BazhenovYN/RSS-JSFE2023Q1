@@ -1,10 +1,12 @@
+@import 'variables';
+
 .game-title {
   display: flex;
   padding: 5px;
   font-weight: bold;
 
   &:hover {
-    filter: drop-shadow(0 0 5px #fff);
+    filter: drop-shadow(0 0 5px $glow-color);
   }
 }
 

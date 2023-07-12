@@ -1,13 +1,14 @@
+@import 'variables';
+
 .help-button {
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  color: #333;
   text-transform: uppercase;
-  box-shadow: 3px -3px #760303, 2px -2px #760303, 1px -1px #760303;
-  border: 1px solid #a31818;
-  background-color: #a31818;
-  color: white;
+  box-shadow: 3px -3px $help-button-shadow-color, 2px -2px $help-button-shadow-color, 1px -1px $help-button-shadow-color;
+  border: 1px solid $help-button-color;
+  background-color: $help-button-color;
+  color: $secondary-text-color;
   cursor: pointer;
   transition: transform 100ms ease-in-out;
 

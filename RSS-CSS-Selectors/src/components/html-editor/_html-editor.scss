@@ -1,16 +1,17 @@
 @import '~highlight.js/styles/atom-one-dark.css';
+@import 'variables';
 
 .html-editor {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background-color: black;
+  background-color: $html-editor-background-color;
   padding: 10px;
   width: 90%;
   max-width: 300px;
 
   .line-numbers {
-    border-right: 1px solid #abb2bf;
+    border-right: 1px solid $html-editor-lines-color;
 
     .line {
       text-align: right;
@@ -51,7 +52,7 @@
   }
 
   .hover {
-    text-shadow:0 0 10px #ffffff;
+    text-shadow:0 0 10px $glow-color;
   }
 
   pre {

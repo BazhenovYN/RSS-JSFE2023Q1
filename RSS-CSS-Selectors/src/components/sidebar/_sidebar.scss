@@ -1,3 +1,5 @@
+@import 'variables';
+
 %arrow {
   display: block;
   position: absolute;
@@ -5,7 +7,7 @@
   height: 11px;
   border-width: 0 2px 2px 0;
   border-style: solid;
-  border-color: #000000;
+  border-color: $primary-text-color;
   transform-origin: bottom left;
   transform: rotate(45deg);
 }
@@ -14,7 +16,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  background: rgba(203, 223, 208, 0.4);
+  background: rgba($primary-sidebar-background-color, 0.4);
   font-size: 1.3rem;
   position: relative;
   padding: 20px;
@@ -31,8 +33,8 @@
     }
 
     &__selector {
-      background-color: #9ab481;
-      border-bottom: 2px solid #7d9666;
+      background-color: $selector-background-color;
+      border-bottom: 2px solid $selector-border-color;
       width: fit-content;
       padding: 5px;
     }
@@ -48,7 +50,7 @@
     display: flex;
     flex-direction: column;
     gap: 50px;
-    background-color: #b3d5b8;
+    background-color: $secondary-sidebar-background-color;
     padding: 20px;
     top: 0;
     bottom: 0;
@@ -66,7 +68,7 @@
     width: 150px;
     height: 40px;
     align-self: center;
-    border: 1px solid #000000;
+    border: 1px solid $primary-text-color;
     border-radius: 20px;
     background-color: transparent;
     cursor: pointer;
@@ -97,7 +99,7 @@
     cursor: pointer;
 
     &:hover {
-      color: #000000;
+      color: $primary-text-color;
       font-weight: 600;
     }
   }
@@ -119,7 +121,7 @@
 
 .level-list__item_current {
   font-weight: bold;
-  color: #ff0000;
+  color: $curent-level-color;
 }
 
 .level-stamp {
