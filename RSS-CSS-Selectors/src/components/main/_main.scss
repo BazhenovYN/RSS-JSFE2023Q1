@@ -20,7 +20,7 @@
     transform: scale(1);
   }
 
-  @media (min-width: 800px) {
+  @media (min-width: $layout-breakpoint-small) {
     position: absolute;
     right: 50px;
     bottom: 10px;

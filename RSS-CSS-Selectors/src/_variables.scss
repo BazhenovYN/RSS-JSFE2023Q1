@@ -1,3 +1,4 @@
+// Color theme
 $primary-text-color: #000000;
 $secondary-text-color: #ffffff;
 
@@ -18,3 +19,8 @@ $html-editor-lines-color: #abb2bf;
 
 $selector-background-color: #9ab481;
 $selector-border-color: #7d9666;
+
+// Breakpoints
+$layout-breakpoint-large: 1024px;
+$layout-breakpoint-medium: 991px;
+$layout-breakpoint-small: 800px;

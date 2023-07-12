@@ -8,11 +8,11 @@
 html {
   font-family: monospace;
 
-  @media (max-width: 1024px) {
+  @media (max-width: $layout-breakpoint-large) {
     font-size: 0.8rem;
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: $layout-breakpoint-medium) {
     font-size: 0.6rem;
   }
 }
