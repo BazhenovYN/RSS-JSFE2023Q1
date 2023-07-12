@@ -1,7 +1,7 @@
 import { GameProgress, LevelData, LevelStatus } from 'types';
 import Level from 'components/common/level';
 import LEVEL_DATA from 'data/data';
-import emitter from 'components/common/event-emmitter';
+import { emitter, events } from 'components/common/event-emmitter';
 
 export default class LevelManager {
   private currentLevel: Level;
@@ -22,7 +22,7 @@ export default class LevelManager {
     const id = this.progress.currentLevelNumber;
     this.currentLevel = new Level(id);
 
-    emitter.subscribe('event:help-click', (): void => {
+    emitter.subscribe(events.helpClick, (): void => {
       this.progress.hint = true;
       this.updateScore();
       this.saveGame();

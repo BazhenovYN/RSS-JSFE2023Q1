@@ -1,4 +1,4 @@
-import emitter from 'components/common/event-emmitter';
+import { emitter, events } from 'components/common/event-emmitter';
 import View from 'components/common/view';
 import ElementCreator from 'utils/element-creator';
 import InputView from 'utils/input-element-creator';
@@ -21,17 +21,17 @@ export default class UserSelector extends View {
     });
 
     this.configureView();
-    emitter.subscribe('event:help-click', this.getHelp.bind(this, 0, false));
+    emitter.subscribe(events.helpClick, this.getHelp.bind(this, 0, false));
   }
 
   private configureView(): void {
     const enterSelectorHandler = (): void => {
-      emitter.emit('event:selector-enter', this.input.getValue());
+      emitter.emit(events.selectorEnter, this.input.getValue());
     };
 
     const keyEnterSelectorHandler = (event: KeyboardEvent): void => {
       if (event.code === 'Enter') {
-        emitter.emit('event:selector-enter', this.input.getValue());
+        emitter.emit(events.selectorEnter, this.input.getValue());
       }
     };
 

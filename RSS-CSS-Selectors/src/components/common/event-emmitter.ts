@@ -25,6 +25,12 @@ class EventEmitter {
   }
 }
 
-const emitter = new EventEmitter();
+export const emitter = new EventEmitter();
 
-export default emitter;
+export const events = {
+  levelCompleted: 'event:level-completed',
+  levelUncompleted: 'event:level-uncompleted',
+  selectorEnter: 'event:selector-enter',
+  helpClick: 'event:help-click',
+  showLevelList: 'event:show-level-list',
+};

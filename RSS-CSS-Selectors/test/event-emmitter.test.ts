@@ -1,4 +1,4 @@
-import emitter from 'components/common/event-emmitter';
+import { emitter } from 'components/common/event-emmitter';
 
 describe('event emmitter', () => {
   it('should handle events', () => {

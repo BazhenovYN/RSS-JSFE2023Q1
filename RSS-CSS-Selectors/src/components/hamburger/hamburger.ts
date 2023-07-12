@@ -1,7 +1,7 @@
 import View from 'components/common/view';
 import ElementCreator from 'utils/element-creator';
 import './_hamburger.scss';
-import emitter from 'components/common/event-emmitter';
+import { emitter, events } from 'components/common/event-emmitter';
 
 export default class Hamburger extends View {
   private status: string;
@@ -24,7 +24,7 @@ export default class Hamburger extends View {
       } else {
         this.viewElement.removeCssClasses(['hamburger_show']);
       }
-      emitter.emit('event:show-level-list', this.status);
+      emitter.emit(events.showLevelList, this.status);
     });
   }
 }

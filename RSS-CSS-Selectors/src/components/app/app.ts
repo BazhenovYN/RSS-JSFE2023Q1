@@ -4,7 +4,7 @@ import FooterView from 'components/footer/footer';
 import Sidebar from 'components/sidebar/sidebar';
 import LevelManager from 'components/common/level-manager';
 import ElementCreator from 'utils/element-creator';
-import emitter from 'components/common/event-emmitter';
+import { emitter, events } from 'components/common/event-emmitter';
 
 const LEVEL_CHANGE_DELAY = 1500;
 
@@ -47,15 +47,15 @@ export default class App {
   }
 
   private checkUserSelector(selector: string): void {
-    if (selector === '') {
-      emitter.emit('event:level-uncompleted', '');
+    if (!selector) {
+      emitter.emit(events.levelUncompleted, '');
       return;
     }
 
     const currentLevelCompleted = this.levelManager.isCorrectSelector(this.testingContainer, selector);
 
     if (currentLevelCompleted) {
-      emitter.emit('event:level-completed', '');
+      emitter.emit(events.levelCompleted, '');
       setTimeout(() => {
         this.levelManager.nextLevel(true);
         this.update();
@@ -65,7 +65,7 @@ export default class App {
         }
       }, LEVEL_CHANGE_DELAY);
     } else {
-      emitter.emit('event:level-uncompleted', '');
+      emitter.emit(events.levelUncompleted, '');
     }
   }
 
@@ -111,6 +111,6 @@ export default class App {
     this.sidebar.setPrevLevelListener(this.prevLevelHandler.bind(this));
     this.sidebar.setResetListener(this.ResetHandler.bind(this));
 
-    emitter.subscribe('event:selector-enter', (selector: string) => this.checkUserSelector(selector));
+    emitter.subscribe(events.selectorEnter, (selector: string) => this.checkUserSelector(selector));
   }
 }

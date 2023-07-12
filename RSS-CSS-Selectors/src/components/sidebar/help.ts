@@ -1,7 +1,7 @@
 import View from "components/common/view";
 import Level from "components/common/level";
 import ElementCreator from "utils/element-creator";
-import emitter from "components/common/event-emmitter";
+import { emitter, events } from "components/common/event-emmitter";
 import { GameProgress } from "types";
 
 export default class Help extends View {
@@ -20,7 +20,7 @@ export default class Help extends View {
   constructor(currentLevel: Level, progress: GameProgress) {
     super({ tag: 'div', classes: ['help'] });
     this.configureView().update(currentLevel, progress);
-    emitter.subscribe('event:level-completed', () => this.showStampCompleted());
+    emitter.subscribe(events.levelCompleted, () => this.showStampCompleted());
   }
 
   private configureView(): Help {
