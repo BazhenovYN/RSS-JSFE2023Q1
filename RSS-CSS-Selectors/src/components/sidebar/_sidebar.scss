@@ -105,14 +105,14 @@
   }
 }
 
-.level-list__item_completed:before {
+.level-list__item_completed::before {
   content: '';
   @extend %arrow;
   left: -60px;
   top: -5px;
 }
 
-.level-list__item_completed:not(.level-list__item_hint):after {
+.level-list__item_completed:not(.level-list__item_hint)::after {
   content: '';
   @extend %arrow;
   left: -55px;
