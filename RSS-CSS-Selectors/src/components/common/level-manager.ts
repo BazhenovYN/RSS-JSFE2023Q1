@@ -83,11 +83,10 @@ export default class LevelManager {
     let userElements;
     try {
       userElements = [...container.querySelectorAll(`${selector}:not(.tooltiptext)`)];
-    }
-    catch(err) {
+    } catch (err) {
       return false;
     }
-    
+
     const answer = this.currentLevel.getAnswer();
     if (userElements.length !== answer.length) {
       return false;
@@ -134,16 +133,19 @@ export default class LevelManager {
     this.saveGame();
   }
 
-  private updateLevelStatus(): void {
+  private getLevelStatus(): LevelStatus | undefined {
     const id = this.currentLevel.getLevelId();
-    const levelStatus = this.progress.score.find((level) => level.id === id);
+    return this.progress.score.find((level) => level.id === id);
+  }
+
+  private updateLevelStatus(): void {
+    const levelStatus = this.getLevelStatus();
     this.progress.currentLevelCompleted = levelStatus?.completed ?? false;
     this.progress.hint = levelStatus?.hint ?? false;
   }
 
   private updateScore(): void {
-    const id = this.currentLevel.getLevelId();
-    const levelStatus = this.progress.score.find((level) => level.id === id);
+    const levelStatus = this.getLevelStatus();
     if (levelStatus) {
       levelStatus.completed = true;
       levelStatus.hint = this.progress.hint;
