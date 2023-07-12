@@ -1,0 +1,22 @@
+@import '~normalize.css';
+
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
+.icon {
+  display: inline-block;
+  width: 140px;
+  height: 70px;
+  background: black;
+  mask-image: url('assets/svg/car.svg');
+  mask-size: cover;
+  -webkit-mask-image: url('assets/svg/car.svg');
+  -webkit-mask-size: cover;
+}
