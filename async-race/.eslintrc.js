@@ -4,7 +4,6 @@ module.exports = {
     es2021: true,
   },
   extends: ['airbnb-base', 'airbnb-typescript/base', 'plugin:@typescript-eslint/recommended', 'prettier'],
-  overrides: [],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -18,12 +17,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-unreachable': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/array-type': [
-      'error',
-      {
-        default: 'array',
-      },
-    ],
+    '@typescript-eslint/array-type': 'error',
     '@typescript-eslint/explicit-member-accessibility': [
       'error',
       {
@@ -41,5 +35,6 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'error',
     '@typescript-eslint/no-unnecessary-type-assertion': 'error',
     '@typescript-eslint/no-non-null-assertion': 'error',
+    'no-extra-semi': 'error',
   },
 };
