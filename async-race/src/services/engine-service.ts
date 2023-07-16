@@ -1,6 +1,7 @@
 import { path } from 'app/consts';
-import { RaceParam, RaceResult } from 'types';
-import { patch } from 'utils/utils';
+import { patch } from 'utils/api';
+
+import type { RaceParam, RaceResult } from 'types';
 
 const engine = <T>(id: number, status: string): Promise<T> => {
   const queryParams = [

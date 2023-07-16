@@ -1,3 +1,5 @@
+export type Func<T1 = void, T2 = void> = (arg: T1) => T2;
+
 interface MinimalDomElementProps<Tag extends keyof HTMLElementTagNameMap> {
   tag: Tag;
   style?: CSSStyleDeclaration;
@@ -7,20 +9,25 @@ interface MinimalDomElementProps<Tag extends keyof HTMLElementTagNameMap> {
 export type DomElementProps<Tag extends keyof HTMLElementTagNameMap = keyof HTMLElementTagNameMap> =
   MinimalDomElementProps<Tag> & Partial<Omit<HTMLElementTagNameMap[Tag], keyof MinimalDomElementProps<Tag>>>;
 
-export interface CarProps {
+export type Color = `#${string}`;
+
+export interface ICarProps {
   name: string;
-  color: string;
+  color: Color;
 }
 
-export interface Car extends CarProps {
+export interface ICarResponse extends ICarProps {
   id: number;
 }
-export interface WinnerProps {
+
+export type CarStatus = 'started' | 'stopped' | 'broken';
+
+export interface IWinnerProps {
   wins: number;
   time: number;
 }
 
-export interface Winner extends WinnerProps {
+export interface IWinner extends IWinnerProps {
   id: number;
 }
 

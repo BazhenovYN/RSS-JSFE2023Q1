@@ -1,13 +1,15 @@
 import { baseUrl } from 'app/consts';
-import { EmptyObject, QueryParam } from 'types';
+import type { EmptyObject, QueryParam } from 'types';
 
 const generateQueryString = (queryParams: QueryParam[]): string =>
   queryParams.length ? `?${queryParams.map((param) => `${param.key}=${param.value}`).join('&')}` : '';
 
-export const get = async <T>(path: string, queryParams: QueryParam[] = []): Promise<T> => {
+export const get = async <T>(path: string, queryParams: QueryParam[] = []): Promise<{data: T; totalCount: number | null}> => {
   const query = generateQueryString(queryParams);
   const response = await fetch(`${baseUrl}${path}${query}`);
-  return response.json();
+  const data = await response.json() as T;
+  const totalCount = response.headers.get('X-Total-Count');
+  return { data, totalCount: totalCount ? Number(totalCount) : null };
 };
 
 export const post = async <T, K>(path: string, body: K): Promise<T> => {
