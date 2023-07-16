@@ -2,7 +2,7 @@ export type Func<T1 = void, T2 = void> = (arg: T1) => T2;
 
 interface MinimalDomElementProps<Tag extends keyof HTMLElementTagNameMap> {
   tag: Tag;
-  style?: CSSStyleDeclaration;
+  style?: Partial<CSSStyleDeclaration>;
   children?: (DomElementProps | Node | string)[];
 }
 

@@ -1,7 +1,7 @@
 // https://stackoverflow.com/questions/59437256/how-to-create-interface-for-a-function-which-creates-a-nested-element-structure
 // https://www.meziantou.net/write-your-own-dom-element-factory-for-typescript.htm
 
-import { DomElementProps } from 'types';
+import type { DomElementProps } from 'types';
 
 export default function createDomElement<T extends keyof HTMLElementTagNameMap>({
   tag,
@@ -31,7 +31,8 @@ export default function createDomElement<T extends keyof HTMLElementTagNameMap>(
 
   // Adding inline styles
   if (style) {
-    Object.entries(style).forEach(([key, value]) => element.style.setProperty(key, value));
+    Object.assign(element.style, style);
   }
+    
   return element;
 }
