@@ -14,7 +14,7 @@ export default class WinnersStateManager {
 
   public currentPage: number;
 
-  private winnersPerOnePage: number;
+  public winnersPerOnePage: number;
 
   constructor() {
     this.totalCount = 0;
@@ -47,7 +47,11 @@ export default class WinnersStateManager {
     });
   }
 
-  public async getWinners(pageNumber = FIRST_PAGE): Promise<void> {
+  public async getWinners(pageNumber = FIRST_PAGE, reload = false): Promise<void> {
+    if (this.winners.length && !reload) {
+      return;
+    }
+
     const apiResult = await getWinners([
       { key: '_page', value: pageNumber },
       { key: '_limit', value: this.winnersPerOnePage },
@@ -61,13 +65,13 @@ export default class WinnersStateManager {
 
   public async getNextWinners(): Promise<void> {
     if (this.currentPage * this.winnersPerOnePage < this.totalCount) {
-      await this.getWinners(this.currentPage + 1);
+      await this.getWinners(this.currentPage + 1, true);
     }
   }
 
   public async getPreviousWinners(): Promise<void> {
     if (this.currentPage > 1) {
-      await this.getWinners(this.currentPage - 1);
+      await this.getWinners(this.currentPage - 1, true);
     }
   }
 }

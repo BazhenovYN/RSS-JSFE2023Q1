@@ -1,11 +1,29 @@
 import Page from 'components/common/page';
-import Winner from 'models/winner';
 import WinnersStateManager from 'models/winners-state-manager';
 import createDomElement from 'utils/element-creator';
 
 import './_winners.scss';
 
 const PAGE_NAME = 'Winners';
+
+const getTHead = (): HTMLTableSectionElement => {
+  const head = createDomElement({
+    tag: 'thead',
+    children: [
+      {
+        tag: 'tr',
+        children: [
+          { tag: 'th', textContent: 'Number' },
+          { tag: 'th', textContent: 'Car' },
+          { tag: 'th', textContent: 'Name' },
+          { tag: 'th', textContent: 'Wins' },
+          { tag: 'th', textContent: 'Best time (sec)' },
+        ],
+      },
+    ],
+  });
+  return head;
+}
 
 export default class WinnersPage extends Page {
   protected pageName: string;
@@ -41,28 +59,15 @@ export default class WinnersPage extends Page {
     this.addPaginationHandler(prevHandler, nextHandler);
   }
 
-  private renderTableOfWinners(winners: Winner[]): void {
-    const head = createDomElement({
-      tag: 'thead',
-      children: [
-        {
-          tag: 'tr',
-          children: [
-            { tag: 'th', textContent: 'Number' },
-            { tag: 'th', textContent: 'Car' },
-            { tag: 'th', textContent: 'Name' },
-            { tag: 'th', textContent: 'Wins' },
-            { tag: 'th', textContent: 'Best time (sec)' },
-          ],
-        },
-      ],
-    });
+  private renderTableOfWinners(state: WinnersStateManager): void {
+    const head = getTHead();
     const body = createDomElement({ tag: 'tbody' });
-    winners.forEach((winner, index) => {
+    let count = (state.currentPage - 1) * state.winnersPerOnePage;
+    state.winners.forEach((winner) => {
       const row = createDomElement({
         tag: 'tr',
         children: [
-          { tag: 'td', textContent: `${index + 1}` },
+          { tag: 'td', textContent: `${count += 1}` },
           {
             tag: 'td',
             children: [{ tag: 'div', className: 'car car-icon', style: { backgroundColor: winner.color } }],
@@ -83,6 +88,6 @@ export default class WinnersPage extends Page {
   }
 
   public renderMainContent(state: WinnersStateManager): void {
-    this.renderTableOfWinners(state.winners);
+    this.renderTableOfWinners(state);
   }
 }
