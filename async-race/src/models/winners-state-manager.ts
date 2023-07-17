@@ -8,11 +8,11 @@ const FIRST_PAGE = 1;
 const WINNERS_PER_ONE_PAGE = 10;
 
 export default class WinnersStateManager {
-  private winners: Winner[] = [];
+  public winners: Winner[] = [];
 
-  private totalCount: number;
+  public totalCount: number;
 
-  private currentPage: number;
+  public currentPage: number;
 
   constructor() {
     this.totalCount = 0;

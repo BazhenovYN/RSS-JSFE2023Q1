@@ -1,0 +1,75 @@
+@import 'variables';
+
+%background-img {
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
+}
+
+.page-garage {
+  display: flex;
+}
+
+.garage-box {
+  margin: 30px 0;
+  border-bottom: 2px $default-color dashed;
+
+  .car-icon {
+    width: 90px;
+    height: 40px;
+  }
+}
+
+.racing-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.flag {
+  @extend %background-img;
+
+  position: absolute;
+  top: -5px;
+  right: 100px;
+  width: 50px;
+  height: 50px;
+  background-image: url('assets/svg/flag.svg');
+}
+
+.car-selector {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.car-control {
+  margin-right: 10px;
+
+  .btn {
+    @extend %background-img;
+
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+  }
+
+  &__start {
+    background-image: url('assets/svg/right.svg');
+  }
+
+  &__stop {
+    background-image: url('assets/svg/left.svg');
+  }
+}

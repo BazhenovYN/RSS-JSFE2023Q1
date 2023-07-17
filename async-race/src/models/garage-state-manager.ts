@@ -7,11 +7,11 @@ const FIRST_PAGE = 1;
 const CARS_PER_ONE_PAGE = 7;
 
 export default class GarageStateManager {
-  private cars: Car[] = [];
+  public cars: Car[] = [];
 
-  private totalCount: number;
+  public totalCount: number;
 
-  private currentPage: number;
+  public currentPage: number;
 
   constructor() {
     this.totalCount = 0;
@@ -27,6 +27,10 @@ export default class GarageStateManager {
   }
 
   public async getCars(pageNumber = FIRST_PAGE): Promise<void> {
+    if (this.currentPage === pageNumber && this.cars.length) {
+      return;
+    }
+
     const apiResult = await getCars([
       { key: '_page', value: pageNumber },
       { key: '_limit', value: CARS_PER_ONE_PAGE },
