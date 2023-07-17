@@ -19,8 +19,8 @@ export default class App {
   constructor() {
     this.garagePage = new GaragePage();
     this.winnersPage = new WinnersPage();
-    this.garageStateManager = new GarageStateManager();
-    this.winnersStateManager = new WinnersStateManager();
+    this.garageStateManager = new GarageStateManager(this.garagePage);
+    this.winnersStateManager = new WinnersStateManager(this.winnersPage);
 
     const garageHandler = (): void => {
       this.loadGaragePage();
@@ -60,20 +60,19 @@ export default class App {
     }
   }
 
-  private renderPage(page: Page, stateManager: GarageStateManager | WinnersStateManager): void {
+  private mountPage(page: Page): void {
     this.clearPageContent();
     this.pages.append(page.getElement());
-    page.renderPage(stateManager);
   }
 
-  private async loadGaragePage(): Promise<void> {
-    await this.garageStateManager.getCars();
-    this.renderPage(this.garagePage, this.garageStateManager);
+  private loadGaragePage(): void {
+    this.mountPage(this.garagePage);
+    this.garageStateManager.getCars();
   }
 
-  private async loadWinnersPage(): Promise<void> {
-    await this.winnersStateManager.getWinners();
-    this.renderPage(this.winnersPage, this.winnersStateManager);
+  private loadWinnersPage(): void {
+    this.mountPage(this.winnersPage);
+    this.winnersStateManager.getWinners();
   }
 
   public start(): void {

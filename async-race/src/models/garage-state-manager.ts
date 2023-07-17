@@ -1,3 +1,4 @@
+import Page from 'components/common/page';
 import Car from 'models/car';
 import { createCar, deleteCar, getCars, updateCar } from 'services/garage-service';
 import { deleteWinner } from 'services/winners-service';
@@ -13,9 +14,14 @@ export default class GarageStateManager {
 
   public currentPage: number;
 
-  constructor() {
+  private carsPerOnePage: number;
+
+  constructor(private page: Page) {
     this.totalCount = 0;
     this.currentPage = FIRST_PAGE;
+    this.carsPerOnePage = CARS_PER_ONE_PAGE;
+
+    this.page.addPaginationHandler(this.getPreviousCars.bind(this), this.getNextCars.bind(this));
   }
 
   private generateCars(data: ICarResponse[]): void {
@@ -26,39 +32,47 @@ export default class GarageStateManager {
     });
   }
 
-  public async getCars(pageNumber = FIRST_PAGE): Promise<void> {
-    if (this.currentPage === pageNumber && this.cars.length) {
+  public async getCars(pageNumber = FIRST_PAGE, reload = false): Promise<void> {
+    if (this.cars.length && !reload) {
       return;
     }
 
     const apiResult = await getCars([
       { key: '_page', value: pageNumber },
-      { key: '_limit', value: CARS_PER_ONE_PAGE },
+      { key: '_limit', value: this.carsPerOnePage },
     ]);
     this.generateCars(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
     this.currentPage = pageNumber;
+
+    this.page.renderPage(this);
+  }
+
+  public getNextCars(): void {
+    if (this.currentPage * this.carsPerOnePage < this.totalCount) {
+      this.getCars(this.currentPage + 1, true);
+    }
+  }
+
+  public getPreviousCars(): void {
+    if (this.currentPage > 1) {
+      this.getCars(this.currentPage - 1, true);
+    }
   }
 
   public async createCar(param: ICarProps): Promise<void> {
-    const data = await createCar(param);
-    const newCar = new Car(data.id, data.name, data.color);
-    this.cars.push(newCar);
-    this.totalCount += 1;
+    await createCar(param);
+    await this.getCars(this.currentPage, true);
   }
 
   public async deleteCar(id: number): Promise<void> {
     await deleteCar(id);
     await deleteWinner(id);
-    this.cars = this.cars.filter((car) => car.id !== id);
-    this.totalCount -= 1;
+    await this.getCars(this.currentPage, true);
   }
 
   public async updateCar(id: number, param: ICarProps): Promise<void> {
     await updateCar(id, param);
-    const car = this.cars.find((currCar) => currCar.id === id);
-    if (car) {
-      car.updateProps(param);
-    }
+    await this.getCars(this.currentPage, true);
   }
 }

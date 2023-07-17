@@ -1,5 +1,5 @@
 import { driveEngine, startEngine, stopEngine } from 'services/engine-service';
-import type { CarStatus, Color, Func, ICarProps } from 'types';
+import type { CarStatus, Color, Func } from 'types';
 
 export default class Car {
   // private speed = 0;
@@ -29,10 +29,5 @@ export default class Car {
       this.status = 'stopped';
       stopAnimation();
     }
-  }
-
-  public updateProps(param: ICarProps): void {
-    this.name = param.name;
-    this.color = param.color;
   }
 }

@@ -1,3 +1,4 @@
+import Page from 'components/common/page';
 import Winner from 'models/winner';
 import { getCar } from 'services/garage-service';
 import { getWinners } from 'services/winners-service';
@@ -14,9 +15,12 @@ export default class WinnersStateManager {
 
   public currentPage: number;
 
-  constructor() {
+  private winnersPerOnePage: number;
+
+  constructor(private page: Page) {
     this.totalCount = 0;
     this.currentPage = FIRST_PAGE;
+    this.winnersPerOnePage = WINNERS_PER_ONE_PAGE;
   }
 
   private updateWinner(carProps: ICarResponse): void {
@@ -47,12 +51,14 @@ export default class WinnersStateManager {
   public async getWinners(pageNumber = FIRST_PAGE): Promise<void> {
     const apiResult = await getWinners([
       { key: '_page', value: pageNumber },
-      { key: '_limit', value: WINNERS_PER_ONE_PAGE },
+      { key: '_limit', value: this.winnersPerOnePage },
     ]);
     this.generateWinners(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
     this.currentPage = pageNumber;
 
     await this.getCarProps();
+
+    this.page.renderPage(this);
   }
 }

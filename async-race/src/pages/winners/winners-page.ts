@@ -1,5 +1,4 @@
 import Page from 'components/common/page';
-import Pagination from 'components/pagination';
 import Winner from 'models/winner';
 import WinnersStateManager from 'models/winners-state-manager';
 import createDomElement from 'utils/element-creator';
@@ -19,8 +18,6 @@ export default class WinnersPage extends Page {
 
   protected mainContent: HTMLDivElement;
 
-  private pagination: Pagination;
-
   constructor() {
     super();
     this.pageName = PAGE_NAME;
@@ -28,7 +25,6 @@ export default class WinnersPage extends Page {
     this.title = createDomElement({ tag: 'div', className: 'page__title' });
     this.contentPageNumber = createDomElement({ tag: 'div', className: 'page__content-page-number' });
     this.mainContent = createDomElement({ tag: 'div', className: 'page-winners__content' });
-    this.pagination = new Pagination();
 
     this.element.append(this.title, this.contentPageNumber, this.mainContent, this.pagination.getElement());
   }
@@ -74,11 +70,7 @@ export default class WinnersPage extends Page {
     this.mainContent.append(table);
   }
 
-  public renderPage(state: WinnersStateManager): void {
-    this.clearMainContent();
-
-    this.updateTitle(state.totalCount);
-    this.updateContentPageNumber(state.currentPage);
+  public renderMainContent(state: WinnersStateManager): void {
     this.renderTableOfWinners(state.winners);
   }
 }
