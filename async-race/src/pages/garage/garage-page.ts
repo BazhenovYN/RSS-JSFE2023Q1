@@ -18,7 +18,7 @@ export default class GaragePage extends Page {
 
   protected mainContent: HTMLDivElement;
 
-  constructor() {
+  constructor(state: GarageStateManager) {
     super();
     this.pageName = PAGE_NAME;
     this.element = createDomElement({ tag: 'div', className: 'page page-garage' });
@@ -27,6 +27,18 @@ export default class GaragePage extends Page {
     this.mainContent = createDomElement({ tag: 'div', className: 'page-garage__content' });
     
     this.element.append(this.title, this.contentPageNumber, this.mainContent, this.pagination.getElement());
+
+    const prevHandler = async (): Promise<void> => {
+      await state.getPreviousCars();
+      this.renderPage(state);
+    };
+
+    const nextHandler = async (): Promise<void> => {
+      await state.getNextCars();
+      this.renderPage(state);
+    };
+
+    this.addPaginationHandler(prevHandler, nextHandler);
   }
 
   private renderRacingTrack(car: Car): void {

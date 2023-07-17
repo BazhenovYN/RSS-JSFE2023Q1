@@ -18,7 +18,7 @@ export default class WinnersPage extends Page {
 
   protected mainContent: HTMLDivElement;
 
-  constructor() {
+  constructor(state: WinnersStateManager) {
     super();
     this.pageName = PAGE_NAME;
     this.element = createDomElement({ tag: 'div', className: 'page page-winners' });
@@ -27,6 +27,18 @@ export default class WinnersPage extends Page {
     this.mainContent = createDomElement({ tag: 'div', className: 'page-winners__content' });
 
     this.element.append(this.title, this.contentPageNumber, this.mainContent, this.pagination.getElement());
+
+    const prevHandler = async (): Promise<void> => {
+      await state.getPreviousWinners();
+      this.renderPage(state);
+    };
+
+    const nextHandler = async (): Promise<void> => {
+      await state.getNextWinners();
+      this.renderPage(state);
+    };
+
+    this.addPaginationHandler(prevHandler, nextHandler);
   }
 
   private renderTableOfWinners(winners: Winner[]): void {

@@ -1,4 +1,3 @@
-import Page from 'components/common/page';
 import Car from 'models/car';
 import { createCar, deleteCar, getCars, updateCar } from 'services/garage-service';
 import { deleteWinner } from 'services/winners-service';
@@ -16,12 +15,10 @@ export default class GarageStateManager {
 
   private carsPerOnePage: number;
 
-  constructor(private page: Page) {
+  constructor() {
     this.totalCount = 0;
     this.currentPage = FIRST_PAGE;
     this.carsPerOnePage = CARS_PER_ONE_PAGE;
-
-    this.page.addPaginationHandler(this.getPreviousCars.bind(this), this.getNextCars.bind(this));
   }
 
   private generateCars(data: ICarResponse[]): void {
@@ -44,19 +41,17 @@ export default class GarageStateManager {
     this.generateCars(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
     this.currentPage = pageNumber;
-
-    this.page.renderPage(this);
   }
 
-  public getNextCars(): void {
+  public async getNextCars(): Promise<void> {
     if (this.currentPage * this.carsPerOnePage < this.totalCount) {
-      this.getCars(this.currentPage + 1, true);
+      await this.getCars(this.currentPage + 1, true);
     }
   }
 
-  public getPreviousCars(): void {
+  public async getPreviousCars(): Promise<void> {
     if (this.currentPage > 1) {
-      this.getCars(this.currentPage - 1, true);
+      await this.getCars(this.currentPage - 1, true);
     }
   }
 

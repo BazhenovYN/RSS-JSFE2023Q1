@@ -1,4 +1,3 @@
-import Page from 'components/common/page';
 import Winner from 'models/winner';
 import { getCar } from 'services/garage-service';
 import { getWinners } from 'services/winners-service';
@@ -17,11 +16,11 @@ export default class WinnersStateManager {
 
   private winnersPerOnePage: number;
 
-  constructor(private page: Page) {
+  constructor() {
     this.totalCount = 0;
     this.currentPage = FIRST_PAGE;
     this.winnersPerOnePage = WINNERS_PER_ONE_PAGE;
-  }
+}
 
   private updateWinner(carProps: ICarResponse): void {
     const winner = this.winners.find((curr) => curr.id === carProps.id);
@@ -58,7 +57,17 @@ export default class WinnersStateManager {
     this.currentPage = pageNumber;
 
     await this.getCarProps();
+  }
 
-    this.page.renderPage(this);
+  public async getNextWinners(): Promise<void> {
+    if (this.currentPage * this.winnersPerOnePage < this.totalCount) {
+      await this.getWinners(this.currentPage + 1);
+    }
+  }
+
+  public async getPreviousWinners(): Promise<void> {
+    if (this.currentPage > 1) {
+      await this.getWinners(this.currentPage - 1);
+    }
   }
 }
