@@ -51,6 +51,13 @@ body {
   &:active {
     transform: scale(0.95);
   }
+
+  &[disabled] {
+    color: $default-color;
+    cursor: not-allowed;
+    background-color: $disable-background-color;
+    border: 1px solid $default-color;
+  }
 }
 
 .car-icon {
