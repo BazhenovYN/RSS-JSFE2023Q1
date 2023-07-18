@@ -1,5 +1,20 @@
 export type Func<T1 = void, T2 = void> = (arg: T1) => T2;
 
+export interface IControlPanel {
+  onCreate: (param: ICarProps) => void;
+  onUpdate: (param: ICarProps) => void;
+  onGenerate: () => void;
+  createButtonAlias?: string;
+  updateButtonAlias?: string;
+}
+
+export interface ICarEditor {
+  onSubmit?: (param: ICarProps) => void;
+  submitButtonAlias?: string;
+  carName?: string;
+  carColor?: Color;
+}
+
 interface MinimalDomElementProps<Tag extends keyof HTMLElementTagNameMap> {
   tag: Tag;
   style?: Partial<CSSStyleDeclaration>;

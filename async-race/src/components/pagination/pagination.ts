@@ -15,12 +15,12 @@ export default class Pagination extends View {
     this.prevButton = createDomElement({
       tag: 'button',
       textContent: 'Prev',
-      className: 'pagination__prev',
+      className: 'btn pagination__prev',
     });
     this.nextButton = createDomElement({
       tag: 'button',
       textContent: 'Next',
-      className: 'pagination__next',
+      className: 'btn pagination__next',
     });
     this.element = createDomElement({
       tag: 'div',

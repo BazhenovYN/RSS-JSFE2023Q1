@@ -1,0 +1,15 @@
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.car-editor {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.group-commands {
+  display: inline-flex;
+  gap: 5px;
+}

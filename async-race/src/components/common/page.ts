@@ -12,6 +12,8 @@ export default abstract class Page extends View {
 
   protected abstract mainContent: HTMLDivElement;
 
+  protected abstract state: GarageStateManager | WinnersStateManager;
+
   protected pagination: Pagination;
 
   constructor() {
@@ -33,13 +35,13 @@ export default abstract class Page extends View {
     }
   }
 
-  protected abstract renderMainContent(state: GarageStateManager | WinnersStateManager): void;
+  protected abstract renderMainContent(): void;
 
-  public renderPage(state: GarageStateManager | WinnersStateManager): void {
+  public renderPage(): void {
     this.clearMainContent();
-    this.updateTitle(state.totalCount);
-    this.updateContentPageNumber(state.currentPage);
-    this.renderMainContent(state);
+    this.updateTitle(this.state.totalCount);
+    this.updateContentPageNumber(this.state.currentPage);
+    this.renderMainContent();
   }
 
   public addPaginationHandler(prev: () => void, next: () => void): void {

@@ -23,7 +23,7 @@ const getTHead = (): HTMLTableSectionElement => {
     ],
   });
   return head;
-}
+};
 
 export default class WinnersPage extends Page {
   protected pageName: string;
@@ -36,7 +36,7 @@ export default class WinnersPage extends Page {
 
   protected mainContent: HTMLDivElement;
 
-  constructor(state: WinnersStateManager) {
+  constructor(protected state: WinnersStateManager) {
     super();
     this.pageName = PAGE_NAME;
     this.element = createDomElement({ tag: 'div', className: 'page page-winners' });
@@ -47,27 +47,27 @@ export default class WinnersPage extends Page {
     this.element.append(this.title, this.contentPageNumber, this.mainContent, this.pagination.getElement());
 
     const prevHandler = async (): Promise<void> => {
-      await state.getPreviousWinners();
-      this.renderPage(state);
+      await this.state.getPreviousWinners();
+      this.renderPage();
     };
 
     const nextHandler = async (): Promise<void> => {
-      await state.getNextWinners();
-      this.renderPage(state);
+      await this.state.getNextWinners();
+      this.renderPage();
     };
 
     this.addPaginationHandler(prevHandler, nextHandler);
   }
 
-  private renderTableOfWinners(state: WinnersStateManager): void {
+  private renderTableOfWinners(): void {
     const head = getTHead();
     const body = createDomElement({ tag: 'tbody' });
-    let count = (state.currentPage - 1) * state.winnersPerOnePage;
-    state.winners.forEach((winner) => {
+    let count = (this.state.currentPage - 1) * this.state.winnersPerOnePage;
+    this.state.winners.forEach((winner) => {
       const row = createDomElement({
         tag: 'tr',
         children: [
-          { tag: 'td', textContent: `${count += 1}` },
+          { tag: 'td', textContent: `${(count += 1)}` },
           {
             tag: 'td',
             children: [{ tag: 'div', className: 'car car-icon', style: { backgroundColor: winner.color } }],
@@ -87,7 +87,7 @@ export default class WinnersPage extends Page {
     this.mainContent.append(table);
   }
 
-  public renderMainContent(state: WinnersStateManager): void {
-    this.renderTableOfWinners(state);
+  public renderMainContent(): void {
+    this.renderTableOfWinners();
   }
 }

@@ -36,13 +36,13 @@ export default class App {
       children: [
         {
           tag: 'button',
-          className: 'nav__garage',
+          className: 'btn nav__garage',
           textContent: 'Garage',
           onclick: garageHandler,
         },
         {
           tag: 'button',
-          className: 'nav__winners',
+          className: 'btn nav__winners',
           textContent: 'Winners',
           onclick: winnersHandler,
         },
@@ -68,13 +68,13 @@ export default class App {
   private async loadGaragePage(): Promise<void> {
     await this.garageStateManager.getCars();
     this.mountPage(this.garagePage);
-    this.garagePage.renderPage(this.garageStateManager);
+    this.garagePage.renderPage();
   }
 
   private async loadWinnersPage(): Promise<void> {
     await this.winnersStateManager.getWinners();
     this.mountPage(this.winnersPage);
-    this.winnersPage.renderPage(this.winnersStateManager);
+    this.winnersPage.renderPage();
   }
 
   public start(): void {

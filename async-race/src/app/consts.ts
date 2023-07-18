@@ -5,3 +5,5 @@ export const path = {
   engine: '/engine',
   winners: '/winners',
 };
+
+export const defaultCarColor = '#ffffff';
