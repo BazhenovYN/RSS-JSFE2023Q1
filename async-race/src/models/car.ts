@@ -1,33 +1,36 @@
 import { driveEngine, startEngine, stopEngine } from 'services/engine-service';
-import type { CarStatus, Color, Func } from 'types';
+import type { CarStatus, Color } from 'types';
 
 export default class Car {
-  // private speed = 0;
+  public status: CarStatus = 'stopped';
 
-  private status: CarStatus = 'stopped';
+  public raceTime = 0;
 
-  // private raceCompletionPercentage = 0;
+  public finishTime = 0;
 
   constructor(public readonly id: number, public name: string, public color: Color) {}
 
-  public async start(startAnimation: Func<number>, stopAnimation: Func): Promise<void> {
-    const raceTime = await startEngine(this.id);
-    if (raceTime) {
-      this.status = 'started';
-      startAnimation(raceTime);
-      const isRaceFinish = await driveEngine(this.id);
-      if (!isRaceFinish) {
-        this.status = 'broken';
-        stopAnimation();
-      }
+  public async startEngine(): Promise<void> {
+    this.raceTime = await startEngine(this.id);
+    this.finishTime = 0;
+    this.status = 'started';
+  }
+
+  public async driveEngine(): Promise<void> {
+    const isRaceFinish = await driveEngine(this.id);
+    if (isRaceFinish) {
+      this.status = 'finished';
+      this.finishTime = Date.now();
+    } else {
+      this.status = 'broken';
     }
   }
 
-  public async stop(stopAnimation: Func): Promise<void> {
+  public async stopEngine(): Promise<void> {
     const isStoped = await stopEngine(this.id);
     if (isStoped) {
       this.status = 'stopped';
-      stopAnimation();
+      this.raceTime = 0;
     }
   }
 }

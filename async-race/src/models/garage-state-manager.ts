@@ -22,12 +22,12 @@ export default class GarageStateManager {
 
   public currentPage: number;
 
-  private carsPerOnePage: number;
+  public elementsPerOnePage: number;
 
   constructor() {
     this.totalCount = 0;
     this.currentPage = FIRST_PAGE;
-    this.carsPerOnePage = CARS_PER_ONE_PAGE;
+    this.elementsPerOnePage = CARS_PER_ONE_PAGE;
   }
 
   private generateCars(data: ICarResponse[]): void {
@@ -45,7 +45,7 @@ export default class GarageStateManager {
 
     const apiResult = await getCars([
       { key: '_page', value: pageNumber },
-      { key: '_limit', value: this.carsPerOnePage },
+      { key: '_limit', value: this.elementsPerOnePage },
     ]);
     this.generateCars(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
@@ -53,7 +53,7 @@ export default class GarageStateManager {
   }
 
   public async getNextCars(): Promise<void> {
-    if (this.currentPage * this.carsPerOnePage < this.totalCount) {
+    if (this.currentPage * this.elementsPerOnePage < this.totalCount) {
       await this.getCars(this.currentPage + 1, true);
     }
   }

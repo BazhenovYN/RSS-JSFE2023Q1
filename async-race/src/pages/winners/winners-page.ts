@@ -62,7 +62,7 @@ export default class WinnersPage extends Page {
   private renderTableOfWinners(): void {
     const head = getTHead();
     const body = createDomElement({ tag: 'tbody' });
-    let count = (this.state.currentPage - 1) * this.state.winnersPerOnePage;
+    let count = (this.state.currentPage - 1) * this.state.elementsPerOnePage;
     this.state.winners.forEach((winner) => {
       const row = createDomElement({
         tag: 'tr',
@@ -87,7 +87,7 @@ export default class WinnersPage extends Page {
     this.mainContent.append(table);
   }
 
-  public renderMainContent(): void {
+  protected renderMainContent(): void {
     this.renderTableOfWinners();
   }
 }

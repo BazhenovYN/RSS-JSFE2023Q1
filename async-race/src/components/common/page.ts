@@ -42,6 +42,7 @@ export default abstract class Page extends View {
     this.updateTitle(this.state.totalCount);
     this.updateContentPageNumber(this.state.currentPage);
     this.renderMainContent();
+    this.pagination.update(this.state.totalCount, this.state.currentPage, this.state.elementsPerOnePage);
   }
 
   public addPaginationHandler(prev: () => void, next: () => void): void {

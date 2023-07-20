@@ -4,6 +4,8 @@ export interface IControlPanel {
   onCreate: (param: ICarProps) => void;
   onUpdate: (param: ICarProps) => void;
   onGenerate: () => void;
+  onRace: () => void;
+  onReset: () => void;
   createButtonAlias?: string;
   updateButtonAlias?: string;
 }
@@ -35,7 +37,7 @@ export interface ICarResponse extends ICarProps {
   id: number;
 }
 
-export type CarStatus = 'started' | 'stopped' | 'broken';
+export type CarStatus = 'started' | 'stopped' | 'broken' | 'finished';
 
 export interface IWinnerProps {
   wins: number;

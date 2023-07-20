@@ -3,6 +3,8 @@ import createDomElement from 'utils/element-creator';
 
 import './_pagination.scss';
 
+const FIRST_PAGE = 1;
+
 export default class Pagination extends View {
   protected element: HTMLDivElement;
 
@@ -32,5 +34,19 @@ export default class Pagination extends View {
   public addHandlers(prev: () => void, next: () => void): void {
     this.prevButton.addEventListener('click', prev);
     this.nextButton.addEventListener('click', next);
+  }
+
+  public update(totalCount: number, currentPage: number, elementsPerOnePage: number): void {
+    if (currentPage === FIRST_PAGE) {
+      this.prevButton.setAttribute('disabled', '');
+    } else {
+      this.prevButton.removeAttribute('disabled');
+    }
+
+    if (elementsPerOnePage * currentPage >= totalCount) {
+      this.nextButton.setAttribute('disabled', '');
+    } else {
+      this.nextButton.removeAttribute('disabled');
+    }
   }
 }

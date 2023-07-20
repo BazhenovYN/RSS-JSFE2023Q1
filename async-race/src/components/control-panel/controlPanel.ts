@@ -11,7 +11,7 @@ export default class ControlPanel extends View {
 
   private updater: CarEditor;
 
-  constructor({ onCreate, onUpdate, onGenerate, createButtonAlias, updateButtonAlias }: IControlPanel) {
+  constructor({ onCreate, onUpdate, onGenerate, onRace, onReset, createButtonAlias, updateButtonAlias }: IControlPanel) {
     super();
     const creator = new CarEditor({ onSubmit: onCreate, submitButtonAlias: createButtonAlias });
     this.updater = new CarEditor({ onSubmit: onUpdate, submitButtonAlias: updateButtonAlias });
@@ -29,11 +29,13 @@ export default class ControlPanel extends View {
               tag: 'button', 
               className: 'btn group-commands__race',
               textContent: 'Race',
+              onclick: onRace,
             },
             { 
               tag: 'button', 
               className: 'btn group-commands__reset',
               textContent: 'Reset',
+              onclick: onReset,
             },
             { 
               tag: 'button', 
@@ -47,7 +49,7 @@ export default class ControlPanel extends View {
     });
   }
 
-  public configureUpdater({ carName, carColor }: ICarEditor): void {
+  public initUpdater({ carName, carColor }: ICarEditor): void {
     this.updater.update({ carName, carColor });
   }
 }

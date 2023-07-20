@@ -14,12 +14,12 @@ export default class WinnersStateManager {
 
   public currentPage: number;
 
-  public winnersPerOnePage: number;
+  public elementsPerOnePage: number;
 
   constructor() {
     this.totalCount = 0;
     this.currentPage = FIRST_PAGE;
-    this.winnersPerOnePage = WINNERS_PER_ONE_PAGE;
+    this.elementsPerOnePage = WINNERS_PER_ONE_PAGE;
 }
 
   private updateWinner(carProps: ICarResponse): void {
@@ -54,7 +54,7 @@ export default class WinnersStateManager {
 
     const apiResult = await getWinners([
       { key: '_page', value: pageNumber },
-      { key: '_limit', value: this.winnersPerOnePage },
+      { key: '_limit', value: this.elementsPerOnePage },
     ]);
     this.generateWinners(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
@@ -64,7 +64,7 @@ export default class WinnersStateManager {
   }
 
   public async getNextWinners(): Promise<void> {
-    if (this.currentPage * this.winnersPerOnePage < this.totalCount) {
+    if (this.currentPage * this.elementsPerOnePage < this.totalCount) {
       await this.getWinners(this.currentPage + 1, true);
     }
   }

@@ -7,12 +7,12 @@
 }
 
 .page-garage {
+  position: relative;
   display: flex;
 }
 
 .garage-box {
   margin: 30px 0;
-  border-bottom: 2px $default-color dashed;
 
   .car-icon {
     width: 90px;
@@ -24,6 +24,14 @@
   position: relative;
   display: flex;
   align-items: center;
+  min-height: 40px;
+  border-bottom: 2px $default-color dashed;
+
+  .car {
+    align-self: flex-end;
+    transition-timing-function: ease-in-out;
+    transition-property: transform;
+  }
 }
 
 .flag {
@@ -71,5 +79,21 @@
 
   &__stop {
     background-image: url('assets/svg/left.svg');
+  }
+}
+
+.winner {
+  position: absolute;
+  top: 140px;
+  right: calc(50% - 150px);
+  display: none;
+  width: 300px;
+  height: 50px;
+  background-color: #3b4463;
+
+  &.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

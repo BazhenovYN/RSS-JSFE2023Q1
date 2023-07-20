@@ -42,13 +42,14 @@ body {
   border: none;
   border: 1px solid $default-color;
   border-radius: 1em;
+  transition: all 0.05s;
 
   &:hover {
     color: $secondary-color;
     border: 1px solid $secondary-color;
   }
 
-  &:active {
+  &:active:not([disabled]) {
     transform: scale(0.95);
   }
 
