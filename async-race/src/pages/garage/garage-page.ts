@@ -9,6 +9,7 @@ import type { ICarProps } from 'types';
 import './_garage.scss';
 
 const PAGE_NAME = 'Garage';
+const ERROR_MESSAGE_NO_WINNERS = 'Oops... I guess there are no winners';
 
 const getTrackLength = (carView: HTMLDivElement): number => {
   const totalWidth = carView.parentElement?.clientWidth || 0;
@@ -28,8 +29,6 @@ const animatePosition = (carView: HTMLDivElement, car: Car): void => {
       if (currentX < endX) {
         requestAnimationFrame(step);
       }
-    } else if (car.status === 'broken') {
-      carView.classList.add('broken');
     }
   };
 
@@ -39,13 +38,16 @@ const animatePosition = (carView: HTMLDivElement, car: Car): void => {
 const startCar = (carView: HTMLDivElement, car: Car): Promise<Car> =>
   new Promise((resolve, reject) => {
     car.startEngine().then(() => {
+      animatePosition(carView, car);
       car
         .driveEngine()
         .then(() => {
           resolve(car);
         })
-        .catch(reject);
-      animatePosition(carView, car);
+        .catch(() => {
+          carView.classList.add('broken');
+          reject();
+        });
     });
   });
 
@@ -73,7 +75,7 @@ export default class GaragePage extends Page {
 
   private stoppingCars: (() => void)[] = [];
 
-  private winner: HTMLDivElement;
+  private message: HTMLDivElement;
 
   constructor(protected state: GarageStateManager) {
     super();
@@ -84,7 +86,7 @@ export default class GaragePage extends Page {
     this.mainContent = createDomElement({ tag: 'div', className: 'page-garage__content' });
 
     this.controlPanel = this.createControlPanel();
-    this.winner = createDomElement({ tag: 'div', className: 'winner' });
+    this.message = createDomElement({ tag: 'div', className: 'message' });
 
     this.element.append(
       this.controlPanel.getElement(),
@@ -92,24 +94,22 @@ export default class GaragePage extends Page {
       this.contentPageNumber,
       this.mainContent,
       this.pagination.getElement(),
-      this.winner,
+      this.message,
     );
 
     this.configurePagination();
   }
 
   private async startRaceHandler(): Promise<void> {
-    const promises = this.startingCars.map(func => func());
-    const raceResults = await Promise.allSettled(promises);
-    const winner = raceResults
-      .reduce<Car[]>((cars, result) => {
-        if (result.status === 'fulfilled' && result.value.status === 'finished') {
-          cars.push(result.value);
-        }
-        return cars;
-      }, [])
-      .sort((carA, carB) => carA.finishTime - carB.finishTime)[0];
-    this.showWinner(winner);
+    const startTime = Date.now();
+    const promises = this.startingCars.map((func) => func());
+    try {
+      const winner = await Promise.any(promises);
+      await winner.saveResult(startTime);
+      this.showWinner(winner);
+    } catch {
+      this.showNoWinners();
+    }
   }
 
   private createControlPanel(): ControlPanel {
@@ -130,9 +130,9 @@ export default class GaragePage extends Page {
     };
 
     const onReset = async (): Promise<void> => {
-      this.winner.classList.remove('show');
-      this.stoppingCars.forEach(func => func());
-    }
+      this.message.classList.remove('show');
+      this.stoppingCars.forEach((func) => func());
+    };
 
     const controlPanel = new ControlPanel({
       onCreate,
@@ -165,7 +165,7 @@ export default class GaragePage extends Page {
 
     const btnStartCar = createDomElement({ tag: 'button', className: 'btn car-control__start' });
     btnStartCar.addEventListener('click', () => {
-      startCar(carView, car);
+      startCar(carView, car).catch(() => {});
     });
 
     this.startingCars.push(() => startCar(carView, car));
@@ -216,11 +216,17 @@ export default class GaragePage extends Page {
 
   protected renderMainContent(): void {
     this.startingCars = [];
+    this.stoppingCars = [];
     this.state.cars.forEach((car) => this.renderGarageBox(car));
   }
 
   private showWinner(car: Car): void {
-    this.winner.textContent = `${car.name} went first (${car.raceTime / 1000} s)`;
-    this.winner.classList.add('show');
+    this.message.textContent = `${car.name} went first (${car.totalTime} s)`;
+    this.message.classList.add('show');
+  }
+
+  private showNoWinners(): void {
+    this.message.textContent = ERROR_MESSAGE_NO_WINNERS;
+    this.message.classList.add('show');
   }
 }

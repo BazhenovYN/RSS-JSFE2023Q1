@@ -24,6 +24,6 @@ export const deleteWinner = async (id: number): Promise<boolean> => {
 };
 
 export const updateWinner = async (id: number, param: IWinnerProps): Promise<boolean> => {
-  const data = await put<IWinner, IWinnerProps>(`${path.garage}/${id}`, param);
+  const data = await put<IWinner, IWinnerProps>(`${path.winners}/${id}`, param);
   return Object.entries(param).every(([key, value]) => value === data[key as keyof IWinnerProps]);
 };

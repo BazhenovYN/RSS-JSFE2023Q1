@@ -47,31 +47,28 @@ export default class WinnersStateManager {
     });
   }
 
-  public async getWinners(pageNumber = FIRST_PAGE, reload = false): Promise<void> {
-    if (this.winners.length && !reload) {
-      return;
-    }
+  public async getWinners(pageNumber: number | null = null): Promise<void> {
+    this.currentPage = pageNumber || this.currentPage;
 
     const apiResult = await getWinners([
-      { key: '_page', value: pageNumber },
+      { key: '_page', value: this.currentPage },
       { key: '_limit', value: this.elementsPerOnePage },
     ]);
     this.generateWinners(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
-    this.currentPage = pageNumber;
-
+    
     await this.getCarProps();
   }
 
   public async getNextWinners(): Promise<void> {
     if (this.currentPage * this.elementsPerOnePage < this.totalCount) {
-      await this.getWinners(this.currentPage + 1, true);
+      await this.getWinners(this.currentPage + 1);
     }
   }
 
   public async getPreviousWinners(): Promise<void> {
     if (this.currentPage > 1) {
-      await this.getWinners(this.currentPage - 1, true);
+      await this.getWinners(this.currentPage - 1);
     }
   }
 }
