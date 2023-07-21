@@ -5,25 +5,16 @@ import createDomElement from 'utils/element-creator';
 import './_winners.scss';
 
 const PAGE_NAME = 'Winners';
+const ORDER = {
+  asc: 'ASC',
+  desk: 'DESC',
+}
+const TABLE_ORDERING_FIELDS = {
+  wins: 'wins',
+  time: 'time',
+}
 
-const getTHead = (): HTMLTableSectionElement => {
-  const head = createDomElement({
-    tag: 'thead',
-    children: [
-      {
-        tag: 'tr',
-        children: [
-          { tag: 'th', textContent: 'Number' },
-          { tag: 'th', textContent: 'Car' },
-          { tag: 'th', textContent: 'Name' },
-          { tag: 'th', textContent: 'Wins' },
-          { tag: 'th', textContent: 'Best time (sec)' },
-        ],
-      },
-    ],
-  });
-  return head;
-};
+const toggleOrderDirection = (value: string):string => value === ORDER.asc ? ORDER.desk : ORDER.asc
 
 export default class WinnersPage extends Page {
   protected pageName: string;
@@ -35,6 +26,10 @@ export default class WinnersPage extends Page {
   protected contentPageNumber: HTMLDivElement;
 
   protected mainContent: HTMLDivElement;
+
+  private orderField = '';
+
+  private orderDirection = '';
 
   constructor(protected state: WinnersStateManager) {
     super();
@@ -59,8 +54,54 @@ export default class WinnersPage extends Page {
     this.addPaginationHandler(prevHandler, nextHandler);
   }
 
+  private setDataOrder = async (): Promise<void> => {
+    this.orderDirection = toggleOrderDirection(this.orderDirection);
+    await this.state.getWinners(null, [
+      { key: '_sort', value: this.orderField },
+      { key: '_order', value: this.orderDirection },
+    ]);
+    this.renderPage();
+  }
+
+  private getTHead = (): HTMLTableSectionElement => {
+    const cellWins = createDomElement({ tag: 'th', textContent: 'Wins', className: 'order-button' });
+    cellWins.addEventListener('click', async (): Promise<void> => {
+      this.orderField = TABLE_ORDERING_FIELDS.wins;
+      await this.setDataOrder();
+    });
+
+    const cellTime = createDomElement({ tag: 'th', textContent: 'Best time (sec)', className: 'order-button' });
+    cellTime.addEventListener('click', async (): Promise<void> => {
+      this.orderField = TABLE_ORDERING_FIELDS.time;
+      await this.setDataOrder();
+    });
+    
+    if (this.orderField === TABLE_ORDERING_FIELDS.wins) {
+      cellWins.setAttribute('order', this.orderDirection.toLowerCase());
+    } else if (this.orderField === TABLE_ORDERING_FIELDS.time) {
+      cellTime.setAttribute('order', this.orderDirection.toLowerCase());
+    }
+
+    const head = createDomElement({
+      tag: 'thead',
+      children: [
+        {
+          tag: 'tr',
+          children: [
+            { tag: 'th', textContent: 'Number' },
+            { tag: 'th', textContent: 'Car' },
+            { tag: 'th', textContent: 'Name' },
+            cellWins,
+            cellTime,
+          ],
+        },
+      ],
+    });
+    return head;
+  };
+
   private renderTableOfWinners(): void {
-    const head = getTHead();
+    const head = this.getTHead();
     const body = createDomElement({ tag: 'tbody' });
     let count = (this.state.currentPage - 1) * this.state.elementsPerOnePage;
     this.state.winners.forEach((winner) => {

@@ -13,12 +13,36 @@
   }
 
   td, th {
-    padding: 8px;
+    padding: 10px 15px;
     text-align: center;
     border: 1px solid $default-color;
   }
 
   th {
     background-color: $secondary-background-color;
+
+    &[order="asc"] {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        padding: 0 3px;
+        content: '↑';
+      }
+    }
+
+    &[order="desc"] {
+      position: relative;
+
+      &::after {
+        position: absolute;
+        padding: 0 3px;
+        content: '↓';
+      }
+    }
   }
+}
+
+.order-button {
+  cursor: pointer;
 }

@@ -2,7 +2,7 @@ import Winner from 'models/winner';
 import { getCar } from 'services/garage-service';
 import { getWinners } from 'services/winners-service';
 
-import type { ICarResponse, IWinner } from 'types';
+import type { ICarResponse, IWinner, QueryParam } from 'types';
 
 const FIRST_PAGE = 1;
 const WINNERS_PER_ONE_PAGE = 10;
@@ -15,6 +15,8 @@ export default class WinnersStateManager {
   public currentPage: number;
 
   public elementsPerOnePage: number;
+
+  private options: QueryParam[] = [];
 
   constructor() {
     this.totalCount = 0;
@@ -47,12 +49,14 @@ export default class WinnersStateManager {
     });
   }
 
-  public async getWinners(pageNumber: number | null = null): Promise<void> {
+  public async getWinners(pageNumber: number | null = null, options: QueryParam[] = []): Promise<void> {
     this.currentPage = pageNumber || this.currentPage;
+    this.options = options.length ? options : this.options;
 
     const apiResult = await getWinners([
       { key: '_page', value: this.currentPage },
       { key: '_limit', value: this.elementsPerOnePage },
+      ...this.options,
     ]);
     this.generateWinners(apiResult.data);
     this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
