@@ -1,6 +1,6 @@
+import { defaultCarColor } from 'app/consts';
 import type { Color, ICarResponse, IWinner } from 'types';
 
-const DEFAULT_COLOR = '#ffffff'; // white
 const DEFAULT_NAME = '<unknown>';
 
 export default class Winner implements IWinner {
@@ -10,7 +10,7 @@ export default class Winner implements IWinner {
 
   constructor(public readonly id: number, public wins: number, public time: number) {
     this.name = DEFAULT_NAME;
-    this.color = DEFAULT_COLOR;
+    this.color = defaultCarColor;
   }
 
   public setCarProps(carProps: ICarResponse): void {

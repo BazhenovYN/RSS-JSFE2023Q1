@@ -25,16 +25,4 @@ export const stopEngine = async (id: number): Promise<boolean> => {
   return false;
 };
 
-// export const driveEngine = async (id: number): Promise<boolean> => {
-//   try {
-//     const data = await engine<RaceResult>(id, 'drive');
-//     if (data.success) {
-//       return true;
-//     }
-//   } catch (error) {
-//     return false;
-//   }
-//   return false;
-// };
-
 export const driveEngine = async (id: number): Promise<RaceResult> => engine<RaceResult>(id, 'drive');

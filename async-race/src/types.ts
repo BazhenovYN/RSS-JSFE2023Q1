@@ -1,5 +1,3 @@
-export type Func<T1 = void, T2 = void> = (arg: T1) => T2;
-
 export interface IControlPanel {
   onCreate: (param: ICarProps) => void;
   onUpdate: (param: ICarProps) => void;

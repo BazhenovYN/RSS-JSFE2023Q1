@@ -1,3 +1,5 @@
+import { Color } from "types";
+
 export const baseUrl = 'http://127.0.0.1:3000';
 
 export const path = {
@@ -6,4 +8,4 @@ export const path = {
   winners: '/winners',
 };
 
-export const defaultCarColor = '#ffffff';
+export const defaultCarColor: Color = '#ffffff'; // white
