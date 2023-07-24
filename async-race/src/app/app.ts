@@ -24,7 +24,7 @@ export default class App {
 
     const navGarage = createDomElement({ tag: 'button', className: 'btn nav__item', textContent: 'Garage' });
     navGarage.setAttribute('active', '');
-    
+
     const navWinners = createDomElement({ tag: 'button', className: 'btn nav__item', textContent: 'Winners' });
 
     const garageHandler = (): void => {
@@ -73,7 +73,7 @@ export default class App {
   private async loadWinnersPage(): Promise<void> {
     await this.winnersStateManager.getWinners();
     this.mountPage(this.winnersPage);
-    this.winnersPage.renderPage();
+    this.winnersPage.renderPage(true);
   }
 
   public start(): void {
