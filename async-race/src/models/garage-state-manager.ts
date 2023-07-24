@@ -1,3 +1,4 @@
+import { showError } from 'components/error-snackbar';
 import Car from 'models/car';
 import { createCar, deleteCar, getCars, updateCar } from 'services/garage-service';
 import { deleteWinner } from 'services/winners-service';
@@ -43,13 +44,17 @@ export default class GarageStateManager {
       return;
     }
 
-    const apiResult = await getCars([
-      { key: '_page', value: pageNumber },
-      { key: '_limit', value: this.elementsPerOnePage },
-    ]);
-    this.generateCars(apiResult.data);
-    this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
-    this.currentPage = pageNumber;
+    try {
+      const apiResult = await getCars([
+        { key: '_page', value: pageNumber },
+        { key: '_limit', value: this.elementsPerOnePage },
+      ]);
+      this.generateCars(apiResult.data);
+      this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
+      this.currentPage = pageNumber;
+    } catch (error) {
+      showError(error)
+    }
   }
 
   public async getNextCars(): Promise<void> {
@@ -65,20 +70,32 @@ export default class GarageStateManager {
   }
 
   public async createCar(param: ICarProps): Promise<void> {
-    await createCar(param);
-    await this.getCars(this.currentPage, true);
+    try {
+      await createCar(param);
+      await this.getCars(this.currentPage, true);
+    } catch (error) {
+      showError(error)
+    }
   }
 
   public async deleteCar(id: number): Promise<void> {
-    await deleteCar(id);
-    await deleteWinner(id);
-    const pageNumber = this.currentPage > 1 && this.cars.length === 1 ? this.currentPage - 1 : this.currentPage;
-    await this.getCars(pageNumber, true);
+    try {
+      await deleteCar(id);
+      await deleteWinner(id);
+      const pageNumber = this.currentPage > 1 && this.cars.length === 1 ? this.currentPage - 1 : this.currentPage;
+      await this.getCars(pageNumber, true);
+    } catch (error) {
+      showError(error)
+    }
   }
 
   public async updateCar(id: number, param: ICarProps): Promise<void> {
-    await updateCar(id, param);
-    await this.getCars(this.currentPage, true);
+    try {
+      await updateCar(id, param);
+      await this.getCars(this.currentPage, true);
+    } catch (error) {
+      showError(error)
+    }
   }
 
   public async generateRandomCars(): Promise<void> {
@@ -87,7 +104,11 @@ export default class GarageStateManager {
       const param = generateRandomParams();
       promises.push(createCar(param));
     }
-    await Promise.all(promises);
-    await this.getCars(this.currentPage, true);
+    try {
+      await Promise.all(promises);
+      await this.getCars(this.currentPage, true);
+    } catch (error) {
+      showError(error)
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { showError } from 'components/error-snackbar';
 import Winner from 'models/winner';
 import { getCar } from 'services/garage-service';
 import { getWinners } from 'services/winners-service';
@@ -53,15 +54,19 @@ export default class WinnersStateManager {
     this.currentPage = pageNumber || this.currentPage;
     this.options = options.length ? options : this.options;
 
-    const apiResult = await getWinners([
-      { key: '_page', value: this.currentPage },
-      { key: '_limit', value: this.elementsPerOnePage },
-      ...this.options,
-    ]);
-    this.generateWinners(apiResult.data);
-    this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
-    
-    await this.getCarProps();
+    try {
+      const apiResult = await getWinners([
+        { key: '_page', value: this.currentPage },
+        { key: '_limit', value: this.elementsPerOnePage },
+        ...this.options,
+      ]);
+      this.generateWinners(apiResult.data);
+      this.totalCount = apiResult.totalCount ? apiResult.totalCount : 0;
+      
+      await this.getCarProps();
+    } catch (error) {
+      showError(error)
+    }
   }
 
   public async getNextWinners(): Promise<void> {

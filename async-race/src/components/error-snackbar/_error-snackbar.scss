@@ -1,0 +1,39 @@
+@import 'variables';
+
+.snackbar {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  z-index: 999;
+  min-width: 250px;
+  padding: 16px;
+  margin-left: -125px;
+  color: $default-color;
+  text-align: center;
+  background-color: $secondary-background-color;
+  border-radius: 2px;
+  opacity: 0;
+  animation: fade 4s;
+}
+
+@keyframes fade {
+  0% { 
+    bottom: 0; 
+    opacity: 0; 
+  }
+
+  15% { 
+    bottom: 30px; 
+    opacity: 1; 
+  }
+
+  85% {
+    bottom: 30px; 
+    opacity: 1; 
+  }
+  
+  100% { 
+    bottom: 0; 
+    opacity: 0; 
+  }
+}

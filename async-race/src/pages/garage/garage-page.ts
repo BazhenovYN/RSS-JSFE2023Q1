@@ -1,5 +1,6 @@
 import Page from 'components/common/page';
 import ControlPanel from 'components/control-panel';
+import { showError } from 'components/error-snackbar';
 import Car from 'models/car';
 import GarageStateManager from 'models/garage-state-manager';
 import createDomElement from 'utils/element-creator';
@@ -37,23 +38,30 @@ const animatePosition = (carView: HTMLDivElement, car: Car): void => {
 
 const startCar = (carView: HTMLDivElement, car: Car): Promise<Car> =>
   new Promise((resolve, reject) => {
-    car.startEngine().then(() => {
-      animatePosition(carView, car);
-      car
-        .driveEngine()
-        .then(() => {
-          resolve(car);
-        })
-        .catch(() => {
-          carView.classList.add('broken');
-          reject();
-        });
-    });
+    car
+      .startEngine()
+      .then(() => {
+        animatePosition(carView, car);
+        car
+          .driveEngine()
+          .then(() => {
+            resolve(car);
+          })
+          .catch(() => {
+            carView.classList.add('broken');
+            reject();
+          });
+      })
+      .catch((error) => showError(error));
   });
 
 const stopCar = async (carView: HTMLDivElement, car: Car): Promise<void> => {
-  await car.stopEngine();
-  carView.style.setProperty('transform', '');
+  try {
+    await car.stopEngine();
+    carView.style.setProperty('transform', '');
+  } catch (error) {
+    showError(error)
+  }
 };
 
 export default class GaragePage extends Page {
@@ -105,8 +113,10 @@ export default class GaragePage extends Page {
   }
 
   private async startRaceHandler(): Promise<void> {
-    this.startButtons.forEach(btn => btn.setAttribute('disabled', ''));
-    this.stopButtons.forEach(btn => btn.setAttribute('disabled', ''));
+    if (!this.startingCars.length) return;
+
+    this.startButtons.forEach((btn) => btn.setAttribute('disabled', ''));
+    this.stopButtons.forEach((btn) => btn.setAttribute('disabled', ''));
 
     const startTime = Date.now();
     const promises = this.startingCars.map((func) => func());
@@ -137,8 +147,10 @@ export default class GaragePage extends Page {
     };
 
     const onReset = async (): Promise<void> => {
-      this.startButtons.forEach(btn => btn.removeAttribute('disabled'));
-      this.stopButtons.forEach(btn => btn.setAttribute('disabled', ''));
+      if (!this.stoppingCars.length) return;
+      
+      this.startButtons.forEach((btn) => btn.removeAttribute('disabled'));
+      this.stopButtons.forEach((btn) => btn.setAttribute('disabled', ''));
       this.message.classList.remove('show');
       this.stoppingCars.forEach((func) => func());
     };
