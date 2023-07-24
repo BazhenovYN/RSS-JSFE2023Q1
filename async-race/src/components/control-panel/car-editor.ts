@@ -57,20 +57,21 @@ export default class CarEditor extends View {
     }
   }
 
-  public update({ carName, carColor }: ICarEditor): void {
-    this.name.value = carName || '';
-    this.color.value = carColor || defaultCarColor;
-  }
-
-  public disableAllElements(): void {
+  private disableAllElements(): void {
     this.name.setAttribute('disabled', '');
     this.color.setAttribute('disabled', '');
     this.submit.setAttribute('disabled', '');
   }
 
-  public enableAllElements(): void {
+  private enableAllElements(): void {
     this.name.removeAttribute('disabled');
     this.color.removeAttribute('disabled');
     this.submit.removeAttribute('disabled');
+  }
+
+  public update({ carName, carColor }: ICarEditor): void {
+    this.name.value = carName || '';
+    this.color.value = carColor || defaultCarColor;
+    this.enableAllElements();
   }
 }

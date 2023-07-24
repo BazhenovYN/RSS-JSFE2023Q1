@@ -9,21 +9,27 @@ import './_control-panel.scss';
 export default class ControlPanel extends View {
   protected element: HTMLDivElement;
 
+  private creator: CarEditor;
+
   private updater: CarEditor;
 
-  constructor({ onCreate, onUpdate, onGenerate, onRace, onReset, createButtonAlias, updateButtonAlias }: IControlPanel) {
-    super();
-    const creator = new CarEditor({ onSubmit: onCreate, submitButtonAlias: createButtonAlias });
-    this.updater = new CarEditor({ onSubmit: onUpdate, submitButtonAlias: updateButtonAlias, isUpdater: true });
+  private raceButton: HTMLButtonElement;
 
-    const raceButton = createDomElement({ tag: 'button', className: 'btn group-commands__race', textContent: 'Race' });
-    const resetButton = createDomElement({ tag: 'button', className: 'btn group-commands__reset', textContent: 'Reset' });
-    raceButton.addEventListener('click', () => {
-      raceButton.setAttribute('disabled', '');
+  private resetButton: HTMLButtonElement;
+
+  constructor({ onCreate, onUpdate, onGenerate, onRace, onReset }: IControlPanel) {
+    super();
+    this.creator = new CarEditor({ onSubmit: onCreate, submitButtonAlias: 'Create' });
+    this.updater = new CarEditor({ onSubmit: onUpdate, submitButtonAlias: 'Update', isUpdater: true });
+
+    this.raceButton = createDomElement({ tag: 'button', className: 'btn commands__race', textContent: 'Race' });
+    this.resetButton = createDomElement({ tag: 'button', className: 'btn commands__reset', textContent: 'Reset' });
+    this.raceButton.addEventListener('click', () => {
+      this.raceButton.setAttribute('disabled', '');
       onRace();
     });
-    resetButton.addEventListener('click', () => {
-      raceButton.removeAttribute('disabled');
+    this.resetButton.addEventListener('click', () => {
+      this.raceButton.removeAttribute('disabled');
       onReset();
     });
 
@@ -31,28 +37,31 @@ export default class ControlPanel extends View {
       tag: 'div',
       className: 'control-panel',
       children: [
-        creator.getElement(), 
+        this.creator.getElement(),
         this.updater.getElement(),
         {
           tag: 'div',
-          className: 'group-commands',
+          className: 'commands',
           children: [
-            raceButton,
-            resetButton,
-            { 
-              tag: 'button', 
-              className: 'btn group-commands__generate-cars',
+            this.raceButton,
+            this.resetButton,
+            {
+              tag: 'button',
+              className: 'btn commands__generate-cars',
               textContent: 'Generate cars',
               onclick: onGenerate,
-            }
-          ]
-        }
+            },
+          ],
+        },
       ],
     });
   }
 
   public initUpdater({ carName, carColor }: ICarEditor): void {
     this.updater.update({ carName, carColor });
-    this.updater.enableAllElements();
+  }
+
+  public resetPanel(): void {
+    this.raceButton.removeAttribute('disabled');
   }
 }

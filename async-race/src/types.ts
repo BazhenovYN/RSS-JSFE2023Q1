@@ -4,8 +4,6 @@ export interface IControlPanel {
   onGenerate: () => void;
   onRace: () => void;
   onReset: () => void;
-  createButtonAlias?: string;
-  updateButtonAlias?: string;
 }
 
 export interface ICarEditor {

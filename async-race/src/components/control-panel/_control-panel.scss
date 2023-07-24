@@ -2,6 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+
+  .commands {
+    display: inline-flex;
+    gap: 5px;
+  }
 }
 
 .car-editor {
@@ -11,9 +16,4 @@
   input[disabled] {
     cursor: not-allowed;
   }
-}
-
-.group-commands {
-  display: inline-flex;
-  gap: 5px;
 }

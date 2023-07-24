@@ -148,7 +148,7 @@ export default class GaragePage extends Page {
 
     const onReset = async (): Promise<void> => {
       if (!this.stoppingCars.length) return;
-      
+
       this.startButtons.forEach((btn) => btn.removeAttribute('disabled'));
       this.stopButtons.forEach((btn) => btn.setAttribute('disabled', ''));
       this.message.classList.remove('show');
@@ -161,8 +161,6 @@ export default class GaragePage extends Page {
       onGenerate,
       onRace: this.startRaceHandler.bind(this),
       onReset,
-      createButtonAlias: 'Create',
-      updateButtonAlias: 'Update',
     });
     return controlPanel;
   }
@@ -244,11 +242,18 @@ export default class GaragePage extends Page {
     this.mainContent.append(garageBox);
   }
 
-  protected renderMainContent(): void {
+  protected clearMainContent(): void {
+    super.clearMainContent();
+
     this.startingCars = [];
     this.startButtons = [];
     this.stoppingCars = [];
     this.stopButtons = [];
+    this.controlPanel.resetPanel();
+    this.message.classList.remove('show');
+  }
+
+  protected renderMainContent(): void {
     this.state.cars.forEach((car) => this.renderGarageBox(car));
   }
 
