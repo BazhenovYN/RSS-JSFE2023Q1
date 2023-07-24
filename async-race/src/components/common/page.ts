@@ -16,6 +16,8 @@ export default abstract class Page extends View {
 
   protected pagination: Pagination;
 
+  protected isPageLoaded = false;
+
   constructor() {
     super();
     this.pagination = new Pagination();
@@ -37,12 +39,17 @@ export default abstract class Page extends View {
 
   protected abstract renderMainContent(): void;
 
-  public renderPage(): void {
+  public renderPage(reload = false): void {
+    if (this.isPageLoaded && !reload) {
+      return;
+    }
+
     this.clearMainContent();
     this.updateTitle(this.state.totalCount);
     this.updateContentPageNumber(this.state.currentPage);
     this.renderMainContent();
     this.pagination.update(this.state.totalCount, this.state.currentPage, this.state.elementsPerOnePage);
+    this.isPageLoaded = true;
   }
 
   public addPaginationHandler(prev: () => void, next: () => void): void {

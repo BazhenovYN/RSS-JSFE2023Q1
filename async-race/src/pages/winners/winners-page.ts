@@ -43,12 +43,12 @@ export default class WinnersPage extends Page {
 
     const prevHandler = async (): Promise<void> => {
       await this.state.getPreviousWinners();
-      this.renderPage();
+      this.renderPage(true);
     };
 
     const nextHandler = async (): Promise<void> => {
       await this.state.getNextWinners();
-      this.renderPage();
+      this.renderPage(true);
     };
 
     this.addPaginationHandler(prevHandler, nextHandler);
@@ -60,7 +60,7 @@ export default class WinnersPage extends Page {
       { key: '_sort', value: this.orderField },
       { key: '_order', value: this.orderDirection },
     ]);
-    this.renderPage();
+    this.renderPage(true);
   }
 
   private getTHead = (): HTMLTableSectionElement => {

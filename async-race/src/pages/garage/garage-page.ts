@@ -122,18 +122,18 @@ export default class GaragePage extends Page {
   private createControlPanel(): ControlPanel {
     const onCreate = async (param: ICarProps): Promise<void> => {
       await this.state.createCar(param);
-      this.renderPage();
+      this.renderPage(true);
     };
     const onUpdate = async (param: ICarProps): Promise<void> => {
       if (this.selectedCarId) {
         await this.state.updateCar(this.selectedCarId, param);
         this.selectedCarId = null;
-        this.renderPage();
+        this.renderPage(true);
       }
     };
     const onGenerate = async (): Promise<void> => {
       await this.state.generateRandomCars();
-      this.renderPage();
+      this.renderPage(true);
     };
 
     const onReset = async (): Promise<void> => {
@@ -158,12 +158,12 @@ export default class GaragePage extends Page {
   private configurePagination(): void {
     const prevHandler = async (): Promise<void> => {
       await this.state.getPreviousCars();
-      this.renderPage();
+      this.renderPage(true);
     };
 
     const nextHandler = async (): Promise<void> => {
       await this.state.getNextCars();
-      this.renderPage();
+      this.renderPage(true);
     };
 
     this.addPaginationHandler(prevHandler, nextHandler);
@@ -216,7 +216,7 @@ export default class GaragePage extends Page {
     };
     const removeHandler = async (): Promise<void> => {
       await this.state.deleteCar(car.id);
-      this.renderPage();
+      this.renderPage(true);
     };
     const carSelector = createDomElement({
       tag: 'div',
