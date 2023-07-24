@@ -22,31 +22,30 @@ export default class App {
     this.garagePage = new GaragePage(this.garageStateManager);
     this.winnersPage = new WinnersPage(this.winnersStateManager);
 
+    const navGarage = createDomElement({ tag: 'button', className: 'btn nav__item', textContent: 'Garage' });
+    navGarage.setAttribute('active', '');
+    
+    const navWinners = createDomElement({ tag: 'button', className: 'btn nav__item', textContent: 'Winners' });
+
     const garageHandler = (): void => {
+      navWinners.removeAttribute('active');
+      navGarage.setAttribute('active', '');      
       this.loadGaragePage();
     };
 
     const winnersHandler = (): void => {
+      navGarage.removeAttribute('active');
+      navWinners.setAttribute('active', '');
       this.loadWinnersPage();
     };
+
+    navGarage.addEventListener('click', garageHandler);
+    navWinners.addEventListener('click', winnersHandler);
 
     const nav = createDomElement({
       tag: 'nav',
       className: 'nav',
-      children: [
-        {
-          tag: 'button',
-          className: 'btn nav__garage',
-          textContent: 'Garage',
-          onclick: garageHandler,
-        },
-        {
-          tag: 'button',
-          className: 'btn nav__winners',
-          textContent: 'Winners',
-          onclick: winnersHandler,
-        },
-      ],
+      children: [navGarage, navWinners],
     });
 
     this.pages = createDomElement({ tag: 'div', className: 'pages' });

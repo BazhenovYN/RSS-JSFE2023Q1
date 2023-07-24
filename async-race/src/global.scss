@@ -6,6 +6,7 @@
 }
 
 body {
+  font-family: arial, sans-serif;
   color: $default-color;
   background-color: $default-background-color;
 }
@@ -15,13 +16,33 @@ body {
   flex-direction: column;
   gap: 20px;
   padding: 20px;
-  font-family: arial, sans-serif;
 }
 
 .nav {
   display: inline-flex;
   gap: 5px;
   font-size: 1.3rem;
+
+  &__item {
+    display: flex;
+    align-items: center;
+  }
+
+  &__item::before {
+    display: inline-flex;
+    width: 5px;
+    height: 5px;
+    margin-right: 5px;
+    content: "";
+    background-color: $light-off;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+
+  &__item[active]::before {
+    background-color: $light-on;
+    box-shadow: 0 0 5px $light-on;
+  }
 }
 
 .page {
