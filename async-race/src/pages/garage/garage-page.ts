@@ -77,6 +77,10 @@ export default class GaragePage extends Page {
 
   private message: HTMLDivElement;
 
+  private startButtons: HTMLButtonElement[] = [];
+
+  private stopButtons: HTMLButtonElement[] = [];
+
   constructor(protected state: GarageStateManager) {
     super();
     this.pageName = PAGE_NAME;
@@ -101,6 +105,9 @@ export default class GaragePage extends Page {
   }
 
   private async startRaceHandler(): Promise<void> {
+    this.startButtons.forEach(btn => btn.setAttribute('disabled', ''));
+    this.stopButtons.forEach(btn => btn.setAttribute('disabled', ''));
+
     const startTime = Date.now();
     const promises = this.startingCars.map((func) => func());
     try {
@@ -130,6 +137,8 @@ export default class GaragePage extends Page {
     };
 
     const onReset = async (): Promise<void> => {
+      this.startButtons.forEach(btn => btn.removeAttribute('disabled'));
+      this.stopButtons.forEach(btn => btn.setAttribute('disabled', ''));
       this.message.classList.remove('show');
       this.stoppingCars.forEach((func) => func());
     };
@@ -164,17 +173,26 @@ export default class GaragePage extends Page {
     const carView = createDomElement({ tag: 'div', className: 'car car-icon', style: { backgroundColor: car.color } });
 
     const btnStartCar = createDomElement({ tag: 'button', className: 'btn car-control__start' });
+    const btnStopCar = createDomElement({ tag: 'button', className: 'btn car-control__stop' });
+
     btnStartCar.addEventListener('click', () => {
+      btnStartCar.setAttribute('disabled', '');
+      btnStopCar.removeAttribute('disabled');
       startCar(carView, car).catch(() => {});
     });
+
+    btnStopCar.addEventListener('click', () => {
+      btnStartCar.removeAttribute('disabled');
+      btnStopCar.setAttribute('disabled', '');
+      stopCar(carView, car);
+    });
+    btnStopCar.setAttribute('disabled', '');
 
     this.startingCars.push(() => startCar(carView, car));
     this.stoppingCars.push(() => stopCar(carView, car));
 
-    const btnStopCar = createDomElement({ tag: 'button', className: 'btn car-control__stop' });
-    btnStopCar.addEventListener('click', () => {
-      stopCar(carView, car);
-    });
+    this.startButtons.push(btnStartCar);
+    this.stopButtons.push(btnStopCar);
 
     return createDomElement({
       tag: 'div',
@@ -216,7 +234,9 @@ export default class GaragePage extends Page {
 
   protected renderMainContent(): void {
     this.startingCars = [];
+    this.startButtons = [];
     this.stoppingCars = [];
+    this.stopButtons = [];
     this.state.cars.forEach((car) => this.renderGarageBox(car));
   }
 

@@ -14,7 +14,19 @@ export default class ControlPanel extends View {
   constructor({ onCreate, onUpdate, onGenerate, onRace, onReset, createButtonAlias, updateButtonAlias }: IControlPanel) {
     super();
     const creator = new CarEditor({ onSubmit: onCreate, submitButtonAlias: createButtonAlias });
-    this.updater = new CarEditor({ onSubmit: onUpdate, submitButtonAlias: updateButtonAlias });
+    this.updater = new CarEditor({ onSubmit: onUpdate, submitButtonAlias: updateButtonAlias, isUpdater: true });
+
+    const raceButton = createDomElement({ tag: 'button', className: 'btn group-commands__race', textContent: 'Race' });
+    const resetButton = createDomElement({ tag: 'button', className: 'btn group-commands__reset', textContent: 'Reset' });
+    raceButton.addEventListener('click', () => {
+      raceButton.setAttribute('disabled', '');
+      onRace();
+    });
+    resetButton.addEventListener('click', () => {
+      raceButton.removeAttribute('disabled');
+      onReset();
+    });
+
     this.element = createDomElement({
       tag: 'div',
       className: 'control-panel',
@@ -25,18 +37,8 @@ export default class ControlPanel extends View {
           tag: 'div',
           className: 'group-commands',
           children: [
-            { 
-              tag: 'button', 
-              className: 'btn group-commands__race',
-              textContent: 'Race',
-              onclick: onRace,
-            },
-            { 
-              tag: 'button', 
-              className: 'btn group-commands__reset',
-              textContent: 'Reset',
-              onclick: onReset,
-            },
+            raceButton,
+            resetButton,
             { 
               tag: 'button', 
               className: 'btn group-commands__generate-cars',
@@ -51,5 +53,6 @@ export default class ControlPanel extends View {
 
   public initUpdater({ carName, carColor }: ICarEditor): void {
     this.updater.update({ carName, carColor });
+    this.updater.enableAllElements();
   }
 }

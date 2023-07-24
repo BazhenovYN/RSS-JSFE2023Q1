@@ -63,7 +63,7 @@ body {
 
 .car-icon {
   display: inline-block;
-  background: $default-color;
+  background-color: $default-color;
   -webkit-mask-image: url('assets/svg/car.svg');
   mask-image: url('assets/svg/car.svg');
   -webkit-mask-size: cover;

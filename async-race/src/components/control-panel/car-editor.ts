@@ -14,7 +14,9 @@ export default class CarEditor extends View {
 
   public submit: HTMLInputElement;
 
-  constructor({ onSubmit, submitButtonAlias }: ICarEditor) {
+  private isUpdater: boolean;
+
+  constructor({ onSubmit, submitButtonAlias, isUpdater = false }: ICarEditor) {
     super();
     this.name = createDomElement({ tag: 'input', type: 'text', name: 'name', className: 'car-editor__name' });
     this.name.setAttribute('required', '');
@@ -31,6 +33,7 @@ export default class CarEditor extends View {
       value: submitButtonAlias || DEFAULT_COMMAND_NAME,
       className: 'btn car-editor__submit',
     });
+    this.isUpdater = isUpdater;
     this.element = createDomElement({
       tag: 'form',
       className: 'car-editor',
@@ -45,11 +48,29 @@ export default class CarEditor extends View {
         onSubmit({ name, color });
       }
       this.update({});
+      if (this.isUpdater) {
+        this.disableAllElements();
+      }
     };
+    if (this.isUpdater) {
+      this.disableAllElements();
+    }
   }
 
   public update({ carName, carColor }: ICarEditor): void {
     this.name.value = carName || '';
     this.color.value = carColor || defaultCarColor;
+  }
+
+  public disableAllElements(): void {
+    this.name.setAttribute('disabled', '');
+    this.color.setAttribute('disabled', '');
+    this.submit.setAttribute('disabled', '');
+  }
+
+  public enableAllElements(): void {
+    this.name.removeAttribute('disabled');
+    this.color.removeAttribute('disabled');
+    this.submit.removeAttribute('disabled');
   }
 }

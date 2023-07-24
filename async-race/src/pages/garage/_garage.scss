@@ -28,6 +28,7 @@
   border-bottom: 2px $default-color dashed;
 
   .car {
+    position: relative;
     align-self: flex-end;
     transition-timing-function: ease-in-out;
     transition-property: transform;
@@ -56,29 +57,35 @@
   margin-right: 10px;
 
   .btn {
-    @extend %background-img;
-
     width: 30px;
     height: 30px;
-    background-color: transparent;
+    background-color: $default-color;
     border: none;
     transition: all 0.1s ease-in-out;
+    -webkit-mask-size: cover;
+    mask-size: cover;
 
-    &:hover {
+    &[disabled] {
+      background-color: $disable-background-color;
+    }
+
+    &:hover:not([disabled]) {
       transform: scale(1.1);
     }
 
-    &:active {
+    &:active:not([disabled]) {
       transform: scale(1);
     }
   }
 
   &__start {
-    background-image: url('assets/svg/right.svg');
+    -webkit-mask-image: url('assets/svg/right.svg');
+    mask-image: url('assets/svg/right.svg');
   }
 
   &__stop {
-    background-image: url('assets/svg/left.svg');
+    -webkit-mask-image: url('assets/svg/left.svg');
+    mask-image: url('assets/svg/left.svg');
   }
 }
 

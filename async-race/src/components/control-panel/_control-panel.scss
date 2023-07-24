@@ -7,6 +7,10 @@
 .car-editor {
   display: inline-flex;
   gap: 5px;
+
+  input[disabled] {
+    cursor: not-allowed;
+  }
 }
 
 .group-commands {

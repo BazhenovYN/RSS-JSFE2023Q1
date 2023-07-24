@@ -15,6 +15,7 @@ export interface ICarEditor {
   submitButtonAlias?: string;
   carName?: string;
   carColor?: Color;
+  isUpdater?: boolean;
 }
 
 interface MinimalDomElementProps<Tag extends keyof HTMLElementTagNameMap> {
