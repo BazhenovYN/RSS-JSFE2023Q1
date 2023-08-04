@@ -11,3 +11,9 @@ export const path = {
 export const defaultCarColor: Color = '#ffffff'; // white
 
 export const emptyString = '';
+
+export const CAR_STATUS = {
+  started: 'started',
+  stopped: 'stopped',
+  broken: 'broken',
+}

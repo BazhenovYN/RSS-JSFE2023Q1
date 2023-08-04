@@ -34,8 +34,6 @@ export interface ICarResponse extends ICarProps {
   id: number;
 }
 
-export type CarStatus = 'started' | 'stopped' | 'broken';
-
 export interface IWinnerProps {
   wins: number;
   time: number;

@@ -1,4 +1,4 @@
-import { emptyString } from 'app/consts';
+import { CAR_STATUS, emptyString } from 'app/consts';
 import Page from 'components/common/page';
 import ControlPanel from 'components/control-panel';
 import { showError } from 'components/error-snackbar';
@@ -25,7 +25,7 @@ const animatePosition = (carView: HTMLDivElement, car: Car): void => {
   let currentX = 0;
 
   const step = (): void => {
-    if (car.status === 'started') {
+    if (car.status === CAR_STATUS.started) {
       currentX = currentX + dX < endX ? currentX + dX : endX;
       carView.style.setProperty('transform', `translateX(${currentX}px)`);
       if (currentX < endX) {

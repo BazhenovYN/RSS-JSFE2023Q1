@@ -1,9 +1,10 @@
+import { CAR_STATUS } from 'app/consts';
 import { driveEngine, startEngine, stopEngine } from 'services/engine-service';
 import { createWinner, getWinner, updateWinner } from 'services/winners-service';
-import type { CarStatus, Color } from 'types';
+import type { Color } from 'types';
 
 export default class Car {
-  public status: CarStatus = 'stopped';
+  public status = CAR_STATUS.stopped;
 
   public raceTime = 0;
 
@@ -16,7 +17,7 @@ export default class Car {
   public async startEngine(): Promise<void> {
     this.raceTime = await startEngine(this.id);
     this.finishTime = 0;
-    this.status = 'started';
+    this.status = CAR_STATUS.started;
   }
 
   public async driveEngine(): Promise<void> {
@@ -27,7 +28,7 @@ export default class Car {
           resolve();
         })
         .catch(() => {
-          this.status = 'broken';
+          this.status = CAR_STATUS.broken;
           reject(new Error('Engine was broken down'));
         });
     });
@@ -36,7 +37,7 @@ export default class Car {
   public async stopEngine(): Promise<void> {
     const isStoped = await stopEngine(this.id);
     if (isStoped) {
-      this.status = 'stopped';
+      this.status = CAR_STATUS.stopped;
       this.raceTime = 0;
     }
   }
