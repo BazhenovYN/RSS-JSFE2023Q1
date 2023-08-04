@@ -21,7 +21,8 @@
   th {
     background-color: $secondary-background-color;
 
-    &[order="asc"] {
+    &[order="asc"],
+    &[order="desc"] {
       position: relative;
 
       &::after {
@@ -32,12 +33,8 @@
     }
 
     &[order="desc"] {
-      position: relative;
-
       &::after {
-        position: absolute;
-        padding: 0 3px;
-        content: '↓';
+        transform: rotate(180deg);
       }
     }
   }
