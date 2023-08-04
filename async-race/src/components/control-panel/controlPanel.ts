@@ -18,6 +18,8 @@ export default class ControlPanel extends View {
 
   private resetButton: HTMLButtonElement;
 
+  private generateButton: HTMLButtonElement;
+
   constructor({ onCreate, onUpdate, onGenerate, onRace, onReset }: IControlPanel) {
     super();
     this.creator = new CarEditor({ onSubmit: onCreate, submitButtonAlias: 'Create' });
@@ -25,6 +27,12 @@ export default class ControlPanel extends View {
 
     this.raceButton = createDomElement({ tag: 'button', className: 'btn commands__race', textContent: 'Race' });
     this.resetButton = createDomElement({ tag: 'button', className: 'btn commands__reset', textContent: 'Reset' });
+    this.generateButton = createDomElement({
+      tag: 'button',
+      className: 'btn commands__generate-cars',
+      textContent: 'Generate cars',
+      onclick: onGenerate,
+    });
     this.raceButton.addEventListener('click', () => {
       this.raceButton.setAttribute('disabled', emptyString);
       onRace();
@@ -43,16 +51,7 @@ export default class ControlPanel extends View {
         {
           tag: 'div',
           className: 'commands',
-          children: [
-            this.raceButton,
-            this.resetButton,
-            {
-              tag: 'button',
-              className: 'btn commands__generate-cars',
-              textContent: 'Generate cars',
-              onclick: onGenerate,
-            },
-          ],
+          children: [this.raceButton, this.resetButton, this.generateButton],
         },
       ],
     });
