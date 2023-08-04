@@ -1,4 +1,4 @@
-import { CAR_STATUS, emptyString } from 'app/consts';
+import { CAR_STATUS, MILLISECONDS_IN_SECOND, emptyString } from 'app/consts';
 import Page from 'components/common/page';
 import ControlPanel from 'components/control-panel';
 import { showError } from 'components/error-snackbar';
@@ -12,6 +12,7 @@ import './_garage.scss';
 
 const PAGE_NAME = 'Garage';
 const ERROR_MESSAGE_NO_WINNERS = 'Oops... I guess there are no winners';
+const FRAMES_PER_SECOND = 60;
 
 const getTrackLength = (carView: HTMLDivElement): number => {
   const totalWidth = carView.parentElement?.clientWidth || 0;
@@ -20,7 +21,7 @@ const getTrackLength = (carView: HTMLDivElement): number => {
 
 const animatePosition = (carView: HTMLDivElement, car: Car): void => {
   const endX = getTrackLength(carView);
-  const framesCount = (car.raceTime / 1000) * 60;
+  const framesCount = (car.raceTime / MILLISECONDS_IN_SECOND) * FRAMES_PER_SECOND;
   const dX = endX / framesCount;
   let currentX = 0;
 

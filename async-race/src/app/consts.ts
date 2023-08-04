@@ -17,3 +17,5 @@ export const CAR_STATUS = {
   stopped: 'stopped',
   broken: 'broken',
 }
+
+export const MILLISECONDS_IN_SECOND = 1000;

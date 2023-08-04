@@ -1,9 +1,8 @@
-import { CAR_STATUS } from 'app/consts';
+import { CAR_STATUS, MILLISECONDS_IN_SECOND } from 'app/consts';
 import { driveEngine, startEngine, stopEngine } from 'services/engine-service';
 import { createWinner, getWinner, updateWinner } from 'services/winners-service';
 import type { Color } from 'types';
 
-const MILLISECONDS_IN_SECOND = 1000;
 const ONE_WIN = 1;
 
 export default class Car {
