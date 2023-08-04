@@ -25,10 +25,7 @@ export const startEngine = async (id: number): Promise<number> => {
 
 export const stopEngine = async (id: number): Promise<boolean> => {
   const data = await engine<RaceParam>(id, ENGINE_STATUS.stopped);
-  if (data.velocity === 0) {
-    return true;
-  }
-  return false;
+  return data.velocity === 0;
 };
 
 export const driveEngine = async (id: number): Promise<RaceResult> => engine<RaceResult>(id, ENGINE_STATUS.drive);
