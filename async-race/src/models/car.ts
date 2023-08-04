@@ -3,6 +3,9 @@ import { driveEngine, startEngine, stopEngine } from 'services/engine-service';
 import { createWinner, getWinner, updateWinner } from 'services/winners-service';
 import type { Color } from 'types';
 
+const MILLISECONDS_IN_SECOND = 1000;
+const ONE_WIN = 1;
+
 export default class Car {
   public status = CAR_STATUS.stopped;
 
@@ -43,15 +46,15 @@ export default class Car {
   }
 
   public async saveResult(startTime: number): Promise<void> {
-    this.totalTime = (this.finishTime - startTime) / 1000;
+    this.totalTime = (this.finishTime - startTime) / MILLISECONDS_IN_SECOND;
     const { wins, time } = await getWinner(this.id);
     if (wins) {
       await updateWinner(this.id, {
-        wins: wins + 1,
+        wins: wins + ONE_WIN,
         time: time && time < this.totalTime ? time : this.totalTime,
       });
     } else {
-      await createWinner({ id: this.id, wins: 1, time: this.totalTime });
+      await createWinner({ id: this.id, wins: ONE_WIN, time: this.totalTime });
     }
   }
 }
