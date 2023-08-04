@@ -1,7 +1,7 @@
 import { defaultCarColor, emptyString } from 'app/consts';
 import View from 'components/common/view';
 import createDomElement from 'utils/element-creator';
-import type { Color, ICarEditor } from 'types';
+import type { Color, ICarEditor, ICarProps } from 'types';
 
 const DEFAULT_COMMAND_NAME = 'OK';
 
@@ -18,8 +18,13 @@ export default class CarEditor extends View {
 
   constructor({ onSubmit, submitButtonAlias, isUpdater = false }: ICarEditor) {
     super();
-    this.name = createDomElement({ tag: 'input', type: 'text', name: 'name', className: 'car-editor__name' });
-    this.name.setAttribute('required', emptyString);
+    this.name = createDomElement({
+      tag: 'input',
+      type: 'text',
+      name: 'name',
+      className: 'car-editor__name',
+      required: true,
+    });
     this.color = createDomElement({
       tag: 'input',
       type: 'color',
@@ -39,6 +44,10 @@ export default class CarEditor extends View {
       className: 'car-editor',
       children: [this.name, this.color, this.submit],
     });
+    this.configureView(onSubmit);
+  }
+
+  private configureView(onSubmit?: (param: ICarProps) => void): void {
     this.element.onsubmit = (event): void => {
       event.preventDefault();
       const data = new FormData(this.element);
@@ -47,7 +56,7 @@ export default class CarEditor extends View {
       if (typeof onSubmit === 'function') {
         onSubmit({ name, color });
       }
-      this.update({});
+      this.update();
       if (this.isUpdater) {
         this.disableAllElements();
       }
@@ -69,7 +78,7 @@ export default class CarEditor extends View {
     this.submit.removeAttribute('disabled');
   }
 
-  public update({ carName, carColor }: ICarEditor): void {
+  public update({ carName, carColor }: ICarEditor = {}): void {
     this.name.value = carName || emptyString;
     this.color.value = carColor || defaultCarColor;
     this.enableAllElements();
