@@ -1,3 +1,4 @@
+import { emptyString } from 'app/consts';
 import Page from 'components/common/page';
 import ControlPanel from 'components/control-panel';
 import { showError } from 'components/error-snackbar';
@@ -58,7 +59,7 @@ const startCar = (carView: HTMLDivElement, car: Car): Promise<Car> =>
 const stopCar = async (carView: HTMLDivElement, car: Car): Promise<void> => {
   try {
     await car.stopEngine();
-    carView.style.setProperty('transform', '');
+    carView.style.setProperty('transform', emptyString);
   } catch (error) {
     showError(error)
   }
@@ -115,8 +116,8 @@ export default class GaragePage extends Page {
   private async startRaceHandler(): Promise<void> {
     if (!this.startingCars.length) return;
 
-    this.startButtons.forEach((btn) => btn.setAttribute('disabled', ''));
-    this.stopButtons.forEach((btn) => btn.setAttribute('disabled', ''));
+    this.startButtons.forEach((btn) => btn.setAttribute('disabled', emptyString));
+    this.stopButtons.forEach((btn) => btn.setAttribute('disabled', emptyString));
 
     const startTime = Date.now();
     const promises = this.startingCars.map((func) => func());
@@ -150,7 +151,7 @@ export default class GaragePage extends Page {
       if (!this.stoppingCars.length) return;
 
       this.startButtons.forEach((btn) => btn.removeAttribute('disabled'));
-      this.stopButtons.forEach((btn) => btn.setAttribute('disabled', ''));
+      this.stopButtons.forEach((btn) => btn.setAttribute('disabled', emptyString));
       this.message.classList.remove('show');
       this.stoppingCars.forEach((func) => func());
     };
@@ -186,17 +187,17 @@ export default class GaragePage extends Page {
     const btnStopCar = createDomElement({ tag: 'button', className: 'btn car-control__stop' });
 
     btnStartCar.addEventListener('click', () => {
-      btnStartCar.setAttribute('disabled', '');
+      btnStartCar.setAttribute('disabled', emptyString);
       btnStopCar.removeAttribute('disabled');
       startCar(carView, car).catch(() => {});
     });
 
     btnStopCar.addEventListener('click', () => {
       btnStartCar.removeAttribute('disabled');
-      btnStopCar.setAttribute('disabled', '');
+      btnStopCar.setAttribute('disabled', emptyString);
       stopCar(carView, car);
     });
-    btnStopCar.setAttribute('disabled', '');
+    btnStopCar.setAttribute('disabled', emptyString);
 
     this.startingCars.push(() => startCar(carView, car));
     this.stoppingCars.push(() => stopCar(carView, car));

@@ -9,3 +9,5 @@ export const path = {
 };
 
 export const defaultCarColor: Color = '#ffffff'; // white
+
+export const emptyString = '';

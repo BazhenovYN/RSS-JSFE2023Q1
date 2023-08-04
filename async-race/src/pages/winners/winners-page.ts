@@ -1,3 +1,4 @@
+import { emptyString } from 'app/consts';
 import Page from 'components/common/page';
 import WinnersStateManager from 'models/winners-state-manager';
 import createDomElement from 'utils/element-creator';
@@ -27,9 +28,9 @@ export default class WinnersPage extends Page {
 
   protected mainContent: HTMLDivElement;
 
-  private orderField = '';
+  private orderField = emptyString;
 
-  private orderDirection = '';
+  private orderDirection = emptyString;
 
   constructor(protected state: WinnersStateManager) {
     super();

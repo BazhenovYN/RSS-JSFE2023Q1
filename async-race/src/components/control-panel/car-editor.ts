@@ -1,4 +1,4 @@
-import { defaultCarColor } from 'app/consts';
+import { defaultCarColor, emptyString } from 'app/consts';
 import View from 'components/common/view';
 import createDomElement from 'utils/element-creator';
 import type { Color, ICarEditor } from 'types';
@@ -19,7 +19,7 @@ export default class CarEditor extends View {
   constructor({ onSubmit, submitButtonAlias, isUpdater = false }: ICarEditor) {
     super();
     this.name = createDomElement({ tag: 'input', type: 'text', name: 'name', className: 'car-editor__name' });
-    this.name.setAttribute('required', '');
+    this.name.setAttribute('required', emptyString);
     this.color = createDomElement({
       tag: 'input',
       type: 'color',
@@ -58,9 +58,9 @@ export default class CarEditor extends View {
   }
 
   private disableAllElements(): void {
-    this.name.setAttribute('disabled', '');
-    this.color.setAttribute('disabled', '');
-    this.submit.setAttribute('disabled', '');
+    this.name.setAttribute('disabled', emptyString);
+    this.color.setAttribute('disabled', emptyString);
+    this.submit.setAttribute('disabled', emptyString);
   }
 
   private enableAllElements(): void {
@@ -70,7 +70,7 @@ export default class CarEditor extends View {
   }
 
   public update({ carName, carColor }: ICarEditor): void {
-    this.name.value = carName || '';
+    this.name.value = carName || emptyString;
     this.color.value = carColor || defaultCarColor;
     this.enableAllElements();
   }

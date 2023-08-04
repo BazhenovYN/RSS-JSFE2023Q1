@@ -1,3 +1,4 @@
+import { emptyString } from 'app/consts';
 import View from 'components/common/view';
 import createDomElement from 'utils/element-creator';
 
@@ -38,13 +39,13 @@ export default class Pagination extends View {
 
   public update(totalCount: number, currentPage: number, elementsPerOnePage: number): void {
     if (currentPage === FIRST_PAGE) {
-      this.prevButton.setAttribute('disabled', '');
+      this.prevButton.setAttribute('disabled', emptyString);
     } else {
       this.prevButton.removeAttribute('disabled');
     }
 
     if (elementsPerOnePage * currentPage >= totalCount) {
-      this.nextButton.setAttribute('disabled', '');
+      this.nextButton.setAttribute('disabled', emptyString);
     } else {
       this.nextButton.removeAttribute('disabled');
     }

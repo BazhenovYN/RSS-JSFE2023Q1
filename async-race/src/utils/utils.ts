@@ -1,3 +1,4 @@
+import { emptyString } from 'app/consts';
 import type { Color } from 'types';
 
 const brend = [
@@ -51,5 +52,5 @@ export function getRandomColor(): Color {
   for (let i = 0; i < 6; i += 1) {
     color.push(letters[Math.floor(Math.random() * letters.length)]);
   }
-  return `#${color.join('')}`;
+  return `#${color.join(emptyString)}`;
 }

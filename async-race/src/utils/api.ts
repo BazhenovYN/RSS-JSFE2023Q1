@@ -1,8 +1,8 @@
-import { baseUrl } from 'app/consts';
+import { baseUrl, emptyString } from 'app/consts';
 import type { EmptyObject, QueryParam } from 'types';
 
 const generateQueryString = (queryParams: QueryParam[]): string =>
-  queryParams.length ? `?${queryParams.map((param) => `${param.key}=${param.value}`).join('&')}` : '';
+  queryParams.length ? `?${queryParams.map((param) => `${param.key}=${param.value}`).join('&')}` : emptyString;
 
 export const get = async <T>(path: string, queryParams: QueryParam[] = []): Promise<{data: T; totalCount: number | null}> => {
   const query = generateQueryString(queryParams);

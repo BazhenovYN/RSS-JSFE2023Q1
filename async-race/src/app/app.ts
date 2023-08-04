@@ -4,6 +4,7 @@ import WinnersStateManager from 'models/winners-state-manager';
 import GaragePage from 'pages/garage';
 import WinnersPage from 'pages/winners';
 import createDomElement from 'utils/element-creator';
+import { emptyString } from './consts';
 
 export default class App {
   private garagePage: GaragePage;
@@ -23,19 +24,19 @@ export default class App {
     this.winnersPage = new WinnersPage(this.winnersStateManager);
 
     const navGarage = createDomElement({ tag: 'button', className: 'btn nav__item', textContent: 'Garage' });
-    navGarage.setAttribute('active', '');
+    navGarage.setAttribute('active', emptyString);
 
     const navWinners = createDomElement({ tag: 'button', className: 'btn nav__item', textContent: 'Winners' });
 
     const garageHandler = (): void => {
       navWinners.removeAttribute('active');
-      navGarage.setAttribute('active', '');      
+      navGarage.setAttribute('active', emptyString);      
       this.loadGaragePage();
     };
 
     const winnersHandler = (): void => {
       navGarage.removeAttribute('active');
-      navWinners.setAttribute('active', '');
+      navWinners.setAttribute('active', emptyString);
       this.loadWinnersPage();
     };
 

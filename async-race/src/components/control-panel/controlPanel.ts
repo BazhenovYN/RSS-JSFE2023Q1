@@ -1,3 +1,4 @@
+import { emptyString } from 'app/consts';
 import View from 'components/common/view';
 import createDomElement from 'utils/element-creator';
 import type { ICarEditor, IControlPanel } from 'types';
@@ -25,7 +26,7 @@ export default class ControlPanel extends View {
     this.raceButton = createDomElement({ tag: 'button', className: 'btn commands__race', textContent: 'Race' });
     this.resetButton = createDomElement({ tag: 'button', className: 'btn commands__reset', textContent: 'Reset' });
     this.raceButton.addEventListener('click', () => {
-      this.raceButton.setAttribute('disabled', '');
+      this.raceButton.setAttribute('disabled', emptyString);
       onRace();
     });
     this.resetButton.addEventListener('click', () => {
