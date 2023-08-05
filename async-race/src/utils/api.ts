@@ -1,8 +1,16 @@
 import { baseUrl, emptyString } from 'app/consts';
 import type { EmptyObject, QueryParam } from 'types';
 
-const generateQueryString = (queryParams: QueryParam[]): string =>
-  queryParams.length ? `?${queryParams.map((param) => `${param.key}=${param.value}`).join('&')}` : emptyString;
+const generateQueryString = (queryParams: QueryParam[]): string => {
+  if (!queryParams.length) {
+    return emptyString;
+  }
+  const params = queryParams.reduce((acc, curr) => {
+    acc.append(curr.key, String(curr.value));
+    return acc;
+  }, new URLSearchParams());
+  return `?${params.toString()}`;
+}
 
 export const get = async <T>(path: string, queryParams: QueryParam[] = []): Promise<{data: T; totalCount: number | null}> => {
   const query = generateQueryString(queryParams);
